@@ -5,11 +5,12 @@ export const fakeData = {
   examType: "CCP",
   correct: "0",
   time: "1:30",
-  currentQuestion: "1",
+  currentQuestion: 1,
   isPaused: false,
   questions: [
     {
-      question: "first question",
+      question:
+        "What is the AWS service that performs automated network assessments of Amazon EC2 instances to check for vulnerabilities?",
       isMultipleChoice: true,
       incorrect_answer: [
         { choice: "first choice", isSelected: false },

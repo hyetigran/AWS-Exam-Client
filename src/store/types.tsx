@@ -6,7 +6,7 @@ export interface Answer {
 export interface Question {
   question: string;
   incorrect_answer: Answer[];
-  correct_answer: Answer | Answer[];
+  correct_answer: Answer[];
   explanation: string;
   isMultipleChoice: boolean;
 }
@@ -16,9 +16,13 @@ export interface ExamState {
   examType: string;
   questions: Question[];
   correct: string;
-  currentQuestion: string;
+  currentQuestion: number;
   time: string;
   isPaused: boolean;
+}
+
+export interface RootState {
+  exam: ExamState;
 }
 
 export const FETCH_EXAM = "FETCH_EXAM";
