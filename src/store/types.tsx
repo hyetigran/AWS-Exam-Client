@@ -11,11 +11,11 @@ export interface Question {
 }
 
 export interface ExamState {
-  examNumber: number;
+  examNumber: string;
   examType: string;
   questions: Question[];
-  correct: number;
-  currentQuestion: number;
+  correct: string;
+  currentQuestion: string;
   time: string;
   isPaused: boolean;
 }

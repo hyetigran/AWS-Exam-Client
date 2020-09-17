@@ -1,12 +1,12 @@
 import { ExamState, ExamActionTypes } from "./types";
 
 const initialState = {
-  examNumber: 0,
+  examNumber: "",
   examType: "",
   questions: [],
-  correct: 0,
+  correct: "0",
   time: "",
-  currentQuestion: 0,
+  currentQuestion: "",
   isPaused: false,
 };
 

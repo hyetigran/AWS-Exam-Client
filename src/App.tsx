@@ -15,7 +15,11 @@ const App: React.FC = () => {
           <Navbar />
           <Switch>
             <Route exact path="/" component={ExamOptions} />
-            <Route exact path="/exam-sessions" component={ExamSessions} />
+            <Route
+              exact
+              path="/exam-sessions/:examId/:examNum"
+              component={ExamSessions}
+            />
             <Route exact path="/exam-review" component={ExamReview} />
           </Switch>
         </div>

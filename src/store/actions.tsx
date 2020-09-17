@@ -1,6 +1,8 @@
 import { Action, Dispatch } from "redux";
 import { RootState } from "./";
 import { ThunkAction } from "redux-thunk";
+import { History } from "history";
+import { fakeData } from "../helpers/fakeDataDev";
 
 import {
   ExamActionTypes,
@@ -11,16 +13,19 @@ import {
 } from "./types";
 
 export const getExam = (
-  examNumber: number,
-  examType: string
+  examNumber: string,
+  examType: string,
+  history: History
 ): ThunkAction<void, RootState, unknown, Action<string>> => {
   return async (dispatch) => {
     try {
       const result = await exampleAPI();
-      return dispatch({
+      console.log(result);
+      dispatch({
         type: FETCH_EXAM,
         payload: result,
       });
+      history.push("/exam-sessions");
     } catch (error) {
       console.log(error);
     }
@@ -28,5 +33,5 @@ export const getExam = (
 };
 
 function exampleAPI() {
-  return Promise.resolve("Async Chat Bot");
+  return Promise.resolve(fakeData);
 }

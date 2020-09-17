@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { RouteComponentProps, useHistory } from "react-router-dom";
+
 import {
   Col,
   Button,
@@ -20,10 +22,26 @@ const INSTRUCTIONS = [
   "The progress bar will show your progress and the time remaining in the test. If you run out of time, don’t worry; you will still be able to finish the test.",
   "If you want to finish the test and see your results immediately, press the stop button.",
 ];
+
 const ExamOptions = () => {
   const { examNumber, examType } = useSelector((state: ExamState) => state);
+  const [selectName, setSelectName] = useState<string>("CCP");
+  const [selectNumber, setSelectNumber] = useState<string>("1");
+
+  const history = useHistory();
 
   const dispatch = useDispatch();
+  const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.name === "examName") {
+      setSelectName(e.target.value);
+    } else {
+      setSelectNumber(e.target.value);
+    }
+  };
+  const submitHandler = (e: React.FormEvent) => {
+    e.preventDefault();
+    dispatch(getExam(selectName, selectNumber, history));
+  };
 
   return (
     <Jumbotron className="jumbotronCustom">
@@ -32,7 +50,12 @@ const ExamOptions = () => {
         <Form>
           <FormGroup>
             <Label for="examName">Select Exam Name</Label>
-            <Input type="select" name="examName" id="exampleSelect">
+            <Input
+              type="select"
+              name="examName"
+              id="exampleSelect"
+              onChange={(e) => changeHandler(e)}
+            >
               <option value="CCP">
                 AWS Certified Cloud Practitioner Practice Exam
               </option>
@@ -40,7 +63,12 @@ const ExamOptions = () => {
           </FormGroup>
           <FormGroup>
             <Label for="examNumber">Select Exam Number</Label>
-            <Input type="select" name="examNumber" id="examNumber">
+            <Input
+              type="select"
+              name="examNumber"
+              id="examNumber"
+              onChange={(e) => changeHandler(e)}
+            >
               <option value="1">First Exam</option>
             </Input>
           </FormGroup>
@@ -55,7 +83,7 @@ const ExamOptions = () => {
               color="primary"
               size="lg"
               block
-              onClick={() => dispatch(getExam(examNumber, examType))}
+              onClick={(e) => submitHandler(e)}
             >
               Start Test
             </Button>
