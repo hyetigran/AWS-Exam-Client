@@ -1,4 +1,6 @@
+//each answer needs an id
 export interface Answer {
+  answerId: number;
   choice: string;
   isSelected: boolean;
 }

@@ -13,11 +13,13 @@ export const fakeData = {
         "What is the AWS service that performs automated network assessments of Amazon EC2 instances to check for vulnerabilities?",
       isMultipleChoice: true,
       incorrect_answer: [
-        { choice: "first choice", isSelected: false },
-        { choice: "second choice", isSelected: false },
-        { choice: "third choice", isSelected: false },
+        { answerId: 1, choice: "first choice", isSelected: false },
+        { answerId: 2, choice: "second choice", isSelected: false },
+        { answerId: 3, choice: "third choice", isSelected: false },
       ],
-      correct_answer: [{ choice: "fourth choice", isSelected: false }],
+      correct_answer: [
+        { answerId: 4, choice: "fourth choice", isSelected: false },
+      ],
       explanation:
         "this is the explanation of why choice is correct for the first question",
     },
@@ -25,11 +27,13 @@ export const fakeData = {
       question: "second question",
       isMultipleChoice: true,
       incorrect_answer: [
-        { choice: "first choice", isSelected: false },
-        { choice: "second choice", isSelected: false },
-        { choice: "third choice", isSelected: false },
+        { answerId: 1, choice: "first choice", isSelected: false },
+        { answerId: 2, choice: "second choice", isSelected: false },
+        { answerId: 3, choice: "third choice", isSelected: false },
       ],
-      correct_answer: [{ choice: "fourth choice", isSelected: false }],
+      correct_answer: [
+        { answerId: 4, choice: "fourth choice", isSelected: false },
+      ],
       explanation:
         "this is the explanation of why choice is correct for the second question",
     },
@@ -37,11 +41,13 @@ export const fakeData = {
       question: "third question",
       isMultipleChoice: true,
       incorrect_answer: [
-        { choice: "first choice", isSelected: false },
-        { choice: "second choice", isSelected: false },
-        { choice: "third choice", isSelected: false },
+        { answerId: 1, choice: "first choice", isSelected: false },
+        { answerId: 2, choice: "second choice", isSelected: false },
+        { answerId: 3, choice: "third choice", isSelected: false },
       ],
-      correct_answer: [{ choice: "fourth choice", isSelected: false }],
+      correct_answer: [
+        { answerId: 4, choice: "fourth choice", isSelected: false },
+      ],
       explanation:
         "this is the explanation of why choice is correct for the third question",
     },
@@ -49,11 +55,13 @@ export const fakeData = {
       question: "fourth question",
       isMultipleChoice: true,
       incorrect_answer: [
-        { choice: "first choice", isSelected: false },
-        { choice: "second choice", isSelected: false },
-        { choice: "third choice", isSelected: false },
+        { answerId: 1, choice: "first choice", isSelected: false },
+        { answerId: 2, choice: "second choice", isSelected: false },
+        { answerId: 3, choice: "third choice", isSelected: false },
       ],
-      correct_answer: [{ choice: "fourth choice", isSelected: false }],
+      correct_answer: [
+        { answerId: 4, choice: "fourth choice", isSelected: false },
+      ],
       explanation:
         "this is the explanation of why choice is correct for the fourth question",
     },
@@ -61,14 +69,14 @@ export const fakeData = {
       question: "fith question",
       isMultipleChoice: false,
       incorrect_answer: [
-        { choice: "first choice", isSelected: false },
-        { choice: "second choice", isSelected: false },
-        { choice: "third choice", isSelected: false },
+        { answerId: 1, choice: "first choice", isSelected: false },
+        { answerId: 2, choice: "second choice", isSelected: false },
+        { answerId: 3, choice: "third choice", isSelected: false },
       ],
       correct_answer: [
-        { choice: "fourth choice", isSelected: false },
+        { answerId: 4, choice: "fourth choice", isSelected: false },
 
-        { choice: "fith choice", isSelected: false },
+        { answerId: 5, choice: "fith choice", isSelected: false },
       ],
 
       explanation:

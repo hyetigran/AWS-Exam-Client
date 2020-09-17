@@ -1,4 +1,5 @@
 import React from "react";
+import { Form, FormGroup, Label, Input } from "reactstrap";
 import _ from "lodash/shuffle";
 import { Question } from "../../store/types";
 
@@ -14,20 +15,34 @@ const SessionCard: React.FC<SessionCardProps> = (props) => {
     isMultipleChoice,
   } = props.question;
 
-  let questionBank;
-  let shuffled;
-  if (isMultipleChoice) {
-    questionBank = [...incorrect_answer, ...correct_answer];
-    console.log("lodash", _);
-    shuffled = _(questionBank);
-  }
-
-  console.log("bank", shuffled);
+  let questionBank = _([...incorrect_answer, ...correct_answer]);
 
   return (
     <>
       <h4>Question {props.currentQuestion}:</h4>
       <p>{question}</p>
+      <ul>
+        <Form>
+          {questionBank.map((question, id) => {
+            return (
+              <li key={id}>
+                <FormGroup check>
+                  <Label check>
+                    <Input
+                      type="radio"
+                      name={"radio1" + id}
+                      onChange={(e) => {
+                        console.log(e.target.name);
+                      }}
+                    />
+                    {question.choice}
+                  </Label>
+                </FormGroup>
+              </li>
+            );
+          })}
+        </Form>
+      </ul>
     </>
   );
 };
