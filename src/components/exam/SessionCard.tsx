@@ -6,6 +6,7 @@ import { Question } from "../../store/types";
 type SessionCardProps = {
   question: Question;
   currentQuestion: number;
+  answerSelect: Function;
 };
 const SessionCard: React.FC<SessionCardProps> = (props) => {
   const {
@@ -23,17 +24,15 @@ const SessionCard: React.FC<SessionCardProps> = (props) => {
       <p>{question}</p>
       <ul>
         <Form>
-          {questionBank.map((question, id) => {
+          {questionBank.map((question) => {
             return (
-              <li key={id}>
+              <li key={question.answerId}>
                 <FormGroup check>
                   <Label check>
                     <Input
-                      type="radio"
-                      name={"radio1" + id}
-                      onChange={(e) => {
-                        console.log(e.target.name);
-                      }}
+                      type={isMultipleChoice ? "radio" : "checkbox"}
+                      name={isMultipleChoice ? "radio1" : "checkbox1"}
+                      onChange={() => props.answerSelect(question.answerId)}
                     />
                     {question.choice}
                   </Label>

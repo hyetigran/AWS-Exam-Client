@@ -37,6 +37,11 @@ const getExam = (exam: ExamState): ExamActionTypes => {
   };
 };
 
+export const nextQuestion = (answerId: number[]) => {
+  //increment currentQuestion
+  //determine whether answered correctly
+};
+
 function exampleAPI() {
   return Promise.resolve(fakeData);
 }

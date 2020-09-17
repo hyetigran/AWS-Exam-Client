@@ -1,28 +1,28 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Progress } from "reactstrap";
 import { RootState } from "../../store/types";
-import {
-  Col,
-  Row,
-  Button,
-  Jumbotron,
-  Form,
-  FormGroup,
-  Input,
-  Label,
-} from "reactstrap";
+import { Col, Row, Button, Jumbotron } from "reactstrap";
 
 import SessionCard from "../../components/exam/SessionCard";
 
 import "./ExamSessions.css";
-import { thunkGetExam } from "../../store/actions";
+import { nextQuestion } from "../../store/actions";
 
 const ExamSessions = () => {
   const examData = useSelector((state: RootState) => state.exam);
+  const [answerId, setAnswerId] = useState<number[]>([]);
   const dispatch = useDispatch();
   useEffect(() => {});
   console.log("exam", examData);
+
+  const answerSelectHandler = (id: number) => {
+    setAnswerId([...answerId, id]);
+  };
+
+  const nextQuestionHandler = (e: React.FormEvent) => {
+    dispatch(nextQuestion(answerId));
+  };
   return (
     <>
       <Row>
@@ -41,7 +41,15 @@ const ExamSessions = () => {
         <SessionCard
           question={examData.questions[examData.currentQuestion - 1]}
           currentQuestion={examData.currentQuestion}
+          answerSelect={answerSelectHandler}
         />
+        <Button
+          size="lg"
+          color="primary"
+          onClick={(e) => nextQuestionHandler(e)}
+        >
+          {answerId.length ? "Next Question" : "Skip Question"}
+        </Button>
       </Jumbotron>
     </>
   );

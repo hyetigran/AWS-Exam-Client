@@ -3,3 +3,8 @@
   flex-direction: column;
   justify-content: flex-start;
 }
+
+button {
+  width: 20%;
+  align-self: flex-end;
+}

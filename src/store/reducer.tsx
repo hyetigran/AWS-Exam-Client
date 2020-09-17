@@ -1,16 +1,15 @@
 import { ExamState, ExamActionTypes, FETCH_EXAM } from "./types";
 import { fakeData } from "../helpers/fakeDataDev";
 
-const initialState = {
-  examNumber: "",
-  examType: "",
-  correct: "0",
-  time: "",
-  currentQuestion: 0,
-  isPaused: false,
-  questions: [],
-};
-const devState = fakeData;
+// const initialState = {
+//   examNumber: "",
+//   examType: "",
+//   correct: "0",
+//   time: "",
+//   currentQuestion: 0,
+//   isPaused: false,
+//   questions: [],
+// };
 
 export function examReducer(
   state = fakeData,
