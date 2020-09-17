@@ -4,8 +4,8 @@ export const fakeData = {
   examNumber: "1",
   examType: "CCP",
   correct: "0",
-  currentQuestions: "0",
   time: "1:30",
+  currentQuestion: "1",
   isPaused: false,
   questions: [
     {

@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Progress } from "reactstrap";
-import { getExam } from "../../store/actions";
 import { RootState } from "../../store";
 import {
   Col,
@@ -13,6 +12,8 @@ import {
   Input,
   Label,
 } from "reactstrap";
+
+import "./ExamSessions.css";
 
 const ExamSessions = () => {
   const examData = useSelector((state: RootState) => state.exam);
@@ -34,7 +35,8 @@ const ExamSessions = () => {
         <p>stop modal</p> */}
       </Row>
       <Jumbotron className="jumbotronCustom">
-        <h1> hello</h1>
+        <h3>Question 1:</h3>
+        <p></p>
       </Jumbotron>
     </>
   );

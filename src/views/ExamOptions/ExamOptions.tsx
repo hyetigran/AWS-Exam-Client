@@ -12,7 +12,8 @@ import {
   Label,
 } from "reactstrap";
 
-import { getExam } from "../../store/actions";
+import { thunkGetExam } from "../../store/actions";
+
 import { ExamState } from "../../store/types";
 
 import "./ExamOptions.css";
@@ -40,7 +41,7 @@ const ExamOptions = () => {
   };
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(getExam(selectName, selectNumber, history));
+    dispatch(thunkGetExam(selectName, selectNumber, history));
   };
 
   return (

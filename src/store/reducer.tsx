@@ -1,13 +1,13 @@
-import { ExamState, ExamActionTypes } from "./types";
+import { ExamState, ExamActionTypes, FETCH_EXAM } from "./types";
 
 const initialState = {
   examNumber: "",
   examType: "",
-  questions: [],
   correct: "0",
   time: "",
   currentQuestion: "",
   isPaused: false,
+  questions: [],
 };
 
 export function examReducer(
@@ -15,6 +15,9 @@ export function examReducer(
   action: ExamActionTypes
 ): ExamState {
   switch (action.type) {
+    case FETCH_EXAM: {
+      return action.payload;
+    }
     default:
       return state;
   }
