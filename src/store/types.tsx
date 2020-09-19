@@ -11,13 +11,14 @@ export interface Question {
   correct_answer: Answer[];
   explanation: string;
   isMultipleChoice: boolean;
+  shuffledAnswerBank: Answer[];
 }
 
 export interface ExamState {
   examNumber: string;
   examType: string;
   questions: Question[];
-  correct: string;
+  correct: number;
   currentQuestion: number;
   time: string;
   isPaused: boolean;

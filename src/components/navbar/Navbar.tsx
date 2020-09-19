@@ -6,7 +6,7 @@ const Navigation: React.FC = () => {
     <Navbar bg="dark" variant="dark">
       <NavbarBrand href="#home">Free AWS Exams</NavbarBrand>
       <Nav className="mr-auto">
-        <NavLink href="#home">Home</NavLink>
+        <NavLink href="/">Home</NavLink>
         <NavLink href="#features">History</NavLink>
       </Nav>
     </Navbar>

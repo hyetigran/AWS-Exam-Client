@@ -21,7 +21,7 @@ const ExamSessions = () => {
   };
 
   const nextQuestionHandler = (e: React.FormEvent) => {
-    dispatch(nextQuestion(answerId));
+    dispatch(nextQuestion(answerId, examData.currentQuestion));
   };
   return (
     <>

@@ -1,6 +1,5 @@
 import React from "react";
 import { Form, FormGroup, Label, Input } from "reactstrap";
-import _ from "lodash/shuffle";
 import { Question } from "../../store/types";
 
 type SessionCardProps = {
@@ -9,14 +8,7 @@ type SessionCardProps = {
   answerSelect: Function;
 };
 const SessionCard: React.FC<SessionCardProps> = (props) => {
-  const {
-    question,
-    incorrect_answer,
-    correct_answer,
-    isMultipleChoice,
-  } = props.question;
-
-  let questionBank = _([...incorrect_answer, ...correct_answer]);
+  const { question, shuffledAnswerBank, isMultipleChoice } = props.question;
 
   return (
     <>
@@ -24,17 +16,17 @@ const SessionCard: React.FC<SessionCardProps> = (props) => {
       <p>{question}</p>
       <ul>
         <Form>
-          {questionBank.map((question) => {
+          {shuffledAnswerBank.map((answer) => {
             return (
-              <li key={question.answerId}>
+              <li key={answer.answerId}>
                 <FormGroup check>
                   <Label check>
                     <Input
                       type={isMultipleChoice ? "radio" : "checkbox"}
                       name={isMultipleChoice ? "radio1" : "checkbox1"}
-                      onChange={() => props.answerSelect(question.answerId)}
+                      onChange={() => props.answerSelect(answer.answerId)}
                     />
-                    {question.choice}
+                    {answer.choice}
                   </Label>
                 </FormGroup>
               </li>

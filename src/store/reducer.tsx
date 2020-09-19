@@ -4,7 +4,7 @@ import { fakeData } from "../helpers/fakeDataDev";
 // const initialState = {
 //   examNumber: "",
 //   examType: "",
-//   correct: "0",
+//   correct: 0,
 //   time: "",
 //   currentQuestion: 0,
 //   isPaused: false,

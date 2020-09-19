@@ -3,6 +3,7 @@ import { RootState } from "./index";
 import { ThunkAction } from "redux-thunk";
 import { History } from "history";
 import { fakeData } from "../helpers/fakeDataDev";
+import _ from "lodash/shuffle";
 
 import {
   ExamActionTypes,
@@ -31,15 +32,31 @@ export const thunkGetExam = (
 };
 
 const getExam = (exam: ExamState): ExamActionTypes => {
+  console.log(exam);
+  for (let i = 0; i < exam.questions.length; i++) {
+    let shuffledAnswers = _([
+      ...exam.questions[i].incorrect_answer,
+      ...exam.questions[i].correct_answer,
+    ]);
+    exam.questions[i].shuffledAnswerBank = shuffledAnswers;
+  }
   return {
     type: FETCH_EXAM,
     payload: exam,
   };
 };
 
-export const nextQuestion = (answerId: number[]) => {
+export const nextQuestion = (answerId: number[], curQuestion: number) => {
   //increment currentQuestion
   //determine whether answered correctly
+  let payload = {
+    correct: 0,
+    currentQuestion: 0,
+  };
+  return {
+    type: NEXT_QUESTION,
+    payload,
+  };
 };
 
 function exampleAPI() {

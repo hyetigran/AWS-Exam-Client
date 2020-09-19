@@ -3,7 +3,7 @@
 export const fakeData = {
   examNumber: "1",
   examType: "CCP",
-  correct: "0",
+  correct: 0,
   time: "1:30",
   currentQuestion: 1,
   isPaused: false,
@@ -12,6 +12,7 @@ export const fakeData = {
       question:
         "What is the AWS service that performs automated network assessments of Amazon EC2 instances to check for vulnerabilities?",
       isMultipleChoice: true,
+      shuffledAnswerBank: [],
       incorrect_answer: [
         { answerId: 1, choice: "first choice", isSelected: false },
         { answerId: 2, choice: "second choice", isSelected: false },
@@ -26,6 +27,7 @@ export const fakeData = {
     {
       question: "second question",
       isMultipleChoice: true,
+      shuffledAnswerBank: [],
       incorrect_answer: [
         { answerId: 1, choice: "first choice", isSelected: false },
         { answerId: 2, choice: "second choice", isSelected: false },
@@ -40,6 +42,7 @@ export const fakeData = {
     {
       question: "third question",
       isMultipleChoice: true,
+      shuffledAnswerBank: [],
       incorrect_answer: [
         { answerId: 1, choice: "first choice", isSelected: false },
         { answerId: 2, choice: "second choice", isSelected: false },
@@ -54,6 +57,7 @@ export const fakeData = {
     {
       question: "fourth question",
       isMultipleChoice: true,
+      shuffledAnswerBank: [],
       incorrect_answer: [
         { answerId: 1, choice: "first choice", isSelected: false },
         { answerId: 2, choice: "second choice", isSelected: false },
@@ -68,6 +72,7 @@ export const fakeData = {
     {
       question: "fith question",
       isMultipleChoice: false,
+      shuffledAnswerBank: [],
       incorrect_answer: [
         { answerId: 1, choice: "first choice", isSelected: false },
         { answerId: 2, choice: "second choice", isSelected: false },
