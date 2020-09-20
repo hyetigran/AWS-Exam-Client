@@ -22,7 +22,11 @@ const ExamSessions = () => {
   //console.log("exam", examData);
   console.log("uA", userAnswers);
 
-  const answerSelectHandler = (qId: number, aId: number) => {
+  const answerSelectHandler = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    qId: number,
+    aId: number
+  ) => {
     // question should be refactored to question ID
     // let answerId = id;
     // let question = {
@@ -36,6 +40,17 @@ const ExamSessions = () => {
       setUserAnswers({ ...userAnswers, [qId]: [aId] });
     } else {
       //handle checkbox selection
+      console.log("userAnswer", userAnswers[qId]);
+      let answers = userAnswers[qId] === undefined ? [] : userAnswers[qId];
+      if (event.target.checked) {
+        console.log("did I concat?");
+        answers.push(aId);
+      } else {
+        //if target is un checked, remove from userAnswers
+        let answersIndex = userAnswers[qId].findIndex((el) => el === aId);
+        answers.splice(answersIndex, 1);
+      }
+      setUserAnswers({ ...userAnswers, [qId]: answers });
     }
   };
 

@@ -28,14 +28,25 @@ const SessionCard: React.FC<SessionCardProps> = (props) => {
               <li key={answer.answerId}>
                 <FormGroup check>
                   <Label check>
-                    <Input
-                      type={isMultipleChoice ? "radio" : "checkbox"}
-                      name={isMultipleChoice ? "radio1" : "checkbox1"}
-                      onChange={() =>
-                        props.answerSelect(questionId, answer.answerId)
-                      }
-                      value={answer.answerId}
-                    />
+                    {isMultipleChoice ? (
+                      <Input
+                        type="radio"
+                        name="radio1"
+                        onChange={(event) =>
+                          props.answerSelect(event, questionId, answer.answerId)
+                        }
+                        value={answer.answerId}
+                      />
+                    ) : (
+                      <Input
+                        type="checkbox"
+                        name="checkbox1"
+                        onChange={(event) =>
+                          props.answerSelect(event, questionId, answer.answerId)
+                        }
+                        value={answer.answerId}
+                      />
+                    )}
                     {answer.choice}
                   </Label>
                 </FormGroup>

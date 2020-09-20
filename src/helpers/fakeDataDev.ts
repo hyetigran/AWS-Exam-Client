@@ -9,6 +9,25 @@ export const fakeData = {
   isPaused: false,
   questions: [
     {
+      questionId: 5,
+      question: "fith question",
+      isMultipleChoice: false,
+      shuffledAnswerBank: [],
+      incorrect_answer: [
+        { answerId: 1, choice: "first choice5", isSelected: false },
+        { answerId: 2, choice: "second choice5", isSelected: false },
+        { answerId: 3, choice: "third choice5", isSelected: false },
+      ],
+      correct_answer: [
+        { answerId: 4, choice: "fourth choice5", isSelected: false },
+
+        { answerId: 5, choice: "fith choice5", isSelected: false },
+      ],
+
+      explanation:
+        "this is the explanation of why choice is correct for the fith question",
+    },
+    {
       questionId: 1,
       question:
         "What is the AWS service that performs automated network assessments of Amazon EC2 instances to check for vulnerabilities?",
@@ -73,25 +92,7 @@ export const fakeData = {
       explanation:
         "this is the explanation of why choice is correct for the fourth question",
     },
-    {
-      questionId: 5,
-      question: "fith question",
-      isMultipleChoice: false,
-      shuffledAnswerBank: [],
-      incorrect_answer: [
-        { answerId: 1, choice: "first choice5", isSelected: false },
-        { answerId: 2, choice: "second choice5", isSelected: false },
-        { answerId: 3, choice: "third choice5", isSelected: false },
-      ],
-      correct_answer: [
-        { answerId: 4, choice: "fourth choice5", isSelected: false },
 
-        { answerId: 5, choice: "fith choice5", isSelected: false },
-      ],
-
-      explanation:
-        "this is the explanation of why choice is correct for the fith question",
-    },
     {
       questionId: 6,
       question: "fourth question",
