@@ -27,23 +27,14 @@ const ExamSessions = () => {
     qId: number,
     aId: number
   ) => {
-    // question should be refactored to question ID
-    // let answerId = id;
-    // let question = {
-    //   answerId,
-    // };
     // if q is MC then only one answer can be selected
-
     if (examData.questions[currentQuestion - 1].isMultipleChoice) {
       // can only have one answer selected
-
       setUserAnswers({ ...userAnswers, [qId]: [aId] });
     } else {
       //handle checkbox selection
-      console.log("userAnswer", userAnswers[qId]);
       let answers = userAnswers[qId] === undefined ? [] : userAnswers[qId];
       if (event.target.checked) {
-        console.log("did I concat?");
         answers.push(aId);
       } else {
         //if target is un checked, remove from userAnswers
@@ -59,20 +50,24 @@ const ExamSessions = () => {
     let qId = examData.questions[examData.currentQuestion - 1].questionId;
     let isCorrect = false;
     const { isMultipleChoice, correct_answer } = examData.questions[qId];
-    if (userAnswers![qId.toString()] === undefined) {
+    if (userAnswers![qId] === undefined) {
       //if user skips question without selecting an answer
       setUserAnswers({ ...userAnswers, [qId]: [] });
     } else if (isMultipleChoice) {
       //if question is MC, check selected against correct array
-      isCorrect =
-        userAnswers![qId.toString()][0] === correct_answer[0].answerId;
+      isCorrect = userAnswers![qId][0] === correct_answer[0].answerId;
     } else {
       // if question is select multiple answers
-      //check that no incorrect answers have been selected
-      //check that all correct answers have been selected
+      if (userAnswers![qId].length !== 2) {
+        // incorrect if at least 2 answers are not selected
+        // or no answers have been selected
+      } else {
+        //check if the right answers were selected
+      }
     }
 
     dispatch(nextQuestion(isCorrect, examData.currentQuestion));
+    //resetting form elements
     Array.from(document.querySelectorAll("input")).forEach((input) => {
       input.checked = false;
     });
