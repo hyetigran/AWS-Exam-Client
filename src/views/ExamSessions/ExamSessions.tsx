@@ -19,7 +19,7 @@ const ExamSessions = () => {
   const { currentQuestion } = examData;
   const dispatch = useDispatch();
   useEffect(() => {});
-  //console.log("exam", examData);
+  console.log("exam", examData);
   console.log("uA", userAnswers);
 
   const answerSelectHandler = (
@@ -63,6 +63,18 @@ const ExamSessions = () => {
         // or no answers have been selected
       } else {
         //check if the right answers were selected
+        let firstChoice = userAnswers[qId][0];
+        let secondChoice = userAnswers[qId][1];
+        if (
+          examData.questions[qId].correct_answer.findIndex(
+            (el) => firstChoice === el.answerId
+          ) > -1 &&
+          examData.questions[qId].correct_answer.findIndex(
+            (el) => secondChoice === el.answerId
+          ) > -1
+        ) {
+          isCorrect = true;
+        }
       }
     }
 
