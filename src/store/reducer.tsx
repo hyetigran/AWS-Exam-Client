@@ -1,4 +1,4 @@
-import { ExamState, ExamActionTypes, FETCH_EXAM } from "./types";
+import { ExamState, ExamActionTypes, FETCH_EXAM, NEXT_QUESTION } from "./types";
 import { fakeData } from "../helpers/fakeDataDev";
 
 // const initialState = {
@@ -16,9 +16,14 @@ export function examReducer(
   action: ExamActionTypes
 ): ExamState {
   switch (action.type) {
-    case FETCH_EXAM: {
+    case FETCH_EXAM:
       return action.payload;
-    }
+    case NEXT_QUESTION:
+      return {
+        ...state,
+        correct: state.correct + action.payload.correct,
+        currentQuestion: action.payload.currentQuestion,
+      };
     default:
       return state;
   }

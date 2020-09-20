@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Progress } from "reactstrap";
 import { RootState } from "../../store/types";
-import { Col, Row, Button, Jumbotron } from "reactstrap";
+import { Col, Row, Jumbotron } from "reactstrap";
 
 import SessionCard from "../../components/exam/SessionCard";
 
@@ -10,16 +10,17 @@ import "./ExamSessions.css";
 import { nextQuestion } from "../../store/actions";
 
 interface UserAnswers {
-  [key: string]: { answers: number[] };
+  [key: string]: number[];
 }
 
 const ExamSessions = () => {
   const examData = useSelector((state: RootState) => state.exam);
-  const [userAnswers, setUserAnswers] = useState<UserAnswers>();
+  const [userAnswers, setUserAnswers] = useState<UserAnswers>({});
   const { currentQuestion } = examData;
   const dispatch = useDispatch();
   useEffect(() => {});
-  console.log("exam", examData);
+  //console.log("exam", examData);
+  console.log("uA", userAnswers);
 
   const answerSelectHandler = (qId: number, aId: number) => {
     // question should be refactored to question ID
@@ -38,23 +39,30 @@ const ExamSessions = () => {
     }
   };
 
-  const nextQuestionHandler = (e: React.FormEvent) => {
+  const nextQuestionHandler = (e: React.MouseEvent) => {
+    e.preventDefault();
     let qId = examData.questions[examData.currentQuestion - 1].questionId;
     let isCorrect = false;
     const { isMultipleChoice, correct_answer } = examData.questions[qId];
-    if (userAnswers![qId.toString()].answers === undefined) {
-      return isCorrect;
+    if (userAnswers![qId.toString()] === undefined) {
+      //if user skips question without selecting an answer
+      setUserAnswers({ ...userAnswers, [qId]: [] });
     } else if (isMultipleChoice) {
-      return (
-        userAnswers![qId.toString()].answers[0] === correct_answer[0].answerId
-      );
+      //if question is MC, check selected against correct array
+      isCorrect =
+        userAnswers![qId.toString()][0] === correct_answer[0].answerId;
     } else {
       // if question is select multiple answers
       //check that no incorrect answers have been selected
       //check that all correct answers have been selected
     }
+
     dispatch(nextQuestion(isCorrect, examData.currentQuestion));
+    Array.from(document.querySelectorAll("input")).forEach((input) => {
+      input.checked = false;
+    });
   };
+
   return (
     <>
       <Row>
@@ -74,14 +82,8 @@ const ExamSessions = () => {
           question={examData.questions[examData.currentQuestion - 1]}
           currentQuestion={examData.currentQuestion}
           answerSelect={answerSelectHandler}
+          nextQuestion={nextQuestionHandler}
         />
-        <Button
-          size="lg"
-          color="primary"
-          onClick={(e) => nextQuestionHandler(e)}
-        >
-          {/* {answerId.length ? "Next Question" : "Skip Question"} */}
-        </Button>
       </Jumbotron>
     </>
   );

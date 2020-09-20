@@ -39,10 +39,10 @@ interface getExamAction {
   payload: ExamState;
 }
 
-// interface nextQuestionAction {
-//   type: typeof NEXT_QUESTION;
-//   payload: boolean;
-// }
+interface nextQuestionAction {
+  type: typeof NEXT_QUESTION;
+  payload: { correct: number; currentQuestion: number };
+}
 
 // interface submitExamAction {
 //   type: typeof FETCH_EXAM;
@@ -54,7 +54,6 @@ interface getExamAction {
 //   payload: boolean;
 // }
 
-export type ExamActionTypes = getExamAction;
-// | nextQuestionAction
+export type ExamActionTypes = getExamAction | nextQuestionAction;
 // | submitExamAction
 // | pauseExamToggleAction;
