@@ -8,7 +8,12 @@ type SessionCardProps = {
   answerSelect: Function;
 };
 const SessionCard: React.FC<SessionCardProps> = (props) => {
-  const { question, shuffledAnswerBank, isMultipleChoice } = props.question;
+  const {
+    questionId,
+    question,
+    shuffledAnswerBank,
+    isMultipleChoice,
+  } = props.question;
 
   return (
     <>
@@ -24,7 +29,9 @@ const SessionCard: React.FC<SessionCardProps> = (props) => {
                     <Input
                       type={isMultipleChoice ? "radio" : "checkbox"}
                       name={isMultipleChoice ? "radio1" : "checkbox1"}
-                      onChange={() => props.answerSelect(answer.answerId)}
+                      onChange={() =>
+                        props.answerSelect(questionId, answer.answerId)
+                      }
                     />
                     {answer.choice}
                   </Label>

@@ -46,12 +46,13 @@ const getExam = (exam: ExamState): ExamActionTypes => {
   };
 };
 
-export const nextQuestion = (answerId: number[], curQuestion: number) => {
+export const nextQuestion = (isCorrect: boolean, curQuestion: number) => {
   //increment currentQuestion
   //determine whether answered correctly
+
   let payload = {
-    correct: 0,
-    currentQuestion: 0,
+    correct: isCorrect ? 1 : 0,
+    currentQuestion: curQuestion + 1,
   };
   return {
     type: NEXT_QUESTION,

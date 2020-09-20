@@ -9,6 +9,7 @@ export const fakeData = {
   isPaused: false,
   questions: [
     {
+      questionId: 1,
       question:
         "What is the AWS service that performs automated network assessments of Amazon EC2 instances to check for vulnerabilities?",
       isMultipleChoice: true,
@@ -25,6 +26,7 @@ export const fakeData = {
         "this is the explanation of why choice is correct for the first question",
     },
     {
+      questionId: 2,
       question: "second question",
       isMultipleChoice: true,
       shuffledAnswerBank: [],
@@ -40,6 +42,7 @@ export const fakeData = {
         "this is the explanation of why choice is correct for the second question",
     },
     {
+      questionId: 3,
       question: "third question",
       isMultipleChoice: true,
       shuffledAnswerBank: [],
@@ -55,6 +58,7 @@ export const fakeData = {
         "this is the explanation of why choice is correct for the third question",
     },
     {
+      questionId: 4,
       question: "fourth question",
       isMultipleChoice: true,
       shuffledAnswerBank: [],
@@ -70,6 +74,7 @@ export const fakeData = {
         "this is the explanation of why choice is correct for the fourth question",
     },
     {
+      questionId: 5,
       question: "fith question",
       isMultipleChoice: false,
       shuffledAnswerBank: [],

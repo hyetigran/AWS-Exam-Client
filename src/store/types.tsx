@@ -6,6 +6,7 @@ export interface Answer {
 }
 
 export interface Question {
+  questionId: number;
   question: string;
   incorrect_answer: Answer[];
   correct_answer: Answer[];
