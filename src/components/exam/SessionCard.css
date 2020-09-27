@@ -1,0 +1,21 @@
+.actionButton {
+  margin-top: 3%;
+  align-self: flex-end;
+}
+
+#exam-form {
+  display: flex;
+  flex-direction: column;
+}
+
+#exam-form .form-check {
+  border: 1px solid grey;
+  padding: 0.8rem 2rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+}
+
+#exam-form .form-check:hover {
+  cursor: pointer;
+  background-color: white;
+}

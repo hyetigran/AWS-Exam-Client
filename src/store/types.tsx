@@ -1,24 +1,32 @@
+//each answer needs an id
 export interface Answer {
+  answerId: number;
   choice: string;
   isSelected: boolean;
 }
 
 export interface Question {
+  questionId: number;
   question: string;
   incorrect_answer: Answer[];
-  correct_answer: Answer | Answer[];
+  correct_answer: Answer[];
   explanation: string;
   isMultipleChoice: boolean;
+  shuffledAnswerBank: Answer[];
 }
 
 export interface ExamState {
   examNumber: string;
   examType: string;
   questions: Question[];
-  correct: string;
-  currentQuestion: string;
+  correct: number;
+  currentQuestion: number;
   time: string;
   isPaused: boolean;
+}
+
+export interface RootState {
+  exam: ExamState;
 }
 
 export const FETCH_EXAM = "FETCH_EXAM";
@@ -31,22 +39,23 @@ interface getExamAction {
   payload: ExamState;
 }
 
-// interface nextQuestionAction {
-//   type: typeof NEXT_QUESTION;
-//   payload: boolean;
-// }
+interface nextQuestionAction {
+  type: typeof NEXT_QUESTION;
+  payload: { correct: number; currentQuestion: number };
+}
 
-// interface submitExamAction {
-//   type: typeof FETCH_EXAM;
-//   payload: ExamState;
-// }
+interface submitExamAction {
+  type: typeof SUBMIT_EXAM;
+  payload: boolean;
+}
 
 // interface pauseExamToggleAction {
 //   type: typeof FETCH_EXAM;
 //   payload: boolean;
 // }
 
-export type ExamActionTypes = getExamAction;
-// | nextQuestionAction
-// | submitExamAction
+export type ExamActionTypes =
+  | getExamAction
+  | nextQuestionAction
+  | submitExamAction;
 // | pauseExamToggleAction;

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RouteComponentProps, useHistory } from "react-router-dom";
-
+import { useHistory } from "react-router-dom";
 import {
   Col,
   Button,
@@ -13,7 +12,6 @@ import {
 } from "reactstrap";
 
 import { thunkGetExam } from "../../store/actions";
-
 import { ExamState } from "../../store/types";
 
 import "./ExamOptions.css";

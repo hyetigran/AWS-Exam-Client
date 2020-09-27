@@ -1,23 +1,39 @@
-import { ExamState, ExamActionTypes, FETCH_EXAM } from "./types";
+import {
+  ExamState,
+  ExamActionTypes,
+  FETCH_EXAM,
+  NEXT_QUESTION,
+  SUBMIT_EXAM,
+} from "./types";
+import { fakeData } from "../helpers/fakeDataDev";
 
-const initialState = {
-  examNumber: "",
-  examType: "",
-  correct: "0",
-  time: "",
-  currentQuestion: "",
-  isPaused: false,
-  questions: [],
-};
+// const initialState = {
+//   examNumber: "",
+//   examType: "",
+//   correct: 0,
+//   time: "",
+//   currentQuestion: 0,
+//   isPaused: false,
+//   questions: [],
+// };
 
 export function examReducer(
-  state = initialState,
+  state = fakeData,
   action: ExamActionTypes
 ): ExamState {
   switch (action.type) {
-    case FETCH_EXAM: {
+    case FETCH_EXAM:
       return action.payload;
-    }
+    case NEXT_QUESTION:
+      return {
+        ...state,
+        correct: state.correct + action.payload.correct,
+        currentQuestion: action.payload.currentQuestion,
+      };
+    case SUBMIT_EXAM:
+      return {
+        ...state,
+      };
     default:
       return state;
   }
