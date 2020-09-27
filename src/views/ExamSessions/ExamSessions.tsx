@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+
 import { Progress } from "reactstrap";
 import { RootState } from "../../store/types";
 import { Col, Row, Jumbotron } from "reactstrap";
@@ -7,7 +9,7 @@ import { Col, Row, Jumbotron } from "reactstrap";
 import SessionCard from "../../components/exam/SessionCard";
 
 import "./ExamSessions.css";
-import { nextQuestion } from "../../store/actions";
+import { nextQuestion, submitExam } from "../../store/actions";
 
 interface UserAnswers {
   [key: string]: number[];
@@ -18,12 +20,14 @@ const ExamSessions = () => {
   const [userAnswers, setUserAnswers] = useState<UserAnswers>({});
   const { currentQuestion } = examData;
   const dispatch = useDispatch();
+  const history = useHistory();
   useEffect(() => {});
-  console.log("exam", examData);
-  console.log("uA", userAnswers);
+  // console.log("exam", examData);
+  // console.log("uA", userAnswers);
 
   const answerSelectHandler = (
-    event: React.ChangeEvent<HTMLInputElement>,
+    isChecked: boolean,
+    //event: React.ChangeEvent<HTMLInputElement>,
     qId: number,
     aId: number
   ) => {
@@ -34,7 +38,7 @@ const ExamSessions = () => {
     } else {
       //handle checkbox selection
       let answers = userAnswers[qId] === undefined ? [] : userAnswers[qId];
-      if (event.target.checked) {
+      if (isChecked) {
         answers.push(aId);
       } else {
         //if target is un checked, remove from userAnswers
@@ -49,7 +53,9 @@ const ExamSessions = () => {
     e.preventDefault();
     let qId = examData.questions[examData.currentQuestion - 1].questionId;
     let isCorrect = false;
-    const { isMultipleChoice, correct_answer } = examData.questions[qId];
+    const { isMultipleChoice, correct_answer } = examData.questions[
+      examData.currentQuestion - 1
+    ];
     if (userAnswers![qId] === undefined) {
       //if user skips question without selecting an answer
       setUserAnswers({ ...userAnswers, [qId]: [] });
@@ -77,12 +83,10 @@ const ExamSessions = () => {
         }
       }
     }
-
     dispatch(nextQuestion(isCorrect, examData.currentQuestion));
-    //resetting form elements
-    Array.from(document.querySelectorAll("input")).forEach((input) => {
-      input.checked = false;
-    });
+    if (currentQuestion === 6) {
+      dispatch(submitExam(history, examData.examType, examData.examNumber));
+    }
   };
 
   return (

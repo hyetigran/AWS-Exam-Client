@@ -44,16 +44,18 @@ interface nextQuestionAction {
   payload: { correct: number; currentQuestion: number };
 }
 
-// interface submitExamAction {
-//   type: typeof FETCH_EXAM;
-//   payload: ExamState;
-// }
+interface submitExamAction {
+  type: typeof SUBMIT_EXAM;
+  payload: boolean;
+}
 
 // interface pauseExamToggleAction {
 //   type: typeof FETCH_EXAM;
 //   payload: boolean;
 // }
 
-export type ExamActionTypes = getExamAction | nextQuestionAction;
-// | submitExamAction
+export type ExamActionTypes =
+  | getExamAction
+  | nextQuestionAction
+  | submitExamAction;
 // | pauseExamToggleAction;

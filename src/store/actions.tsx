@@ -57,6 +57,18 @@ export const nextQuestion = (isCorrect: boolean, curQuestion: number) => {
   };
 };
 
+export const submitExam = (
+  history: History,
+  examType: string,
+  examNumber: string
+) => {
+  history.push(`/exam-results/${examType}/${examNumber}`);
+  return {
+    type: SUBMIT_EXAM,
+    payload: true,
+  };
+};
+
 function exampleAPI() {
   return Promise.resolve(fakeData);
 }

@@ -1,4 +1,10 @@
-import { ExamState, ExamActionTypes, FETCH_EXAM, NEXT_QUESTION } from "./types";
+import {
+  ExamState,
+  ExamActionTypes,
+  FETCH_EXAM,
+  NEXT_QUESTION,
+  SUBMIT_EXAM,
+} from "./types";
 import { fakeData } from "../helpers/fakeDataDev";
 
 // const initialState = {
@@ -23,6 +29,10 @@ export function examReducer(
         ...state,
         correct: state.correct + action.payload.correct,
         currentQuestion: action.payload.currentQuestion,
+      };
+    case SUBMIT_EXAM:
+      return {
+        ...state,
       };
     default:
       return state;

@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
-import { Question } from "../../store/types";
+import { Question, Answer } from "../../store/types";
 
 import "./SessionCard.css";
 
@@ -10,6 +10,9 @@ type SessionCardProps = {
   answerSelect: Function;
   nextQuestion: Function;
 };
+interface InputSelected {
+  [key: string]: boolean;
+}
 const SessionCard: React.FC<SessionCardProps> = (props) => {
   const {
     questionId,
@@ -17,7 +20,39 @@ const SessionCard: React.FC<SessionCardProps> = (props) => {
     shuffledAnswerBank,
     isMultipleChoice,
   } = props.question;
-  // Consolidate Input components from two to one
+
+  const [answerChecked, setAnswerChecked] = useState<InputSelected>({});
+  const [initialAnswerChecked, setInitialAnswerChecked] = useState<
+    InputSelected
+  >({});
+
+  useEffect(() => {
+    initialCheckedState();
+  }, [question]);
+
+  const initialCheckedState = () => {
+    let initialSelected: InputSelected = {};
+    for (let i = 0; i < shuffledAnswerBank.length; i++) {
+      let aId = shuffledAnswerBank[i].answerId;
+      initialSelected[aId] = false;
+    }
+    setAnswerChecked(initialSelected);
+    setInitialAnswerChecked(initialSelected);
+  };
+
+  const inputSelectHandler = (answer: Answer) => {
+    let isChecked = !answerChecked[answer.answerId];
+    props.answerSelect(isChecked, questionId, answer.answerId);
+
+    let shouldResetChecked = isMultipleChoice
+      ? initialAnswerChecked
+      : answerChecked;
+    setAnswerChecked({
+      ...shouldResetChecked,
+      [answer.answerId]: isChecked,
+    });
+  };
+
   return (
     <>
       <p>Question {props.currentQuestion}:</p>
@@ -26,27 +61,18 @@ const SessionCard: React.FC<SessionCardProps> = (props) => {
       <Form id="exam-form">
         {shuffledAnswerBank.map((answer) => {
           return (
-            <FormGroup check key={answer.answerId}>
+            <FormGroup
+              check
+              key={answer.answerId}
+              onClick={() => inputSelectHandler(answer)}
+            >
               <Label check>
-                {isMultipleChoice ? (
-                  <Input
-                    type="radio"
-                    name="radio1"
-                    onChange={(event) =>
-                      props.answerSelect(event, questionId, answer.answerId)
-                    }
-                    value={answer.answerId}
-                  />
-                ) : (
-                  <Input
-                    type="checkbox"
-                    name="checkbox1"
-                    onChange={(event) =>
-                      props.answerSelect(event, questionId, answer.answerId)
-                    }
-                    value={answer.answerId}
-                  />
-                )}
+                <Input
+                  checked={answerChecked[answer.answerId]}
+                  type={isMultipleChoice ? "radio" : "checkbox"}
+                  name={isMultipleChoice ? "radio1" : "checkbox1"}
+                  value={answer.answerId}
+                />
                 {answer.choice}
               </Label>
             </FormGroup>
@@ -54,11 +80,19 @@ const SessionCard: React.FC<SessionCardProps> = (props) => {
         })}
         <Button
           size="lg"
-          color="primary"
+          color={
+            Object.values(answerChecked).includes(true)
+              ? "primary"
+              : "secondary"
+          }
           className="actionButton"
           onClick={(e) => props.nextQuestion(e)}
         >
-          {props.currentQuestion === 6 ? "Finish Exam" : "Next Question"}
+          {Object.values(answerChecked).includes(true)
+            ? props.currentQuestion === 6
+              ? "Finish Exam"
+              : "Next Question"
+            : "Skip Question"}
         </Button>
       </Form>
     </>

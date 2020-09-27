@@ -99,12 +99,12 @@ export const fakeData = {
       isMultipleChoice: true,
       shuffledAnswerBank: [],
       incorrect_answer: [
-        { answerId: 1, choice: "first choice4", isSelected: false },
-        { answerId: 2, choice: "second choice4", isSelected: false },
-        { answerId: 3, choice: "third choice4", isSelected: false },
+        { answerId: 11, choice: "first choice4", isSelected: false },
+        { answerId: 22, choice: "second choice4", isSelected: false },
+        { answerId: 33, choice: "third choice4", isSelected: false },
       ],
       correct_answer: [
-        { answerId: 4, choice: "fourth choice4", isSelected: false },
+        { answerId: 44, choice: "fourth choice4", isSelected: false },
       ],
       explanation:
         "this is the explanation of why choice is correct for the fourth question",
