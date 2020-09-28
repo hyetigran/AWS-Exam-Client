@@ -46,7 +46,10 @@ const getExam = (exam: ExamState): ExamActionTypes => {
   };
 };
 
-export const nextQuestion = (isCorrect: boolean, curQuestion: number) => {
+export const nextQuestion = (
+  isCorrect: boolean,
+  curQuestion: number
+): ExamActionTypes => {
   let payload = {
     correct: isCorrect ? 1 : 0,
     currentQuestion: curQuestion + 1,
@@ -61,7 +64,7 @@ export const submitExam = (
   history: History,
   examType: string,
   examNumber: string
-) => {
+): ExamActionTypes => {
   history.push(`/exam-results/${examType}/${examNumber}`);
   return {
     type: SUBMIT_EXAM,
