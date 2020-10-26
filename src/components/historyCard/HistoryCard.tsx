@@ -15,36 +15,34 @@ import "./HistoryCard.css";
 const HistoryCard = () => {
   const lineWidth = 60;
   return (
-    <div>
-      <Card>
-        <PieChart
-          data={[
-            { title: "Correct", value: 10, color: "#85edc2" },
-            { title: "Incorrect", value: 15, color: "#ff7372" },
-          ]}
-          label={({ dataEntry }) => Math.round(dataEntry.percentage) + "%"}
-          radius={PieChart.defaultProps.radius - 6}
-          lineWidth={60}
-          segmentsStyle={{ transition: "stroke .3s", cursor: "pointer" }}
-          animate
-          labelPosition={100 - lineWidth / 2}
-          labelStyle={{
-            fill: "#fff",
-            opacity: 0.75,
-            pointerEvents: "none",
-          }}
-        />
-        <CardBody>
-          <CardTitle>Exam: Cloud Practitioner</CardTitle>
-          <CardSubtitle>Exam Number: 1</CardSubtitle>
-          <CardText>70% Correct</CardText>
-          <CardText>{Date.now()}</CardText>
-          <Button outline color="primary">
-            Review Questions
-          </Button>
-        </CardBody>
-      </Card>
-    </div>
+    <Card>
+      <PieChart
+        data={[
+          { title: "Correct", value: 10, color: "#85edc2" },
+          { title: "Incorrect", value: 15, color: "#ff7372" },
+        ]}
+        label={({ dataEntry }) => Math.round(dataEntry.percentage) + "%"}
+        radius={PieChart.defaultProps.radius - 6}
+        lineWidth={60}
+        segmentsStyle={{ transition: "stroke .3s", cursor: "pointer" }}
+        animate
+        labelPosition={100 - lineWidth / 2}
+        labelStyle={{
+          fill: "#fff",
+          opacity: 0.75,
+          pointerEvents: "none",
+        }}
+      />
+      <CardBody>
+        <CardTitle>Exam: Cloud Practitioner</CardTitle>
+        <CardSubtitle>Exam Number: 1</CardSubtitle>
+        <CardText>70% Correct</CardText>
+        <CardText>{Date.now()}</CardText>
+        <Button outline color="primary">
+          Review Questions
+        </Button>
+      </CardBody>
+    </Card>
   );
 };
 

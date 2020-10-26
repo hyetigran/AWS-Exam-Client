@@ -1,4 +1,5 @@
 import React from "react";
+import { CardDeck } from "reactstrap";
 import HistoryCard from "../../components/historyCard/HistoryCard";
 
 import "./ExamHistory.css";
@@ -6,7 +7,10 @@ import "./ExamHistory.css";
 const ExamHistory = () => {
   return (
     <div className="historyContainer">
-      <HistoryCard />
+      <CardDeck>
+        <HistoryCard />
+        <HistoryCard />
+      </CardDeck>
     </div>
   );
 };
