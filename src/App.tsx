@@ -6,6 +6,7 @@ import ExamReview from "./views/ExamReview/ExamReview";
 import Navbar from "./components/navbar/Navbar";
 
 import "./App.css";
+import ExamHistory from "./views/ExamHistory/ExamHistory";
 
 const App: React.FC = () => {
   return (
@@ -20,7 +21,7 @@ const App: React.FC = () => {
               path="/exam-sessions/:examId/:examNum"
               component={ExamSessions}
             />
-            <Route exact path="/exam-review" component={ExamReview} />
+            <Route exact path="/exam-history" component={ExamHistory} />
           </Switch>
         </div>
       </Router>
