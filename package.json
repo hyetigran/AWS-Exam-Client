@@ -16,6 +16,8 @@
     "@types/reactstrap": "^8.5.1",
     "@types/uuid": "^8.3.0",
     "bootstrap": "^4.5.2",
+    "dexie": "^3.0.2",
+    "dexie-relationships": "^1.2.11",
     "history": "^5.0.0",
     "lodash": "^4.17.20",
     "react": "^16.13.1",

@@ -15,7 +15,7 @@ import "./HistoryCard.css";
 const HistoryCard = () => {
   const lineWidth = 60;
   return (
-    <Card>
+    <Card className="text-center">
       <PieChart
         data={[
           { title: "Correct", value: 10, color: "#85edc2" },
