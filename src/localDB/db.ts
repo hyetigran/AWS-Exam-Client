@@ -1,44 +1,27 @@
 import Dexie from 'dexie';
-import relationship from 'dexie-relationships';
 
-interface Exam {
-    id: number;
-    name: string;
-    number: string;
-    correct: number;
-}
-
-interface Question {
-    id: number;
-    question: string;
-    examId: number;
-    explanation: string;
-    isCorrect: boolean;
-}
-
-interface Answer {
-    id: number;
-    questionId: number;
-    isSelected: boolean;
-    choice: string;
-}
+import {
+    Answer, Question, Exam
+} from './model'
 
 class ExamDatabase extends Dexie {
-    exams: Dexie.Table<Exam, number>;
-    questions: Dexie.Table<Question, number>;
-    answers: Dexie.Table<Answer, number>;
+    public exams: Dexie.Table<Exam, number>
+    public questions: Dexie.Table<Question, number>;
+    public answers: Dexie.Table<Answer, number>;
 
     constructor(){
-        super("ExamDatabbase");
-        this.version(1).stores({
-            exams: "id,name,number,correct",
-            questions: "id, question, examId, explanation, isCorrect",
-            answers: "id, questionId, isSelected, choice"
+        super("ExamDatabase");
+        const db = this
+        db.version(1).stores({
+            exams: "&gid, examNumber, examType, correct, currentQuestion, time, isPaused",
+            questions: "&gid, examId, question, explanation, isMultipleChoice",
+            answers: "&gid, questionId, type, choice, isSelected, isCorrect"
         })
+
+        db.exams.mapToClass(Exam)
+        db.questions.mapToClass(Question)
+        db.answers.mapToClass(Answer)
     }
 }
 
-const db = new ExamDatabase();
-// _, {addons: [relationship]}
-
-export default db;
+export const db = new ExamDatabase();
