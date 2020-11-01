@@ -1,20 +1,23 @@
 import { Exam, Question, Answer } from "./model";
 
-import cuid from "cuid";
-
-export async function deleteDatabase(db: { delete: () => any }) {
+/**
+ * Delete the entire database
+ */
+export async function deleteDatabase(db: any) {
   await db.delete();
 }
 
-export async function openDatabase(db: { open: () => any }) {
+/**
+ * Open a  database
+ */
+export async function openDatabase(db: any) {
   await db.open();
 }
 
-export async function clearAllTables(db: {
-  exams: { clear: () => any };
-  questions: { clear: () => any };
-  answers: { clear: () => any };
-}) {
+/**
+ * Clear all tables
+ */
+export async function clearAllTables(db: any) {
   await Promise.all([
     db.exams.clear(),
     db.questions.clear(),
@@ -22,169 +25,174 @@ export async function clearAllTables(db: {
   ]);
 }
 
-export async function readAllExams(db: { exams: { toArray: () => any } }) {
+/**
+ * Read all exams
+ */
+export async function readAllExams(db: any) {
   return await db.exams.toArray();
 }
 
-export async function deleteAllExams(db: { exams: { clear: () => any } }) {
+/**
+ * Delete all exams
+ */
+export async function deleteAllExams(db: any) {
   return await db.exams.clear();
 }
 
-export async function createExam(
-  db: { exams: { put: (arg0: Exam) => string | PromiseLike<string> } },
-  exam: Exam
-): Promise<string> {
+/**
+ * Create a exam
+ *
+ * Note that since the exam is guaranteed
+ * to have a unique ID we are using `put`
+ * to update the databse.
+ */
+export async function createExam(db: any, exam: Exam): Promise<string> {
   return await db.exams.put(exam);
 }
 
-export async function readExam(db, examGID: string): Promise<Exam> {
+/**
+ * Read a exam
+ */
+export async function readExam(db: any, examGID: string): Promise<Exam> {
   return await db.exams.get(examGID);
 }
 
-export async function updateExam(
-  db: { exam: { put: (arg0: Exam) => any } },
-  exam: Exam
-) {
+/**
+ * Update exam
+ */
+export async function updateExam(db: any, exam: Exam) {
   return await db.exam.put(exam);
 }
 
-export async function deleteExam(
-  db: {
-    exams: {
-      where: (
-        arg0: string
-      ) => {
-        (): any;
-        new (): any;
-        equals: {
-          (arg0: string | undefined): {
-            (): any;
-            new (): any;
-            delete: { (): any; new (): any };
-          };
-          new (): any;
-        };
-      };
-    };
-  },
-  exam: Exam
-) {
+/**
+ * Delete exam
+ */
+export async function deleteExam(db: any, exam: Exam) {
   return await db.exams.where("gid").equals(exam.gid).delete();
 }
 
-export async function readAllQuestions(db: {
-  questions: { toArray: () => any };
-}) {
+/**
+ * Read all questions
+ */
+export async function readAllQuestions(db: any) {
   return await db.questions.toArray();
 }
 
-export async function deleteAllQuestions(db: {
-  questions: { clear: () => any };
-}) {
+/**
+ * Delete all questions
+ */
+export async function deleteAllQuestions(db: any) {
   return await db.questions.clear();
 }
 
-export async function createQuestion(
-  db: { questions: { put: (arg0: Question) => any } },
-  question: Question
-) {
+/**
+ * Create question record
+ *
+ * Note that since the Question instance
+ * is guaranteed
+ * to have a unique ID we are using `put`
+ * to update the databse.
+ */
+export async function createQuestion(db: any, question: Question) {
   return await db.questions.put(question);
 }
 
-export async function updateQuestion(
-  db: { questions: { put: (arg0: Question) => any } },
-  question: Question
-) {
+/**
+ * Update an question record
+ */
+export async function updateQuestion(db: any, question: Question) {
   return await db.questions.put(question);
 }
 
-export async function deleteQuestion(
-  db: {
-    questions: {
-      where: (
-        arg0: string
-      ) => {
-        (): any;
-        new (): any;
-        equals: {
-          (arg0: string | undefined): {
-            (): any;
-            new (): any;
-            delete: { (): any; new (): any };
-          };
-          new (): any;
-        };
-      };
-    };
-  },
-  question: Question
-) {
+/**
+ * Delete exam
+ */
+export async function deleteQuestion(db: any, question: Question) {
   await db.questions.where("gid").equals(question.gid).delete();
 }
-export async function readAllAnswers(db: { answers: { toArray: () => any } }) {
+
+/**
+ * Read all answer records
+ */
+export async function readAllAnswers(db: any) {
   return await db.answers.toArray();
 }
 
-export async function deleteAllAnswers(db: { answers: { clear: () => any } }) {
+/**
+ * Delete all answers
+ */
+export async function deleteAllAnswers(db: any) {
   return await db.answers.clear();
 }
 
-export async function createAnswer(
-  db: { answers: { put: (arg0: Answer) => any } },
-  answer: Answer
-) {
+/**
+ * Create answer record
+ */
+export async function createAnswer(db: any, answer: Answer) {
   return await db.answers.put(answer);
 }
 
-export async function updateAnswer(
-  db: { answers: { put: (arg0: Answer) => any } },
-  answer: Answer
-) {
+/**
+ * Update the answer record
+ */
+export async function updateAnswer(db: any, answer: Answer) {
   return await db.answers.put(answer);
 }
 
-export async function deleteAnswer(db, answer: Answer) {
+/**
+ * Delete the answer
+ */
+export async function deleteAnswer(db: any, answer: Answer) {
   await db.answers.where("gid").equals(answer.gid).delete();
 }
 
-export async function loadExamQuestions(exam: Exam, db) {
+/**
+ * Load question records and
+ * update the corresponding exam fields.
+ */
+export async function loadExamQuestions(exam: Exam, db: any) {
   exam.questions = await db.questions
     .where("examId")
     .equals(exam.gid)
     .toArray();
 }
 
-export async function loadQuestionAnswers(question: Question, db) {
+/**
+ * Load answer and
+ * update the corresponding question fields.
+ */
+export async function loadQuestionAnswers(question: Question, db: any) {
   question.answers = await db.answers
     .where("questionId")
     .equals(question.gid)
     .toArray();
 }
 
-export async function loadQuestionProperties(db, exam: Exam) {
-  // [question.answers, exam.questions] = await Promise.all([
-  //   db.answers
-  //     .where("questionId")
-  //     .equals(question.gid)
-  //     .toArray(),
-  //   db.questions
-  //     .where("examId")
-  //     .equals(exam.gid)
-  //     .toArray()
-  // ]);
-  //console.log("exam", question, exam);
-
+/**
+ * Load navgiation properties (Question records) and
+ * update the corresponding exam fields.
+ */
+export async function loadQuestionProperties(db: any, exam: Exam) {
   [exam.questions] = await Promise.all([
     db.questions.where("examId").equals(exam.gid).toArray(),
   ]);
 }
 
-export async function loadAnswerProperties(db, question: Question) {
+/**
+ * Load navgiation properties (Answer records) and
+ * update the corresponding Question fields.
+ */
+export async function loadAnswerProperties(db: any, question: Question) {
   [question.answers] = await Promise.all([
     db.answers.where("questionId").equals(question.gid).toArray(),
   ]);
 }
 
+/**
+ * Save a exam entity.  If email or phone records
+ * were removed from the exam, then these will also
+ * be deleted from the database.
+ */
 export async function saveExam(db: any, exam: Exam, question: Question) {
   return db.transaction("rw", db.exams, db.questions, db.answers, async () => {
     // Add or update exam. If add, record exam.id.
@@ -202,7 +210,7 @@ export async function saveExam(db: any, exam: Exam, question: Question) {
       Promise.all(question.answers.map((answer) => updateAnswer(db, answer))),
     ]);
 
-    // Was any email or phone number deleted from out navigation properties?
+    // Was any email or answer deleted from out navigation properties?
     // Delete any item in DB that reference us, but is not present
     // in our navigation properties:
     await Promise.all([
