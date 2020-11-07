@@ -83,8 +83,11 @@ const ExamSessions = () => {
         }
       }
     }
+    // Handle Local DB ops
+
+    // Redux Action
     dispatch(nextQuestion(isCorrect, examData.currentQuestion));
-    if (currentQuestion === 6) {
+    if (currentQuestion === 65) {
       dispatch(submitExam(history, examData.examType, examData.examNumber));
     }
   };

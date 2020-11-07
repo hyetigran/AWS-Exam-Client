@@ -89,7 +89,7 @@ const SessionCard: React.FC<SessionCardProps> = (props) => {
           onClick={(e) => props.nextQuestion(e)}
         >
           {Object.values(answerChecked).includes(true)
-            ? props.currentQuestion === 6
+            ? props.currentQuestion === 65
               ? "Finish Exam"
               : "Next Question"
             : "Skip Question"}

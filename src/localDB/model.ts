@@ -12,7 +12,6 @@ export abstract class AbstractEntity {
 export class Answer extends AbstractEntity {
   constructor(
     public questionId: string,
-    public type: string,
     public choice: string,
     public isSelected: boolean,
     public isCorrect: boolean,
@@ -46,7 +45,7 @@ export class Exam extends AbstractEntity {
   constructor(
     public examNumber: string,
     public examType: string,
-    public correct: boolean,
+    public correct: number,
     public currentQuestion: number,
     public time: string,
     public isPaused: boolean,

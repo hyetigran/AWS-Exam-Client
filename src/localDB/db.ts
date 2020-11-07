@@ -17,6 +17,7 @@ class ExamDatabase extends Dexie {
       answers: "&gid, questionId, type, choice, isSelected, isCorrect",
     });
 
+    debugger;
     db.exams.mapToClass(Exam);
     db.questions.mapToClass(Question);
     db.answers.mapToClass(Answer);
