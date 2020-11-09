@@ -13,8 +13,8 @@ import {
 
 import { thunkGetExam } from "../../store/actions";
 import { ExamState } from "../../store/types";
-import { db } from "../../localDB/db";
-import { openDatabase } from "../../localDB/utilities";
+//import { db } from "../../localDB/db";
+//import { openDatabase } from "../../localDB/utilities";
 
 import "./ExamOptions.css";
 const INSTRUCTIONS = [
@@ -30,13 +30,13 @@ const ExamOptions = () => {
   const [selectNumber, setSelectNumber] = useState<string>("1");
 
   const history = useHistory();
-  useEffect(() => {
-    openLocalDB();
-  });
+  // useEffect(() => {
+  //   openLocalDB();
+  // });
 
-  const openLocalDB = async () => {
-    await openDatabase(db);
-  };
+  // const openLocalDB = async () => {
+  //   await openDatabase(db);
+  // };
   const dispatch = useDispatch();
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.name === "examName") {

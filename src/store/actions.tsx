@@ -12,9 +12,9 @@ import {
   PAUSE_EXAM,
   ExamState,
 } from "./types";
-import { db } from "../localDB/db";
-import { Exam } from "../localDB/model";
-import { createExam } from "../localDB/utilities";
+// import { db } from "../localDB/db";
+// import { Exam } from "../localDB/model";
+// import { createExam } from "../localDB/utilities";
 
 export const thunkGetExam = (
   examType: string,
@@ -28,10 +28,10 @@ export const thunkGetExam = (
 
     // Create exam session indexdb
     console.log("print first");
-    const EXAM_SESSION_ID = await addExamSession(result);
-    const exam = { ...result, EXAM_SESSION_ID };
+    // const EXAM_SESSION_ID = await addExamSession(result);
+    // const exam = { ...result, EXAM_SESSION_ID };
 
-    dispatch(getExam(exam));
+    dispatch(getExam(result));
     history.push(`/exam-sessions/${examType}/${examNumber}`);
   } catch (error) {
     console.log(error);
@@ -86,26 +86,26 @@ function exampleAPI() {
 
 // Local DB functions
 
-const addExamSession = async (exam: ExamState) => {
-  await db.transaction("rw", db.exams, async () => {
-    const {
-      examNumber,
-      examType,
-      correct,
-      currentQuestion,
-      time,
-      isPaused,
-    } = exam;
-    const examSession = new Exam(
-      examNumber,
-      examType,
-      correct,
-      currentQuestion,
-      time,
-      isPaused
-    );
+// const addExamSession = async (exam: ExamState) => {
+//   await db.transaction("rw", db.exams, async () => {
+//     const {
+//       examNumber,
+//       examType,
+//       correct,
+//       currentQuestion,
+//       time,
+//       isPaused,
+//     } = exam;
+//     const examSession = new Exam(
+//       examNumber,
+//       examType,
+//       correct,
+//       currentQuestion,
+//       time,
+//       isPaused
+//     );
 
-    const EXAM_SESSION_ID = await createExam(db, examSession);
-    return EXAM_SESSION_ID;
-  });
-};
+//     const EXAM_SESSION_ID = await createExam(db, examSession);
+//     return EXAM_SESSION_ID;
+//   });
+// };
