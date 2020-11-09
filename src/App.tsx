@@ -22,6 +22,11 @@ const App: React.FC = () => {
               component={ExamSessions}
             />
             <Route exact path="/exam-history" component={ExamHistory} />
+            <Route
+              exact
+              path="/exam-review/:sessionId"
+              component={ExamReview}
+            />
           </Switch>
         </div>
       </Router>
