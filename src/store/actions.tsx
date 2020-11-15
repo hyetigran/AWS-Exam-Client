@@ -12,9 +12,9 @@ import {
   PAUSE_EXAM,
   ExamState,
 } from "./types";
-// import { db } from "../localDB/db";
-// import { Exam } from "../localDB/model";
-// import { createExam } from "../localDB/utilities";
+import { db } from "../localDB/db";
+import { Exam } from "../localDB/model";
+import { createExam } from "../localDB/utilities";
 
 export const thunkGetExam = (
   examType: string,
@@ -39,7 +39,6 @@ export const thunkGetExam = (
 };
 
 const getExam = (exam: ExamState): ExamActionTypes => {
-  console.log(exam);
   for (let i = 0; i < exam.questions.length; i++) {
     let shuffledAnswers = _([
       ...exam.questions[i].incorrect_answer,
@@ -86,26 +85,26 @@ function exampleAPI() {
 
 // Local DB functions
 
-// const addExamSession = async (exam: ExamState) => {
-//   await db.transaction("rw", db.exams, async () => {
-//     const {
-//       examNumber,
-//       examType,
-//       correct,
-//       currentQuestion,
-//       time,
-//       isPaused,
-//     } = exam;
-//     const examSession = new Exam(
-//       examNumber,
-//       examType,
-//       correct,
-//       currentQuestion,
-//       time,
-//       isPaused
-//     );
+const addExamSession = async (exam: ExamState) => {
+  await db.transaction("rw", db.exams, async () => {
+    const {
+      examNumber,
+      examType,
+      correct,
+      currentQuestion,
+      time,
+      isPaused,
+    } = exam;
+    const examSession = new Exam(
+      examNumber,
+      examType,
+      correct,
+      currentQuestion,
+      time,
+      isPaused
+    );
 
-//     const EXAM_SESSION_ID = await createExam(db, examSession);
-//     return EXAM_SESSION_ID;
-//   });
-// };
+    const EXAM_SESSION_ID = await createExam(db, examSession);
+    return EXAM_SESSION_ID;
+  });
+};

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { PieChart } from "react-minimal-pie-chart";
 
 import {
@@ -39,7 +40,7 @@ const HistoryCard = () => {
         <CardText>70% Correct</CardText>
         <CardText>{Date.now()}</CardText>
         <Button outline color="primary">
-          Review Questions
+          <Link to={`exam-review/`}>Review Questions</Link>
         </Button>
       </CardBody>
     </Card>
