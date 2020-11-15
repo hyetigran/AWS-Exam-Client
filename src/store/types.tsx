@@ -1,21 +1,22 @@
 //each answer needs an id
 export interface Answer {
-  answerId: number;
+  answerId: string;
   choice: string;
   isSelected: boolean;
 }
 
 export interface Question {
-  questionId: number;
+  questionId: string;
   question: string;
-  incorrect_answer: Answer[];
-  correct_answer: Answer[];
+  incorrectAnswer: Answer[];
+  correctAnswer: Answer[];
   explanation: string;
   isMultipleChoice: boolean;
   shuffledAnswerBank: Answer[];
 }
 
 export interface ExamState {
+  EXAM_SESSION_ID: string;
   examNumber: string;
   examType: string;
   questions: Question[];

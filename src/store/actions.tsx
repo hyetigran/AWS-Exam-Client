@@ -2,7 +2,7 @@ import { Action } from "redux";
 import { RootState } from "./index";
 import { ThunkAction } from "redux-thunk";
 import { History } from "history";
-import { fakeData } from "../helpers/fakeDataDev";
+import { realExam } from "../helpers/realExam";
 import _ from "lodash/shuffle";
 import {
   ExamActionTypes,
@@ -24,14 +24,13 @@ export const thunkGetExam = (
   dispatch
 ) => {
   try {
-    const result = await exampleAPI();
+    const result: ExamState = await exampleAPI();
 
     // Create exam session indexdb
-    console.log("print first");
-    // const EXAM_SESSION_ID = await addExamSession(result);
-    // const exam = { ...result, EXAM_SESSION_ID };
+    const EXAM_SESSION_ID = await addExamSession(result);
+    const exam = { ...result, EXAM_SESSION_ID };
 
-    dispatch(getExam(result));
+    dispatch(getExam(exam));
     history.push(`/exam-sessions/${examType}/${examNumber}`);
   } catch (error) {
     console.log(error);
@@ -41,8 +40,8 @@ export const thunkGetExam = (
 const getExam = (exam: ExamState): ExamActionTypes => {
   for (let i = 0; i < exam.questions.length; i++) {
     let shuffledAnswers = _([
-      ...exam.questions[i].incorrect_answer,
-      ...exam.questions[i].correct_answer,
+      ...exam.questions[i].incorrectAnswer,
+      ...exam.questions[i].correctAnswer,
     ]);
     exam.questions[i].shuffledAnswerBank = shuffledAnswers;
   }
@@ -80,31 +79,34 @@ export const submitExam = (
 };
 
 function exampleAPI() {
-  return Promise.resolve(fakeData);
+  return Promise.resolve(realExam);
 }
 
 // Local DB functions
 
-const addExamSession = async (exam: ExamState) => {
-  await db.transaction("rw", db.exams, async () => {
-    const {
-      examNumber,
-      examType,
-      correct,
-      currentQuestion,
-      time,
-      isPaused,
-    } = exam;
-    const examSession = new Exam(
-      examNumber,
-      examType,
-      correct,
-      currentQuestion,
-      time,
-      isPaused
-    );
+async function addExamSession(exam: ExamState): Promise<string> {
+  return await db.transaction(
+    "rw",
+    db.exams,
+    async (): Promise<string> => {
+      const {
+        examNumber,
+        examType,
+        correct,
+        currentQuestion,
+        time,
+        isPaused,
+      } = exam;
+      const examSession = new Exam(
+        examNumber,
+        examType,
+        correct,
+        currentQuestion,
+        time,
+        isPaused
+      );
 
-    const EXAM_SESSION_ID = await createExam(db, examSession);
-    return EXAM_SESSION_ID;
-  });
-};
+      return await createExam(db, examSession);
+    }
+  );
+}

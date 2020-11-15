@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 
 export const realExam = {
+  EXAM_SESSION_ID: "",
   examNumber: "1",
   examType: "CloudPractitioner",
   correct: 0,
@@ -20,21 +21,16 @@ export const realExam = {
           answerId: uuidv4(),
           choice: "AWS OpsWorks",
           isSelected: false,
-          incorrectExplanation:
-            "AWS OpsWorks is a configuration management service that provides managed instances of Chef and Puppet. Chef and Puppet are automation platforms that allow you to use code to automate the configurations of your servers.",
         },
         {
           answerId: uuidv4(),
           choice: "Amazon Aurora",
           isSelected: false,
-          incorrectExplanation: "Amazon Aurora is a database service.",
         },
         {
           answerId: uuidv4(),
           choice: "Amazon CloudWatch",
           isSelected: false,
-          incorrectExplanation:
-            "Amazon CloudWatch is mainly used to monitor the utilization of your AWS resources.",
         },
       ],
       correctAnswer: [
@@ -59,22 +55,16 @@ Quick Starts are built by AWS solutions architects and partners to help you depl
           answerId: uuidv4(),
           choice: "AWS SDK",
           isSelected: false,
-          incorrectExplanation:
-            "The AWS SDK (Software Development Kit) allows you to interact with AWS services using your preferred programming language.",
         },
         {
           answerId: uuidv4(),
           choice: "AWS API",
           isSelected: false,
-          incorrectExplanation:
-            "AWS API refers to the AWS application programming interface.",
         },
         {
           answerId: uuidv4(),
           choice: "AWS CLI",
           isSelected: false,
-          incorrectExplanation:
-            "The AWS Command Line Interface (CLI) is a unified tool to manage your AWS services. With just one tool to download and configure, you can control multiple AWS services from the command line and automate them through scripts.",
         },
       ],
       correctAnswer: [

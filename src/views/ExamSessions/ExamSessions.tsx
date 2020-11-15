@@ -10,9 +10,10 @@ import SessionCard from "../../components/exam/SessionCard";
 
 import "./ExamSessions.css";
 import { nextQuestion, submitExam } from "../../store/actions";
+import { Answer, Question } from "../../store/types";
 
 interface UserAnswers {
-  [key: string]: number[];
+  [key: string]: string[];
 }
 
 const ExamSessions = () => {
@@ -28,8 +29,8 @@ const ExamSessions = () => {
   const answerSelectHandler = (
     isChecked: boolean,
     //event: React.ChangeEvent<HTMLInputElement>,
-    qId: number,
-    aId: number
+    qId: string,
+    aId: string
   ) => {
     // if q is MC then only one answer can be selected
     if (examData.questions[currentQuestion - 1].isMultipleChoice) {
@@ -53,7 +54,7 @@ const ExamSessions = () => {
     e.preventDefault();
     let qId = examData.questions[examData.currentQuestion - 1].questionId;
     let isCorrect = false;
-    const { isMultipleChoice, correct_answer } = examData.questions[
+    const { isMultipleChoice, correctAnswer } = examData.questions[
       examData.currentQuestion - 1
     ];
     if (userAnswers![qId] === undefined) {
@@ -61,7 +62,7 @@ const ExamSessions = () => {
       setUserAnswers({ ...userAnswers, [qId]: [] });
     } else if (isMultipleChoice) {
       //if question is MC, check selected against correct array
-      isCorrect = userAnswers![qId][0] === correct_answer[0].answerId;
+      isCorrect = userAnswers![qId][0] === correctAnswer[0].answerId;
     } else {
       // if question is select multiple answers
       if (userAnswers![qId].length !== 2) {
@@ -71,12 +72,15 @@ const ExamSessions = () => {
         //check if the right answers were selected
         let firstChoice = userAnswers[qId][0];
         let secondChoice = userAnswers[qId][1];
+        let question = examData.questions.filter(
+          (question: Question) => question.questionId === qId
+        );
         if (
-          examData.questions[qId].correct_answer.findIndex(
-            (el) => firstChoice === el.answerId
+          question[0].correctAnswer.findIndex(
+            (el: Answer) => firstChoice === el.answerId
           ) > -1 &&
-          examData.questions[qId].correct_answer.findIndex(
-            (el) => secondChoice === el.answerId
+          question[0].correctAnswer.findIndex(
+            (el: Answer) => secondChoice === el.answerId
           ) > -1
         ) {
           isCorrect = true;
