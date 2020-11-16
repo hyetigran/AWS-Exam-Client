@@ -58,3 +58,17 @@ export class Exam extends AbstractEntity {
     });
   }
 }
+
+export interface BareQuestion {
+  question: string;
+  explanation: string;
+  isMultipleChoice: boolean;
+  answers: BareAnswer[];
+}
+
+export interface BareAnswer {
+  answerId: string;
+  choice: string;
+  isSelected: boolean;
+  isCorrect: boolean;
+}

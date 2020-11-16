@@ -1,4 +1,4 @@
-//each answer needs an id
+// Each answer needs an id
 export interface Answer {
   answerId: string;
   choice: string;

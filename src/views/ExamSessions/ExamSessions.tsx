@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
@@ -10,7 +10,8 @@ import SessionCard from "../../components/exam/SessionCard";
 
 import "./ExamSessions.css";
 import { nextQuestion, submitExam } from "../../store/actions";
-import { Answer, Question } from "../../store/types";
+import { Answer } from "../../store/types";
+import { BareAnswer } from "../../localDB/model";
 
 interface UserAnswers {
   [key: string]: string[];
@@ -22,7 +23,8 @@ const ExamSessions = () => {
   const { currentQuestion } = examData;
   const dispatch = useDispatch();
   const history = useHistory();
-  useEffect(() => {});
+
+  // useEffect(() => {});
   // console.log("exam", examData);
   // console.log("uA", userAnswers);
 
@@ -54,9 +56,29 @@ const ExamSessions = () => {
     e.preventDefault();
     let qId = examData.questions[examData.currentQuestion - 1].questionId;
     let isCorrect = false;
-    const { isMultipleChoice, correctAnswer } = examData.questions[
-      examData.currentQuestion - 1
-    ];
+    const {
+      isMultipleChoice,
+      correctAnswer,
+      incorrectAnswer,
+      question,
+      explanation,
+    } = examData.questions[examData.currentQuestion - 1];
+
+    // Toggle isSelected and isCorrect
+    let cAnswers = correctAnswer.map((answer) => {
+      if (userAnswers[qId].findIndex((aId) => aId === answer.answerId)) {
+        answer.isSelected = true;
+      }
+      let newAnswer = { ...answer, isCorrect: true };
+      return newAnswer;
+    });
+    let iAnswers = incorrectAnswer.map((answer) => {
+      if (userAnswers[qId].findIndex((aId) => aId === answer.answerId)) {
+        answer.isSelected = true;
+      }
+      let newAnswer = { ...answer, isCorrect: false };
+      return newAnswer;
+    });
     if (userAnswers![qId] === undefined) {
       //if user skips question without selecting an answer
       setUserAnswers({ ...userAnswers, [qId]: [] });
@@ -72,14 +94,10 @@ const ExamSessions = () => {
         //check if the right answers were selected
         let firstChoice = userAnswers[qId][0];
         let secondChoice = userAnswers[qId][1];
-        let question = examData.questions.filter(
-          (question: Question) => question.questionId === qId
-        );
         if (
-          question[0].correctAnswer.findIndex(
-            (el: Answer) => firstChoice === el.answerId
-          ) > -1 &&
-          question[0].correctAnswer.findIndex(
+          correctAnswer.findIndex((el: Answer) => firstChoice === el.answerId) >
+            -1 &&
+          correctAnswer.findIndex(
             (el: Answer) => secondChoice === el.answerId
           ) > -1
         ) {
@@ -87,10 +105,16 @@ const ExamSessions = () => {
         }
       }
     }
-    // Handle Local DB ops
 
+    let questioned = {
+      isMultipleChoice,
+      explanation,
+      question,
+      answers: [...iAnswers, ...cAnswers],
+    };
     // Redux Action
-    dispatch(nextQuestion(isCorrect, examData.currentQuestion));
+    dispatch(nextQuestion(isCorrect, examData.currentQuestion, questioned));
+    // All exams have 65 questions
     if (currentQuestion === 65) {
       dispatch(submitExam(history, examData.examType, examData.examNumber));
     }

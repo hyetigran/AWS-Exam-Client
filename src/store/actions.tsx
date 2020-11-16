@@ -13,7 +13,7 @@ import {
   ExamState,
 } from "./types";
 import { db } from "../localDB/db";
-import { Exam } from "../localDB/model";
+import { Exam, BareAnswer, BareQuestion } from "../localDB/model";
 import { createExam } from "../localDB/utilities";
 
 export const thunkGetExam = (
@@ -54,12 +54,15 @@ const getExam = (exam: ExamState): ExamActionTypes => {
 
 export const nextQuestion = (
   isCorrect: boolean,
-  curQuestion: number
+  curQuestion: number,
+  question: BareQuestion
 ): ExamActionTypes => {
   let payload = {
     correct: isCorrect ? 1 : 0,
     currentQuestion: curQuestion + 1,
   };
+  // Save question/answer in DB
+
   return {
     type: NEXT_QUESTION,
     payload,
