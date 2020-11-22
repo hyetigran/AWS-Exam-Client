@@ -13,8 +13,19 @@ import {
   ExamState,
 } from "./types";
 import { db } from "../localDB/db";
-import { Exam, BareAnswer, BareQuestion } from "../localDB/model";
-import { createExam } from "../localDB/utilities";
+import {
+  Exam,
+  BareAnswer,
+  BareQuestion,
+  Question,
+  Answer,
+} from "../localDB/model";
+import {
+  createAnswer,
+  createExam,
+  createQuestion,
+  readExam,
+} from "../localDB/utilities";
 
 export const thunkGetExam = (
   examType: string,
@@ -55,13 +66,15 @@ const getExam = (exam: ExamState): ExamActionTypes => {
 export const nextQuestion = (
   isCorrect: boolean,
   curQuestion: number,
-  question: BareQuestion
+  question: BareQuestion,
+  EXAM_SESSION_ID: string
 ): ExamActionTypes => {
   let payload = {
     correct: isCorrect ? 1 : 0,
     currentQuestion: curQuestion + 1,
   };
   // Save question/answer in DB
+  addQuestionAnswerToExamSession(question, EXAM_SESSION_ID);
 
   return {
     type: NEXT_QUESTION,
@@ -112,4 +125,30 @@ async function addExamSession(exam: ExamState): Promise<string> {
       return await createExam(db, examSession);
     }
   );
+}
+
+async function addQuestionAnswerToExamSession(
+  questioned: BareQuestion,
+  EXAM_SESSION_ID: string
+) {
+  await db.transaction("rw", db.exams, db.questions, db.answers, async () => {
+    let { isMultipleChoice, explanation, question, answers } = questioned;
+    let exam: Exam = await readExam(db, EXAM_SESSION_ID);
+    let questionId = await createQuestion(
+      db,
+      new Question(exam.gid!, question, explanation, isMultipleChoice)
+    );
+
+    for (let i in answers) {
+      await createAnswer(
+        db,
+        new Answer(
+          questionId,
+          answers[i].choice,
+          answers[i].isSelected,
+          answers[i].isCorrect
+        )
+      );
+    }
+  });
 }

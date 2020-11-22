@@ -54,6 +54,7 @@ const ExamSessions = () => {
 
   const nextQuestionHandler = (e: React.MouseEvent) => {
     e.preventDefault();
+    let EXAM_SESSION_ID = examData.EXAM_SESSION_ID;
     let qId = examData.questions[examData.currentQuestion - 1].questionId;
     let isCorrect = false;
     const {
@@ -113,7 +114,14 @@ const ExamSessions = () => {
       answers: [...iAnswers, ...cAnswers],
     };
     // Redux Action
-    dispatch(nextQuestion(isCorrect, examData.currentQuestion, questioned));
+    dispatch(
+      nextQuestion(
+        isCorrect,
+        examData.currentQuestion,
+        questioned,
+        EXAM_SESSION_ID
+      )
+    );
     // All exams have 65 questions
     if (currentQuestion === 65) {
       dispatch(submitExam(history, examData.examType, examData.examNumber));
