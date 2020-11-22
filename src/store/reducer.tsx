@@ -5,7 +5,7 @@ import {
   NEXT_QUESTION,
   SUBMIT_EXAM,
 } from "./types";
-import { fakeData } from "../helpers/fakeDataDev";
+import { realExam } from "../helpers/realExam";
 
 // const initialState = {
 //   examNumber: "",
@@ -18,7 +18,7 @@ import { fakeData } from "../helpers/fakeDataDev";
 // };
 
 export function examReducer(
-  state = fakeData,
+  state = realExam,
   action: ExamActionTypes
 ): ExamState {
   switch (action.type) {

@@ -4,10 +4,10 @@ import { Navbar, NavLink, NavbarBrand, Nav } from "reactstrap";
 const Navigation: React.FC = () => {
   return (
     <Navbar bg="dark" variant="dark">
-      <NavbarBrand href="#home">Free AWS Exams</NavbarBrand>
+      <NavbarBrand href="/">Free AWS Exams</NavbarBrand>
       <Nav className="mr-auto">
         <NavLink href="/">Home</NavLink>
-        <NavLink href="#features">History</NavLink>
+        <NavLink href="/exam-history">History</NavLink>
       </Nav>
     </Navbar>
   );

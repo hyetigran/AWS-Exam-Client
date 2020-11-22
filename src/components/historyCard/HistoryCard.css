@@ -1,0 +1,8 @@
+.card {
+  max-width: 30%;
+}
+
+.card svg {
+  width: 100%;
+  height: auto;
+}
