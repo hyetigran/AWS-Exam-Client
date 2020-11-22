@@ -124,7 +124,15 @@ const ExamSessions = () => {
     );
     // All exams have 65 questions
     if (currentQuestion === 65) {
-      dispatch(submitExam(history, examData.examType, examData.examNumber));
+      dispatch(
+        submitExam(
+          history,
+          examData.examType,
+          examData.examNumber,
+          questioned,
+          EXAM_SESSION_ID
+        )
+      );
     }
   };
 

@@ -85,8 +85,11 @@ export const nextQuestion = (
 export const submitExam = (
   history: History,
   examType: string,
-  examNumber: string
+  examNumber: string,
+  questioned: BareQuestion,
+  EXAM_SESSION_ID: string
 ): ExamActionTypes => {
+  addQuestionAnswerToExamSession(questioned, EXAM_SESSION_ID);
   history.push(`/exam-results/${examType}/${examNumber}`);
   return {
     type: SUBMIT_EXAM,
