@@ -33,10 +33,10 @@ const CountdownTimer = () => {
 
   return (
     <div className="timer-container">
-      <ClockCircleOutlined />
-      <div>{unit}</div>
-      <PauseOutlined className="pause-icon" />
-      <CloseOutlined />
+      <ClockCircleOutlined className="icon" />
+      <div className="timer">{unit}</div>
+      <PauseOutlined className="icon" onClick={() => console.log("click")} />
+      <CloseOutlined className="icon" onClick={() => console.log("click")} />
     </div>
   );
 };

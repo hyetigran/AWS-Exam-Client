@@ -143,10 +143,12 @@ const ExamSessions = () => {
         <Col sm={{ size: 1, offset: 1 }}>
           <div>{examData.currentQuestion}/65</div>
         </Col>
-        <Col>
+        <Col sm={{ size: 7 }}>
           <Progress color="success" value={examData.currentQuestion} max={65} />
         </Col>
-        <CountdownTimer />
+        <Col sm={{ size: 1 }}>
+          <CountdownTimer />
+        </Col>
       </Row>
       <Jumbotron className="jumbotronCustom">
         <SessionCard
