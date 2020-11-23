@@ -12,6 +12,7 @@ import "./ExamSessions.css";
 import { nextQuestion, submitExam } from "../../store/actions";
 import { Answer } from "../../store/types";
 import { BareAnswer } from "../../localDB/model";
+import CountdownTimer from "../../components/countdownTimer/CountdownTimer";
 
 interface UserAnswers {
   [key: string]: string[];
@@ -145,10 +146,7 @@ const ExamSessions = () => {
         <Col>
           <Progress color="success" value={examData.currentQuestion} max={65} />
         </Col>
-        {/* <p>clock icon</p>
-        <p>time</p>
-        <p>pause</p>
-        <p>stop modal</p> */}
+        <CountdownTimer />
       </Row>
       <Jumbotron className="jumbotronCustom">
         <SessionCard
