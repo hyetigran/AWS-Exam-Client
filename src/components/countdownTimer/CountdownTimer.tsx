@@ -124,7 +124,11 @@ class CountdownTimer extends React.Component<Props> {
         );
         var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        this.setState({ hours, minutes, seconds });
+        this.setState({
+          hours: hours.toString(),
+          minutes: minutes.toString(),
+          seconds: seconds.toString(),
+        });
       }
     }, 1000);
   };
@@ -142,10 +146,14 @@ class CountdownTimer extends React.Component<Props> {
 
   render() {
     let { hours, minutes, seconds } = this.state;
+    let formattedMinutes =
+      minutes.length < 2 ? "0" + minutes.toString() : minutes;
+    let formattedSeconds =
+      seconds.length < 2 ? "0" + seconds.toString() : seconds;
     return (
       <div className="timer-container">
         <ClockCircleOutlined className="icon" />
-        <div className="timer">{`${hours}:${minutes}:${seconds}`}</div>
+        <div className="timer">{`${hours}:${formattedMinutes}:${formattedSeconds}`}</div>
         <PauseOutlined className="icon" onClick={() => this.pauseCountdown()} />
         <CloseOutlined className="icon" onClick={() => console.log("click")} />
       </div>
