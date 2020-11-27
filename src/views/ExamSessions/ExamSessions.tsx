@@ -7,12 +7,13 @@ import { RootState } from "../../store/types";
 import { Col, Row, Jumbotron } from "reactstrap";
 
 import SessionCard from "../../components/exam/SessionCard";
+import CountdownTimer from "../../components/countdownTimer/CountdownTimer";
+import ControlsModal from "../../components/modal/ControlsModal";
 
 import "./ExamSessions.css";
 import { nextQuestion, submitExam } from "../../store/actions";
 import { Answer } from "../../store/types";
 import { BareAnswer } from "../../localDB/model";
-import CountdownTimer from "../../components/countdownTimer/CountdownTimer";
 
 interface UserAnswers {
   [key: string]: string[];
@@ -21,12 +22,13 @@ interface UserAnswers {
 const ExamSessions = () => {
   const examData = useSelector((state: RootState) => state.exam);
   const [userAnswers, setUserAnswers] = useState<UserAnswers>({});
+  const [modal, setModal] = useState(false);
   const { currentQuestion } = examData;
   const dispatch = useDispatch();
   const history = useHistory();
 
   // useEffect(() => {});
-  // console.log("exam", examData);
+  // console.log("modal", modal);
   // console.log("uA", userAnswers);
 
   const answerSelectHandler = (
@@ -137,6 +139,10 @@ const ExamSessions = () => {
     }
   };
 
+  const toggleModal = () => {
+    setModal(!modal);
+  };
+
   return (
     <>
       <Row>
@@ -147,7 +153,7 @@ const ExamSessions = () => {
           <Progress color="success" value={examData.currentQuestion} max={65} />
         </Col>
         <Col sm={{ size: 1 }}>
-          <CountdownTimer />
+          <CountdownTimer toggle={toggleModal} modal={modal} />
         </Col>
       </Row>
       <Jumbotron className="jumbotronCustom">
@@ -158,6 +164,7 @@ const ExamSessions = () => {
           nextQuestion={nextQuestionHandler}
         />
       </Jumbotron>
+      {modal && <ControlsModal toggle={toggleModal} modal={modal} />}
     </>
   );
 };

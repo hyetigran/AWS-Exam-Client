@@ -101,6 +101,13 @@ function exampleAPI() {
   return Promise.resolve(realExam);
 }
 
+export const pauseExam = (newTime: string): ExamActionTypes => {
+  return {
+    type: PAUSE_EXAM,
+    payload: newTime,
+  };
+};
+
 // Local DB functions
 
 async function addExamSession(exam: ExamState): Promise<string> {

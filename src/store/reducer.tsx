@@ -4,6 +4,7 @@ import {
   FETCH_EXAM,
   NEXT_QUESTION,
   SUBMIT_EXAM,
+  PAUSE_EXAM,
 } from "./types";
 import { realExam } from "../helpers/realExam";
 
@@ -33,6 +34,11 @@ export function examReducer(
     case SUBMIT_EXAM:
       return {
         ...state,
+      };
+    case PAUSE_EXAM:
+      return {
+        ...state,
+        time: action.payload,
       };
     default:
       return state;
