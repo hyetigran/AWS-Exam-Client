@@ -5,8 +5,13 @@ interface Props {
   toggle: (arg0: boolean) => void;
   modal: boolean;
   isStopped: boolean;
+  finishExam: (e: React.MouseEvent) => void;
 }
-const ControlsModal = ({ toggle, modal, isStopped }: Props) => {
+const ControlsModal = ({ toggle, modal, isStopped, finishExam }: Props) => {
+  const finishExamHandler = (e: React.MouseEvent) => {
+    toggle(false);
+    finishExam(e);
+  };
   return (
     <Modal isOpen={modal} toggle={() => toggle(false)}>
       <ModalHeader toggle={() => toggle(false)}>
@@ -27,7 +32,7 @@ const ControlsModal = ({ toggle, modal, isStopped }: Props) => {
           {isStopped ? "Cancel" : "Resume exam"}
         </Button>
         {isStopped && (
-          <Button color="primary" onClick={() => toggle(false)}>
+          <Button color="primary" onClick={(e) => finishExamHandler(e)}>
             Finish Exam
           </Button>
         )}

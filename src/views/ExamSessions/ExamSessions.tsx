@@ -140,6 +140,18 @@ const ExamSessions = () => {
     }
   };
 
+  const finishExam = (e: React.MouseEvent) => {
+    dispatch(
+      submitExam(
+        history,
+        examData.examType,
+        examData.examNumber,
+        questioned,
+        EXAM_SESSION_ID
+      )
+    );
+  };
+
   const toggleModal = (isStopped: boolean) => {
     setModal(!modal);
     setIsStopped(isStopped);
@@ -168,6 +180,7 @@ const ExamSessions = () => {
       </Jumbotron>
       {modal && (
         <ControlsModal
+          finishExam={finishExam}
           isStopped={isStopped}
           toggle={toggleModal}
           modal={modal}
