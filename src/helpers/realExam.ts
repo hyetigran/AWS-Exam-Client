@@ -8,6 +8,7 @@ export const realExam = {
   time: "5400000",
   currentQuestion: 1,
   isPaused: false,
+  isFinished: false,
   questions: [
     {
       // Q1

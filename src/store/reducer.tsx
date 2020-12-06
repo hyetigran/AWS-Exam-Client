@@ -34,6 +34,7 @@ export function examReducer(
     case SUBMIT_EXAM:
       return {
         ...state,
+        isFinished: action.payload,
       };
     case PAUSE_EXAM:
       return {

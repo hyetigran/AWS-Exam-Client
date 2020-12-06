@@ -24,6 +24,7 @@ export interface ExamState {
   currentQuestion: number;
   time: string;
   isPaused: boolean;
+  isFinished: boolean;
 }
 
 export interface RootState {
