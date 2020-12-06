@@ -23,6 +23,7 @@ const ExamSessions = () => {
   const examData = useSelector((state: RootState) => state.exam);
   const [userAnswers, setUserAnswers] = useState<UserAnswers>({});
   const [modal, setModal] = useState(false);
+  const [isStopped, setIsStopped] = useState(false);
   const { currentQuestion } = examData;
   const dispatch = useDispatch();
   const history = useHistory();
@@ -139,8 +140,9 @@ const ExamSessions = () => {
     }
   };
 
-  const toggleModal = () => {
+  const toggleModal = (isStopped: boolean) => {
     setModal(!modal);
+    setIsStopped(isStopped);
   };
 
   return (
@@ -164,7 +166,13 @@ const ExamSessions = () => {
           nextQuestion={nextQuestionHandler}
         />
       </Jumbotron>
-      {modal && <ControlsModal toggle={toggleModal} modal={modal} />}
+      {modal && (
+        <ControlsModal
+          isStopped={isStopped}
+          toggle={toggleModal}
+          modal={modal}
+        />
+      )}
     </>
   );
 };

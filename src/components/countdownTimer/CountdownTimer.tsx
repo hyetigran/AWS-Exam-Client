@@ -11,7 +11,7 @@ import { pauseExam } from "../../store/actions";
 import "./CountdownTimer.css";
 
 interface Props {
-  toggle: () => void;
+  toggle: (arg0: boolean) => void;
   modal: boolean;
   time: string;
   pauseExam: (arg0: string) => void;
@@ -104,7 +104,6 @@ class CountdownTimer extends React.Component<Props> {
   }
   componentDidUpdate(prevProps: Props) {
     if (!this.props.modal && this.props.modal !== prevProps.modal) {
-      console.log("hit");
       this.startCountdown();
     }
   }
@@ -132,9 +131,9 @@ class CountdownTimer extends React.Component<Props> {
       }
     }, 1000);
   };
-  pauseCountdown = () => {
+  pauseCountdown = (isStopped: boolean) => {
     // Open Modal
-    this.props.toggle();
+    this.props.toggle(isStopped);
     // Clear interval
     clearInterval(this.interval);
     // Dispatch units as new time
@@ -154,8 +153,14 @@ class CountdownTimer extends React.Component<Props> {
       <div className="timer-container">
         <ClockCircleOutlined className="icon" />
         <div className="timer">{`${hours}:${formattedMinutes}:${formattedSeconds}`}</div>
-        <PauseOutlined className="icon" onClick={() => this.pauseCountdown()} />
-        <CloseOutlined className="icon" onClick={() => console.log("click")} />
+        <PauseOutlined
+          className="icon"
+          onClick={() => this.pauseCountdown(false)}
+        />
+        <CloseOutlined
+          className="icon"
+          onClick={() => this.pauseCountdown(true)}
+        />
       </div>
     );
   }
