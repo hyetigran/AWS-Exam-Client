@@ -119,12 +119,7 @@ const ExamSessions = () => {
     };
     // Redux Action
     dispatch(
-      nextQuestion(
-        isCorrect,
-        examData.currentQuestion,
-        questioned,
-        EXAM_SESSION_ID
-      )
+      nextQuestion(isCorrect, currentQuestion, questioned, EXAM_SESSION_ID)
     );
     // All exams have 65 questions
     if (currentQuestion === 65) {
@@ -134,20 +129,46 @@ const ExamSessions = () => {
           examData.examType,
           examData.examNumber,
           questioned,
-          EXAM_SESSION_ID
+          EXAM_SESSION_ID,
+          currentQuestion
         )
       );
     }
   };
 
   const finishExam = (e: React.MouseEvent) => {
+    const {
+      isMultipleChoice,
+      correctAnswer,
+      incorrectAnswer,
+      question,
+      explanation,
+    } = examData.questions[examData.currentQuestion - 1];
+
+    let EXAM_SESSION_ID = examData.EXAM_SESSION_ID;
+
+    let cAnswers = correctAnswer.map((answer) => {
+      return { ...answer, isCorrect: true };
+    });
+    let iAnswers = incorrectAnswer.map((answer) => {
+      return { ...answer, isCorrect: false };
+    });
+    let questioned = {
+      isMultipleChoice,
+      explanation,
+      question,
+      answers: [...iAnswers, ...cAnswers],
+    };
+
     dispatch(
       submitExam(
         history,
         examData.examType,
         examData.examNumber,
         questioned,
-        EXAM_SESSION_ID
+        EXAM_SESSION_ID,
+        currentQuestion,
+        examData
       )
     );
   };
