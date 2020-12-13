@@ -4,3 +4,7 @@
   justify-content: flex-start;
   padding: 4rem 3rem !important;
 }
+
+.col-sm-7 .progress {
+  height: 1.5rem;
+}

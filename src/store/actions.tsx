@@ -87,10 +87,40 @@ export const submitExam = (
   examType: string,
   examNumber: string,
   questioned: BareQuestion,
-  EXAM_SESSION_ID: string
+  EXAM_SESSION_ID: string,
+  currentQuestion: number,
+  examData?: ExamState
 ): ExamActionTypes => {
   addQuestionAnswerToExamSession(questioned, EXAM_SESSION_ID);
-  history.push(`/exam-results/${examType}/${examNumber}`);
+
+  // Exam is finished before last question
+  if (currentQuestion !== 65) {
+    // store all unanswered questions to indexedDB
+    for (let i = currentQuestion; i < 65; i++) {
+      console.log("i", i);
+      let {
+        correctAnswer,
+        incorrectAnswer,
+        isMultipleChoice,
+        question,
+        explanation,
+      } = examData!.questions[i];
+      let cAnswers = correctAnswer.map((answer) => {
+        return { ...answer, isCorrect: true };
+      });
+      let iAnswers = incorrectAnswer.map((answer) => {
+        return { ...answer, isCorrect: false };
+      });
+      let unansweredQuestions = {
+        isMultipleChoice,
+        explanation,
+        question,
+        answers: [...iAnswers, ...cAnswers],
+      };
+      addQuestionAnswerToExamSession(unansweredQuestions, EXAM_SESSION_ID);
+    }
+  }
+  history.push(`/exam-results/${examType}/${examNumber}/${EXAM_SESSION_ID}`);
   return {
     type: SUBMIT_EXAM,
     payload: true,
@@ -100,6 +130,13 @@ export const submitExam = (
 function exampleAPI() {
   return Promise.resolve(realExam);
 }
+
+export const pauseExam = (newTime: string): ExamActionTypes => {
+  return {
+    type: PAUSE_EXAM,
+    payload: newTime,
+  };
+};
 
 // Local DB functions
 

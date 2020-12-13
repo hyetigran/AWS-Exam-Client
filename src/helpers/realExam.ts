@@ -5,9 +5,10 @@ export const realExam = {
   examNumber: "1",
   examType: "CloudPractitioner",
   correct: 0,
-  time: "",
+  time: "5400000",
   currentQuestion: 1,
   isPaused: false,
+  isFinished: false,
   questions: [
     {
       // Q1

@@ -24,6 +24,7 @@ export interface ExamState {
   currentQuestion: number;
   time: string;
   isPaused: boolean;
+  isFinished: boolean;
 }
 
 export interface RootState {
@@ -50,13 +51,13 @@ interface submitExamAction {
   payload: boolean;
 }
 
-// interface pauseExamToggleAction {
-//   type: typeof FETCH_EXAM;
-//   payload: boolean;
-// }
+interface pauseExamToggleAction {
+  type: typeof PAUSE_EXAM;
+  payload: string;
+}
 
 export type ExamActionTypes =
   | getExamAction
   | nextQuestionAction
-  | submitExamAction;
-// | pauseExamToggleAction;
+  | submitExamAction
+  | pauseExamToggleAction;

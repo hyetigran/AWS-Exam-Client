@@ -7,6 +7,8 @@ import { RootState } from "../../store/types";
 import { Col, Row, Jumbotron } from "reactstrap";
 
 import SessionCard from "../../components/exam/SessionCard";
+import CountdownTimer from "../../components/countdownTimer/CountdownTimer";
+import ControlsModal from "../../components/modal/ControlsModal";
 
 import "./ExamSessions.css";
 import { nextQuestion, submitExam } from "../../store/actions";
@@ -20,12 +22,14 @@ interface UserAnswers {
 const ExamSessions = () => {
   const examData = useSelector((state: RootState) => state.exam);
   const [userAnswers, setUserAnswers] = useState<UserAnswers>({});
+  const [modal, setModal] = useState(false);
+  const [isStopped, setIsStopped] = useState(false);
   const { currentQuestion } = examData;
   const dispatch = useDispatch();
   const history = useHistory();
 
   // useEffect(() => {});
-  // console.log("exam", examData);
+  // console.log("modal", modal);
   // console.log("uA", userAnswers);
 
   const answerSelectHandler = (
@@ -115,12 +119,7 @@ const ExamSessions = () => {
     };
     // Redux Action
     dispatch(
-      nextQuestion(
-        isCorrect,
-        examData.currentQuestion,
-        questioned,
-        EXAM_SESSION_ID
-      )
+      nextQuestion(isCorrect, currentQuestion, questioned, EXAM_SESSION_ID)
     );
     // All exams have 65 questions
     if (currentQuestion === 65) {
@@ -130,10 +129,53 @@ const ExamSessions = () => {
           examData.examType,
           examData.examNumber,
           questioned,
-          EXAM_SESSION_ID
+          EXAM_SESSION_ID,
+          currentQuestion
         )
       );
     }
+  };
+
+  const finishExam = (e: React.MouseEvent) => {
+    const {
+      isMultipleChoice,
+      correctAnswer,
+      incorrectAnswer,
+      question,
+      explanation,
+    } = examData.questions[examData.currentQuestion - 1];
+
+    let EXAM_SESSION_ID = examData.EXAM_SESSION_ID;
+
+    let cAnswers = correctAnswer.map((answer) => {
+      return { ...answer, isCorrect: true };
+    });
+    let iAnswers = incorrectAnswer.map((answer) => {
+      return { ...answer, isCorrect: false };
+    });
+    let questioned = {
+      isMultipleChoice,
+      explanation,
+      question,
+      answers: [...iAnswers, ...cAnswers],
+    };
+
+    dispatch(
+      submitExam(
+        history,
+        examData.examType,
+        examData.examNumber,
+        questioned,
+        EXAM_SESSION_ID,
+        currentQuestion,
+        examData
+      )
+    );
+  };
+
+  const toggleModal = (isStopped: boolean) => {
+    setModal(!modal);
+    setIsStopped(isStopped);
   };
 
   return (
@@ -142,13 +184,12 @@ const ExamSessions = () => {
         <Col sm={{ size: 1, offset: 1 }}>
           <div>{examData.currentQuestion}/65</div>
         </Col>
-        <Col>
+        <Col sm={{ size: 7 }}>
           <Progress color="success" value={examData.currentQuestion} max={65} />
         </Col>
-        {/* <p>clock icon</p>
-        <p>time</p>
-        <p>pause</p>
-        <p>stop modal</p> */}
+        <Col sm={{ size: 1 }}>
+          <CountdownTimer toggle={toggleModal} modal={modal} />
+        </Col>
       </Row>
       <Jumbotron className="jumbotronCustom">
         <SessionCard
@@ -158,6 +199,14 @@ const ExamSessions = () => {
           nextQuestion={nextQuestionHandler}
         />
       </Jumbotron>
+      {modal && (
+        <ControlsModal
+          finishExam={finishExam}
+          isStopped={isStopped}
+          toggle={toggleModal}
+          modal={modal}
+        />
+      )}
     </>
   );
 };
