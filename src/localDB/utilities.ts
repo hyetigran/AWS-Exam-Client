@@ -33,6 +33,13 @@ export async function readAllExams(db: any) {
 }
 
 /**
+ * Read all exams
+ */
+export async function readAllCompletedExams(db: any) {
+  return await db.exams.where("isFinished").equals(true).toArray();
+}
+
+/**
  * Delete all exams
  */
 export async function deleteAllExams(db: any) {

@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import { Progress } from "reactstrap";
-import { RootState } from "../../store/types";
+import { RootState } from "../../store/exam/types";
+// import { RootState } from "../../store/index";
 import { Col, Row, Jumbotron } from "reactstrap";
 
 import SessionCard from "../../components/exam/SessionCard";
@@ -11,8 +12,8 @@ import CountdownTimer from "../../components/countdownTimer/CountdownTimer";
 import ControlsModal from "../../components/modal/ControlsModal";
 
 import "./ExamSessions.css";
-import { nextQuestion, submitExam } from "../../store/actions";
-import { Answer } from "../../store/types";
+import { nextQuestion, submitExam } from "../../store/exam/actions";
+import { Answer } from "../../store/exam/types";
 import { BareAnswer } from "../../localDB/model";
 
 interface UserAnswers {

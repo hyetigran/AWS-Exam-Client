@@ -11,8 +11,8 @@ import {
   Label,
 } from "reactstrap";
 
-import { thunkGetExam } from "../../store/actions";
-import { ExamState } from "../../store/types";
+import { thunkGetExam } from "../../store/exam/actions";
+import { ExamState } from "../../store/exam/types";
 //import { db } from "../../localDB/db";
 //import { openDatabase } from "../../localDB/utilities";
 

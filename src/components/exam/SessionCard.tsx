@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
-import { Question, Answer } from "../../store/types";
+import { Question, Answer } from "../../store/exam/types";
 
 import "./SessionCard.css";
 
@@ -22,9 +22,10 @@ const SessionCard: React.FC<SessionCardProps> = (props) => {
   } = props.question;
 
   const [answerChecked, setAnswerChecked] = useState<InputSelected>({});
-  const [initialAnswerChecked, setInitialAnswerChecked] = useState<
-    InputSelected
-  >({});
+  const [
+    initialAnswerChecked,
+    setInitialAnswerChecked,
+  ] = useState<InputSelected>({});
 
   useEffect(() => {
     initialCheckedState();

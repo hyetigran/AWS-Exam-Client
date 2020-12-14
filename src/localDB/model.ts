@@ -49,6 +49,7 @@ export class Exam extends AbstractEntity {
     public currentQuestion: number,
     public time: string,
     public isPaused: boolean,
+    public isFinished: boolean,
     gid?: string
   ) {
     super(gid);

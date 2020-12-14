@@ -1,10 +1,12 @@
-import { examReducer } from "./reducer";
+import { examReducer } from "./exam/reducer";
+import { historyReducer } from "./history/reducer";
 import { combineReducers, applyMiddleware, createStore } from "redux";
 import thunkMiddleware from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 const rootReducer = combineReducers({
   exam: examReducer,
+  examHistory: historyReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

@@ -1,8 +1,8 @@
 import { Action } from "redux";
-import { RootState } from "./index";
+import { RootState } from "../index";
 import { ThunkAction } from "redux-thunk";
 import { History } from "history";
-import { realExam } from "../helpers/realExam";
+import { realExam } from "../../helpers/realExam";
 import _ from "lodash/shuffle";
 import {
   ExamActionTypes,
@@ -12,20 +12,20 @@ import {
   PAUSE_EXAM,
   ExamState,
 } from "./types";
-import { db } from "../localDB/db";
+import { db } from "../../localDB/db";
 import {
   Exam,
   BareAnswer,
   BareQuestion,
   Question,
   Answer,
-} from "../localDB/model";
+} from "../../localDB/model";
 import {
   createAnswer,
   createExam,
   createQuestion,
   readExam,
-} from "../localDB/utilities";
+} from "../../localDB/utilities";
 
 export const thunkGetExam = (
   examType: string,
@@ -120,7 +120,7 @@ export const submitExam = (
       addQuestionAnswerToExamSession(unansweredQuestions, EXAM_SESSION_ID);
     }
   }
-  history.push(`/exam-results/${examType}/${examNumber}/${EXAM_SESSION_ID}`);
+  history.push(`/exam-review/${examType}/${examNumber}/${EXAM_SESSION_ID}`);
   return {
     type: SUBMIT_EXAM,
     payload: true,
@@ -152,6 +152,7 @@ async function addExamSession(exam: ExamState): Promise<string> {
         currentQuestion,
         time,
         isPaused,
+        isFinished,
       } = exam;
       const examSession = new Exam(
         examNumber,
@@ -159,7 +160,8 @@ async function addExamSession(exam: ExamState): Promise<string> {
         correct,
         currentQuestion,
         time,
-        isPaused
+        isPaused,
+        isFinished
       );
 
       return await createExam(db, examSession);
