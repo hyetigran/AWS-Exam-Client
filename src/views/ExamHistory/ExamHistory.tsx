@@ -11,7 +11,7 @@ const ExamHistory = () => {
   const dispatch = useDispatch();
   // Fetch completed exam sessions from indexedDB
   useEffect(() => {
-    dispatch(thunkFetchExamHistory());
+    //dispatch(thunkFetchExamHistory());
   }, []);
 
   return (
