@@ -2,3 +2,11 @@
   margin: 0 auto;
   width: 930px;
 }
+
+.historyContainer .card-deck {
+  justify-content: center;
+}
+
+.historyContainer .jumbotron img {
+  width: 65vw;
+}

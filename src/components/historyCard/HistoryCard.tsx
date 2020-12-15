@@ -12,8 +12,13 @@ import {
 } from "reactstrap";
 
 import "./HistoryCard.css";
+import { ExamHistoryType } from "../../store/history/types";
 
-const HistoryCard = () => {
+type HistoryCardProps = {
+  exam: ExamHistoryType;
+};
+
+const HistoryCard: React.FC<HistoryCardProps> = (props) => {
   const lineWidth = 60;
   return (
     <Card className="text-center">

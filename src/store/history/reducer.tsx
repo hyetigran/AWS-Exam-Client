@@ -1,4 +1,8 @@
-import { ExamHistoryTypes, ExamHistory, FETCH_ALL_EXAM_HISTORY } from "./types";
+import {
+  ExamHistoryTypes,
+  ExamHistoryType,
+  FETCH_ALL_EXAM_HISTORY,
+} from "./types";
 
 const initialExamHistoryState = [
   {
@@ -16,7 +20,7 @@ const initialExamHistoryState = [
 export function historyReducer(
   state = initialExamHistoryState,
   action: ExamHistoryTypes
-): ExamHistory[] {
+): ExamHistoryType[] {
   switch (action.type) {
     case FETCH_ALL_EXAM_HISTORY:
       return action.payload;

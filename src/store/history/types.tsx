@@ -1,6 +1,10 @@
 export const FETCH_ALL_EXAM_HISTORY = "FETCH_ALL_EXAM_HISTORY";
 
-export interface ExamHistory {
+export interface RootState {
+  history: ExamHistoryType[];
+}
+
+export interface ExamHistoryType {
   EXAM_SESSION_ID: string;
   examNumber: string;
   examType: string;
@@ -13,7 +17,7 @@ export interface ExamHistory {
 
 interface fetchExamHistoryAction {
   type: typeof FETCH_ALL_EXAM_HISTORY;
-  payload: ExamHistory[];
+  payload: ExamHistoryType[];
 }
 
 export type ExamHistoryTypes = fetchExamHistoryAction;
