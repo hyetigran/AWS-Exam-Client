@@ -14,12 +14,7 @@ interface InputSelected {
   [key: string]: boolean;
 }
 const SessionCard: React.FC<SessionCardProps> = (props) => {
-  const {
-    questionId,
-    question,
-    shuffledAnswerBank,
-    isMultipleChoice,
-  } = props.question;
+  const { questionId, question, answers, isMultipleChoice } = props.question;
 
   const [answerChecked, setAnswerChecked] = useState<InputSelected>({});
   const [
@@ -33,8 +28,8 @@ const SessionCard: React.FC<SessionCardProps> = (props) => {
 
   const initialCheckedState = () => {
     let initialSelected: InputSelected = {};
-    for (let i = 0; i < shuffledAnswerBank.length; i++) {
-      let aId = shuffledAnswerBank[i].answerId;
+    for (let i = 0; i < answers.length; i++) {
+      let aId = answers[i].answerId;
       initialSelected[aId] = false;
     }
     setAnswerChecked(initialSelected);
@@ -48,6 +43,7 @@ const SessionCard: React.FC<SessionCardProps> = (props) => {
     let shouldResetChecked = isMultipleChoice
       ? initialAnswerChecked
       : answerChecked;
+
     setAnswerChecked({
       ...shouldResetChecked,
       [answer.answerId]: isChecked,
@@ -60,7 +56,7 @@ const SessionCard: React.FC<SessionCardProps> = (props) => {
       <p>{question}</p>
 
       <Form id="exam-form">
-        {shuffledAnswerBank.map((answer) => {
+        {answers.map((answer) => {
           return (
             <FormGroup
               check

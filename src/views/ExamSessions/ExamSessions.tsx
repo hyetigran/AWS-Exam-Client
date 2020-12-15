@@ -61,62 +61,34 @@ const ExamSessions = () => {
     e.preventDefault();
     let EXAM_SESSION_ID = examData.EXAM_SESSION_ID;
     let qId = examData.questions[examData.currentQuestion - 1].questionId;
-    let isCorrect = false;
+    let isCorrect = true;
     const {
       isMultipleChoice,
-      correctAnswer,
-      incorrectAnswer,
+      answers,
       question,
       explanation,
     } = examData.questions[examData.currentQuestion - 1];
 
-    // Toggle isSelected and isCorrect
-    let cAnswers = correctAnswer.map((answer) => {
+    // Toggle isSelected
+    let updatedAnswers: Answer[] = [];
+
+    for (let i in answers) {
+      let answer = answers[i];
       if (userAnswers[qId].findIndex((aId) => aId === answer.answerId)) {
-        answer.isSelected = true;
+        answer.isSelected = 1;
       }
-      let newAnswer = { ...answer, isCorrect: true };
-      return newAnswer;
-    });
-    let iAnswers = incorrectAnswer.map((answer) => {
-      if (userAnswers[qId].findIndex((aId) => aId === answer.answerId)) {
-        answer.isSelected = true;
+      // Selected and not correct OR not selected and is correct
+      if (answer.isSelected !== answer.isCorrect) {
+        isCorrect = false;
       }
-      let newAnswer = { ...answer, isCorrect: false };
-      return newAnswer;
-    });
-    if (userAnswers![qId] === undefined) {
-      //if user skips question without selecting an answer
-      setUserAnswers({ ...userAnswers, [qId]: [] });
-    } else if (isMultipleChoice) {
-      //if question is MC, check selected against correct array
-      isCorrect = userAnswers![qId][0] === correctAnswer[0].answerId;
-    } else {
-      // if question is select multiple answers
-      if (userAnswers![qId].length !== 2) {
-        // incorrect if at least 2 answers are not selected
-        // or no answers have been selected
-      } else {
-        //check if the right answers were selected
-        let firstChoice = userAnswers[qId][0];
-        let secondChoice = userAnswers[qId][1];
-        if (
-          correctAnswer.findIndex((el: Answer) => firstChoice === el.answerId) >
-            -1 &&
-          correctAnswer.findIndex(
-            (el: Answer) => secondChoice === el.answerId
-          ) > -1
-        ) {
-          isCorrect = true;
-        }
-      }
+      updatedAnswers.concat(answer);
     }
 
     let questioned = {
       isMultipleChoice,
       explanation,
       question,
-      answers: [...iAnswers, ...cAnswers],
+      answers: updatedAnswers,
     };
     // Redux Action
     dispatch(
@@ -141,25 +113,18 @@ const ExamSessions = () => {
   const finishExam = (e: React.MouseEvent) => {
     const {
       isMultipleChoice,
-      correctAnswer,
-      incorrectAnswer,
+      answers,
       question,
       explanation,
     } = examData.questions[examData.currentQuestion - 1];
 
     let EXAM_SESSION_ID = examData.EXAM_SESSION_ID;
 
-    let cAnswers = correctAnswer.map((answer) => {
-      return { ...answer, isCorrect: true };
-    });
-    let iAnswers = incorrectAnswer.map((answer) => {
-      return { ...answer, isCorrect: false };
-    });
     let questioned = {
       isMultipleChoice,
       explanation,
       question,
-      answers: [...iAnswers, ...cAnswers],
+      answers,
     };
 
     dispatch(
