@@ -51,11 +51,8 @@ export const thunkGetExam = (
 
 const getExam = (exam: ExamState): ExamActionTypes => {
   for (let i = 0; i < exam.questions.length; i++) {
-    let shuffledAnswers = _([
-      ...exam.questions[i].incorrectAnswer,
-      ...exam.questions[i].correctAnswer,
-    ]);
-    exam.questions[i].shuffledAnswerBank = shuffledAnswers;
+    let shuffledAnswers = _(exam.questions[i].answers);
+    exam.questions[i].answers = shuffledAnswers;
   }
 
   return {
@@ -94,30 +91,24 @@ export const submitExam = (
 ): ExamActionTypes => {
   addQuestionAnswerToExamSession(questioned, EXAM_SESSION_ID);
   // Toggle isFinished
-  examData.isFinished = true;
+  examData.isFinished = 1;
   updateExamSession(examData);
   // Exam is finished before last question
   if (currentQuestion !== 65) {
     // store all unanswered questions to indexedDB
     for (let i = currentQuestion; i < 65; i++) {
       let {
-        correctAnswer,
-        incorrectAnswer,
+        answers,
         isMultipleChoice,
         question,
         explanation,
       } = examData!.questions[i];
-      let cAnswers = correctAnswer.map((answer) => {
-        return { ...answer, isCorrect: true };
-      });
-      let iAnswers = incorrectAnswer.map((answer) => {
-        return { ...answer, isCorrect: false };
-      });
+
       let unansweredQuestions = {
         isMultipleChoice,
         explanation,
         question,
-        answers: [...iAnswers, ...cAnswers],
+        answers,
       };
       addQuestionAnswerToExamSession(unansweredQuestions, EXAM_SESSION_ID);
     }
@@ -125,7 +116,7 @@ export const submitExam = (
   history.push(`/exam-review/${examType}/${examNumber}/${EXAM_SESSION_ID}`);
   return {
     type: SUBMIT_EXAM,
-    payload: true,
+    payload: 1,
   };
 };
 
@@ -213,14 +204,16 @@ async function updateExamSession(exam: ExamState): Promise<string> {
         isFinished,
       } = exam;
 
+      let paused = isPaused ? 1 : 0;
+      let finished = isFinished ? 1 : 0;
       const examSession = new Exam(
         examNumber,
         examType,
         correct,
         currentQuestion,
         time,
-        isPaused,
-        isFinished,
+        paused,
+        finished,
         EXAM_SESSION_ID
       );
       return await updateExam(db, examSession);

@@ -2,17 +2,16 @@
 export interface Answer {
   answerId: string;
   choice: string;
-  isSelected: boolean;
+  isSelected: number;
+  isCorrect: number;
 }
 
 export interface Question {
   questionId: string;
   question: string;
-  incorrectAnswer: Answer[];
-  correctAnswer: Answer[];
+  answers: Answer[];
   explanation: string;
-  isMultipleChoice: boolean;
-  shuffledAnswerBank: Answer[];
+  isMultipleChoice: number;
 }
 
 export interface ExamState {
@@ -23,8 +22,8 @@ export interface ExamState {
   correct: number;
   currentQuestion: number;
   time: string;
-  isPaused: boolean;
-  isFinished: boolean;
+  isPaused: number;
+  isFinished: number;
 }
 
 export interface RootState {
@@ -48,7 +47,7 @@ interface nextQuestionAction {
 
 interface submitExamAction {
   type: typeof SUBMIT_EXAM;
-  payload: boolean;
+  payload: number;
 }
 
 interface pauseExamToggleAction {
