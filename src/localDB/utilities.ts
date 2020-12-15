@@ -68,7 +68,7 @@ export async function readExam(db: any, examGID: string): Promise<Exam> {
  * Update exam
  */
 export async function updateExam(db: any, exam: Exam) {
-  return await db.exam.put(exam);
+  return await db.exams.put(exam);
 }
 
 /**

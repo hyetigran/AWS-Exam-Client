@@ -131,7 +131,8 @@ const ExamSessions = () => {
           examData.examNumber,
           questioned,
           EXAM_SESSION_ID,
-          currentQuestion
+          currentQuestion,
+          examData
         )
       );
     }

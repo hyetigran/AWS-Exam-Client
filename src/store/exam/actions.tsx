@@ -25,6 +25,7 @@ import {
   createExam,
   createQuestion,
   readExam,
+  updateExam,
 } from "../../localDB/utilities";
 
 export const thunkGetExam = (
@@ -89,15 +90,16 @@ export const submitExam = (
   questioned: BareQuestion,
   EXAM_SESSION_ID: string,
   currentQuestion: number,
-  examData?: ExamState
+  examData: ExamState
 ): ExamActionTypes => {
   addQuestionAnswerToExamSession(questioned, EXAM_SESSION_ID);
-
+  // Toggle isFinished
+  examData.isFinished = true;
+  updateExamSession(examData);
   // Exam is finished before last question
   if (currentQuestion !== 65) {
     // store all unanswered questions to indexedDB
     for (let i = currentQuestion; i < 65; i++) {
-      console.log("i", i);
       let {
         correctAnswer,
         incorrectAnswer,
@@ -193,4 +195,35 @@ async function addQuestionAnswerToExamSession(
       );
     }
   });
+}
+
+async function updateExamSession(exam: ExamState): Promise<string> {
+  return await db.transaction(
+    "rw",
+    db.exams,
+    async (): Promise<string> => {
+      const {
+        EXAM_SESSION_ID,
+        examNumber,
+        examType,
+        correct,
+        currentQuestion,
+        time,
+        isPaused,
+        isFinished,
+      } = exam;
+
+      const examSession = new Exam(
+        examNumber,
+        examType,
+        correct,
+        currentQuestion,
+        time,
+        isPaused,
+        isFinished,
+        EXAM_SESSION_ID
+      );
+      return await updateExam(db, examSession);
+    }
+  );
 }

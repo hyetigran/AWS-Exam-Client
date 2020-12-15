@@ -12,7 +12,7 @@ class ExamDatabase extends Dexie {
     const db = this;
     db.version(1).stores({
       exams:
-        "&gid, examNumber, examType, correct, currentQuestion, time, isPaused",
+        "&gid, examNumber, examType, correct, currentQuestion, time, isPaused, isFinished",
       questions: "&gid, examId, question, explanation, isMultipleChoice",
       answers: "&gid, questionId, choice, isSelected, isCorrect",
     });
