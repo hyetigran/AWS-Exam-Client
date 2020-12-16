@@ -73,13 +73,15 @@ const ExamSessions = () => {
 
     for (let i in answers) {
       let answer = answers[i];
-      if (userAnswers[qId].findIndex((aId) => aId === answer.answerId)) {
+
+      if (userAnswers[qId].findIndex((aId) => aId === answer.answerId) >= 0) {
         answer.isSelected = 1;
       }
       // Selected and not correct OR not selected and is correct
       if (answer.isSelected !== answer.isCorrect) {
         isCorrect = false;
       }
+      console.log(answer);
       updatedAnswers.concat(answer);
     }
 

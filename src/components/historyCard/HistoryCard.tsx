@@ -45,7 +45,7 @@ const HistoryCard: React.FC<HistoryCardProps> = (props) => {
       <CardBody>
         <CardTitle>{`Exam: ${examType}`}</CardTitle>
         <CardSubtitle>{`Exam Number: ${examNumber}`}</CardSubtitle>
-        <CardText>{`Score: ${correct / 65}%`}</CardText>
+        <CardText>{`Score: ${(correct / 65).toFixed(2)}%`}</CardText>
         <CardText>{`Duration: ${formattedTime}`}</CardText>
         <Button outline color="primary">
           <Link to={`exam-review/`}>Review Questions</Link>

@@ -13,13 +13,7 @@ import {
   ExamState,
 } from "./types";
 import { db } from "../../localDB/db";
-import {
-  Exam,
-  BareAnswer,
-  BareQuestion,
-  Question,
-  Answer,
-} from "../../localDB/model";
+import { Exam, BareQuestion, Question, Answer } from "../../localDB/model";
 import {
   createAnswer,
   createExam,
