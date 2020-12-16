@@ -14,7 +14,6 @@ import ControlsModal from "../../components/modal/ControlsModal";
 import "./ExamSessions.css";
 import { nextQuestion, submitExam } from "../../store/exam/actions";
 import { Answer } from "../../store/exam/types";
-import { BareAnswer } from "../../localDB/model";
 
 interface UserAnswers {
   [key: string]: string[];

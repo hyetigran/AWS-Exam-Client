@@ -25,7 +25,7 @@ const ExamHistory = () => {
       <CardDeck>
         {completedExamSessions ? (
           completedExamSessions.map((exam: ExamHistoryType) => {
-            return <HistoryCard exam={exam} />;
+            return <HistoryCard key={exam.gid} exam={exam} />;
           })
         ) : (
           <Jumbotron>

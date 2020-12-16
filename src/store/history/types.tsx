@@ -5,7 +5,7 @@ export interface RootState {
 }
 
 export interface ExamHistoryType {
-  EXAM_SESSION_ID: string;
+  gid: string;
   examNumber: string;
   examType: string;
   correct: number;

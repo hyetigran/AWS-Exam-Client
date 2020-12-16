@@ -6,7 +6,7 @@ import {
 
 const initialExamHistoryState = [
   {
-    EXAM_SESSION_ID: "",
+    gid: "",
     examNumber: "",
     examType: "",
     correct: 0,
