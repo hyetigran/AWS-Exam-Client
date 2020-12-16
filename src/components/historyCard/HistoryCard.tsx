@@ -19,6 +19,7 @@ type HistoryCardProps = {
 };
 
 const HistoryCard: React.FC<HistoryCardProps> = (props) => {
+  const { examNumber, examType, correct, time } = props.exam;
   const lineWidth = 60;
   return (
     <Card className="text-center">
@@ -40,10 +41,10 @@ const HistoryCard: React.FC<HistoryCardProps> = (props) => {
         }}
       />
       <CardBody>
-        <CardTitle>Exam: Cloud Practitioner</CardTitle>
-        <CardSubtitle>Exam Number: 1</CardSubtitle>
-        <CardText>70% Correct</CardText>
-        <CardText>{Date.now()}</CardText>
+        <CardTitle>{`Exam: ${examNumber}`}</CardTitle>
+        <CardSubtitle>{`Exam Number: ${examType}`}</CardSubtitle>
+        <CardText>{`Score: ${correct / 65}`}</CardText>
+        <CardText>{`Duration: ${time}`}</CardText>
         <Button outline color="primary">
           <Link to={`exam-review/`}>Review Questions</Link>
         </Button>

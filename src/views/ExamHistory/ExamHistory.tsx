@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CardDeck, Jumbotron, Media } from "reactstrap";
+import { useHistory } from "react-router-dom";
+import { CardDeck, Jumbotron } from "reactstrap";
 import { thunkFetchExamHistory } from "../../store/history/actions";
 import { RootState, ExamHistoryType } from "../../store/history/types";
 import emptyImage from "../../assets/undraw_empty_xct9.png";
@@ -10,9 +11,10 @@ import "./ExamHistory.css";
 
 const ExamHistory = () => {
   const completedExamSessions = useSelector(
-    (state: RootState) => state.history
+    (state: RootState) => state.examHistory
   );
   const dispatch = useDispatch();
+
   // Fetch completed exam sessions from indexedDB
   useEffect(() => {
     dispatch(thunkFetchExamHistory());

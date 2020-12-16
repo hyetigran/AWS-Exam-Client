@@ -1,4 +1,5 @@
 import { ThunkAction } from "redux-thunk";
+import { History } from "history";
 import { RootState } from "../index";
 import { Action } from "redux";
 import { readAllCompletedExams } from "../../localDB/utilities";
@@ -34,6 +35,7 @@ export const thunkFetchExamHistory = (): ThunkAction<
 > => async (dispatch) => {
   try {
     const examHistory = await getSavedExams();
+
     dispatch(fetchExamHistory(examHistory));
   } catch (error) {
     console.log(error);

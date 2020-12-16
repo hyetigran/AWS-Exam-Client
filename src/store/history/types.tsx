@@ -1,7 +1,7 @@
 export const FETCH_ALL_EXAM_HISTORY = "FETCH_ALL_EXAM_HISTORY";
 
 export interface RootState {
-  history: ExamHistoryType[];
+  examHistory: ExamHistoryType[];
 }
 
 export interface ExamHistoryType {

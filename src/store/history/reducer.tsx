@@ -23,6 +23,7 @@ export function historyReducer(
 ): ExamHistoryType[] {
   switch (action.type) {
     case FETCH_ALL_EXAM_HISTORY:
+      console.log(action.payload);
       return action.payload;
     default:
       return state;
