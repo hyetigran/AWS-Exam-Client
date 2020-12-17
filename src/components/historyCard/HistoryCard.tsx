@@ -24,7 +24,7 @@ const HistoryCard: React.FC<HistoryCardProps> = (props) => {
   const lineWidth = 60;
   let formattedTime = msToHMS(5400000 - parseInt(time));
   return (
-    <Card className="text-center">
+    <Card className="text-center" id="history">
       <PieChart
         data={[
           { title: "Correct", value: correct, color: "#85edc2" },

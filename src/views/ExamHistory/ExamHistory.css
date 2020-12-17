@@ -1,6 +1,6 @@
 .historyContainer {
   margin: 0 auto;
-  width: 930px;
+  max-width: 930px;
 }
 
 .historyContainer .card-deck {
