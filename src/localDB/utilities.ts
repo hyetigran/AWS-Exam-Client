@@ -157,22 +157,22 @@ export async function deleteAnswer(db: any, answer: Answer) {
  * Load question records and
  * update the corresponding exam fields.
  */
-export async function loadExamQuestions(exam: Exam, db: any) {
-  exam.questions = await db.questions
-    .where("examId")
-    .equals(exam.gid)
-    .toArray();
+export async function loadExamQuestions(
+  gid: string,
+  db: any
+): Promise<Question[]> {
+  return await db.questions.where("examId").equals(gid).toArray();
 }
 
 /**
  * Load answer and
  * update the corresponding question fields.
  */
-export async function loadQuestionAnswers(question: Question, db: any) {
-  question.answers = await db.answers
-    .where("questionId")
-    .equals(question.gid)
-    .toArray();
+export async function loadQuestionAnswers(
+  gid: string,
+  db: any
+): Promise<Answer[]> {
+  return await db.answers.where("questionId").equals(gid).toArray();
 }
 
 /**
@@ -196,7 +196,7 @@ export async function loadAnswerProperties(db: any, question: Question) {
 }
 
 /**
- * Save a exam entity.  If email or phone records
+ * Save a exam entity.  If question or answer records
  * were removed from the exam, then these will also
  * be deleted from the database.
  */

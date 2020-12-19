@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { CardDeck, Jumbotron } from "reactstrap";
 import { thunkFetchExamHistory } from "../../store/history/actions";
 import { RootState, ExamHistoryType } from "../../store/history/types";

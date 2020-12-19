@@ -20,7 +20,7 @@ type HistoryCardProps = {
 };
 
 const HistoryCard: React.FC<HistoryCardProps> = (props) => {
-  const { examNumber, examType, correct, time } = props.exam;
+  const { examNumber, examType, correct, time, gid } = props.exam;
   const lineWidth = 60;
   let formattedTime = msToHMS(5400000 - parseInt(time));
   return (
@@ -48,7 +48,9 @@ const HistoryCard: React.FC<HistoryCardProps> = (props) => {
         <CardText>{`Score: ${(correct / 65).toFixed(2)}%`}</CardText>
         <CardText>{`Duration: ${formattedTime}`}</CardText>
         <Button outline color="primary">
-          <Link to={`exam-review/`}>Review Questions</Link>
+          <Link to={`exam-review/${examType}/${examNumber}/${gid}`}>
+            Review Questions
+          </Link>
         </Button>
       </CardBody>
     </Card>
