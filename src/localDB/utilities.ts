@@ -1,3 +1,4 @@
+import { ExamHistoryType } from "../store/history/types";
 import { Exam, Question, Answer } from "./model";
 
 /**
@@ -60,7 +61,7 @@ export async function createExam(db: any, exam: Exam): Promise<string> {
 /**
  * Read a exam
  */
-export async function readExam(db: any, examGID: string): Promise<Exam> {
+export async function readExam(db: any, examGID: string) {
   return await db.exams.get(examGID);
 }
 

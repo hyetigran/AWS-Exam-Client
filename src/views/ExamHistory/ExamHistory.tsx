@@ -12,6 +12,7 @@ const ExamHistory = () => {
   const completedExamSessions = useSelector(
     (state: RootState) => state.examHistory
   );
+
   const dispatch = useDispatch();
 
   // Fetch completed exam sessions from indexedDB

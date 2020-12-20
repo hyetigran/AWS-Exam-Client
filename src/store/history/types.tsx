@@ -33,7 +33,7 @@ export interface ExamHistoryType {
 
 interface getExamHistory {
   type: typeof FETCH_QUESTIONS_HISTORY;
-  payload: { questions: Question[]; gid: string };
+  payload: ExamHistoryType;
 }
 
 interface fetchExamHistoryAction {

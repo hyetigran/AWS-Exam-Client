@@ -1,6 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { PieChart } from "react-minimal-pie-chart";
+import { useHistory } from "react-router-dom";
 
 import {
   Card,
@@ -21,6 +21,7 @@ type HistoryCardProps = {
 
 const HistoryCard: React.FC<HistoryCardProps> = (props) => {
   const { examNumber, examType, correct, time, gid } = props.exam;
+  const history = useHistory();
   const lineWidth = 60;
   let formattedTime = msToHMS(5400000 - parseInt(time));
   return (
@@ -47,10 +48,17 @@ const HistoryCard: React.FC<HistoryCardProps> = (props) => {
         <CardSubtitle>{`Exam Number: ${examNumber}`}</CardSubtitle>
         <CardText>{`Score: ${(correct / 65).toFixed(2)}%`}</CardText>
         <CardText>{`Duration: ${formattedTime}`}</CardText>
-        <Button outline color="primary">
-          <Link to={`exam-review/${examType}/${examNumber}/${gid}`}>
-            Review Questions
-          </Link>
+        <Button
+          outline
+          color="primary"
+          onClick={() =>
+            history.push(`exam-review/${examType}/${examNumber}/${gid}`, {
+              exam: props.exam,
+              from: "history",
+            })
+          }
+        >
+          Review Questions
         </Button>
       </CardBody>
     </Card>

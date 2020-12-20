@@ -1,12 +1,14 @@
 import { ThunkAction } from "redux-thunk";
-import { History } from "history";
 import { RootState } from "../index";
 import { Action } from "redux";
 import {
   readAllCompletedExams,
   loadExamQuestions,
   loadQuestionAnswers,
+  readExam,
 } from "../../localDB/utilities";
+import { Exam } from "../../localDB/model";
+
 import {
   Question,
   ExamHistoryType,
@@ -48,44 +50,56 @@ export const thunkFetchExamHistory = (): ThunkAction<
   }
 };
 export const thunkFetchQuestionHistory = (
-  gid: string
+  gid: string,
+  isFromHistory: boolean,
+  exam: ExamHistoryType
 ): ThunkAction<void, RootState, unknown, Action<string>> => async (
   dispatch
 ) => {
   try {
-    const questions = await fetchQuestionAnswerFromHistory(gid);
+    const updatedExam = await fetchQuestionAnswerFromHistory(
+      gid,
+      isFromHistory,
+      exam
+    );
 
-    dispatch(fetchExamReview(questions, gid));
+    dispatch(fetchExamReview(updatedExam));
   } catch (error) {
     console.log(error);
   }
 };
-const fetchExamReview = (
-  questions: Question[],
-  gid: string
-): ExamHistoryTypes => {
+const fetchExamReview = (exam: ExamHistoryType): ExamHistoryTypes => {
   return {
     type: FETCH_QUESTIONS_HISTORY,
-    payload: { questions, gid },
+    payload: exam,
   };
 };
 
 async function fetchQuestionAnswerFromHistory(
-  gid: string
-): Promise<Question[]> {
+  gid: string,
+  isFromHistory: boolean,
+  exam: ExamHistoryType
+): Promise<ExamHistoryType> {
   return await db.transaction(
     "rw",
     db.exams,
     db.questions,
     db.answers,
-    async (): Promise<Question[]> => {
+    async (): Promise<ExamHistoryType> => {
+      // If user did not navigate from exam-history component
+      if (!isFromHistory) {
+        // Fetch exam by id
+        exam = await readExam(db, gid);
+      }
       const questions: Question[] = await loadExamQuestions(gid, db);
       for (var i in questions) {
         let question = questions[i];
         let id: string = question.gid!;
         question.answers = await loadQuestionAnswers(id, db);
       }
-      return questions;
+      exam.questions = questions;
+
+      return exam;
     }
   );
 }

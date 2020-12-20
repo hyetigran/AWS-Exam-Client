@@ -26,16 +26,7 @@ export function historyReducer(
     case FETCH_ALL_EXAM_HISTORY:
       return action.payload;
     case FETCH_QUESTIONS_HISTORY:
-      let updatedState = state.filter(
-        (exam) => exam.gid === action.payload.gid
-      );
-      debugger;
-      let questions = action.payload.questions;
-      let examReview = {
-        ...updatedState[0],
-        questions,
-      };
-      return [examReview];
+      return [action.payload];
     default:
       return state;
   }
