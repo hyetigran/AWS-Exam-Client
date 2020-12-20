@@ -81,8 +81,7 @@ const ExamSessions = () => {
       if (answer.isSelected !== answer.isCorrect) {
         isCorrect = false;
       }
-      console.log(answer);
-      updatedAnswers.concat(answer);
+      updatedAnswers.push(answer);
     }
 
     let questioned = {
