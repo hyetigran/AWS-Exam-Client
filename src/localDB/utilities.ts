@@ -1,4 +1,3 @@
-import { ExamHistoryType } from "../store/history/types";
 import { Exam, Question, Answer } from "./model";
 
 /**

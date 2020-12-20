@@ -7,7 +7,6 @@ import {
   loadQuestionAnswers,
   readExam,
 } from "../../localDB/utilities";
-import { Exam } from "../../localDB/model";
 
 import {
   Question,

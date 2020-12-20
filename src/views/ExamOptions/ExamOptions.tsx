@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import {
   Col,
@@ -12,9 +12,6 @@ import {
 } from "reactstrap";
 
 import { thunkGetExam } from "../../store/exam/actions";
-import { ExamState } from "../../store/exam/types";
-//import { db } from "../../localDB/db";
-//import { openDatabase } from "../../localDB/utilities";
 
 import "./ExamOptions.css";
 const INSTRUCTIONS = [
@@ -25,18 +22,11 @@ const INSTRUCTIONS = [
 ];
 
 const ExamOptions = () => {
-  const { examNumber, examType } = useSelector((state: ExamState) => state);
   const [selectName, setSelectName] = useState<string>("CCP");
   const [selectNumber, setSelectNumber] = useState<string>("1");
 
   const history = useHistory();
-  // useEffect(() => {
-  //   openLocalDB();
-  // });
 
-  // const openLocalDB = async () => {
-  //   await openDatabase(db);
-  // };
   const dispatch = useDispatch();
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.name === "examName") {
