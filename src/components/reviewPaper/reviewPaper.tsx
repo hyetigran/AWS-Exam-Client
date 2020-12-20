@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { PieChart } from "react-minimal-pie-chart";
 import {
   Dropdown,
@@ -6,17 +6,36 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
-import { useHistory } from "react-router-dom";
 
 import "./ReviewPaper.css";
+import { ExamHistoryType } from "../../store/history/types";
 
-type ReviewPaperProps = {};
+type ReviewPaperProps = {
+  exam: ExamHistoryType;
+};
 
-const ReviewPaper: React.FC<ReviewPaperProps> = () => {
+const ReviewPaper: React.FC<ReviewPaperProps> = (props) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState("All Questions");
   let dropdownOptions = ["All Questions", "Correct", "Incorrect", "Skipped"];
   const toggle = () => setDropdownOpen((prevState) => !prevState);
+
+  const filterQuestions = (selOpts: string) => {
+    if (dropdownOptions[0] === selOpts) {
+      return props.exam.questions!;
+    }
+
+    return props.exam.questions!.filter((question) => {
+      if (selOpts === "Correct") {
+        return question.status === 1;
+      } else if (selOpts === "Incorrect") {
+        return question.status === 0;
+      } else if (selOpts === "Skipped") {
+        return question.status === 2;
+      }
+    });
+  };
+  let filteredQuestions = filterQuestions(selectedOption);
 
   return (
     <div className="review-paper">
@@ -30,13 +49,6 @@ const ReviewPaper: React.FC<ReviewPaperProps> = () => {
             ]}
             radius={PieChart.defaultProps.radius - 10}
             lineWidth={15}
-            segmentsStyle={{ transition: "stroke .3s", cursor: "pointer" }}
-            // labelPosition={100 - lineWidth / 2}
-            labelStyle={{
-              fill: "#fff",
-              opacity: 0.75,
-              pointerEvents: "none",
-            }}
           />
         </div>
         <div className="review-dropdown">
@@ -44,7 +56,12 @@ const ReviewPaper: React.FC<ReviewPaperProps> = () => {
             <DropdownToggle caret>{selectedOption}</DropdownToggle>
             <DropdownMenu>
               {dropdownOptions.map((opt) => (
-                <DropdownItem key={opt} onClick={() => setSelectedOption(opt)}>
+                <DropdownItem
+                  key={opt}
+                  onClick={() => {
+                    if (opt !== selectedOption) setSelectedOption(opt);
+                  }}
+                >
                   {opt}
                 </DropdownItem>
               ))}

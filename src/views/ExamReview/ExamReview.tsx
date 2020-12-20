@@ -41,7 +41,7 @@ const ExamReview = () => {
           {"< Return to history"}
         </Button>
       </div>
-      <ReviewPaper />
+      <ReviewPaper exam={examReviewData[0]} />
     </div>
   );
 };
