@@ -1,8 +1,8 @@
 import { Action } from "redux";
-import { RootState } from "./index";
+import { RootState } from "../index";
 import { ThunkAction } from "redux-thunk";
 import { History } from "history";
-import { realExam } from "../helpers/realExam";
+import { realExam } from "../../helpers/realExam";
 import _ from "lodash/shuffle";
 import {
   ExamActionTypes,
@@ -12,20 +12,15 @@ import {
   PAUSE_EXAM,
   ExamState,
 } from "./types";
-import { db } from "../localDB/db";
-import {
-  Exam,
-  BareAnswer,
-  BareQuestion,
-  Question,
-  Answer,
-} from "../localDB/model";
+import { db } from "../../localDB/db";
+import { Exam, BareQuestion, Question, Answer } from "../../localDB/model";
 import {
   createAnswer,
   createExam,
   createQuestion,
   readExam,
-} from "../localDB/utilities";
+  updateExam,
+} from "../../localDB/utilities";
 
 export const thunkGetExam = (
   examType: string,
@@ -50,11 +45,8 @@ export const thunkGetExam = (
 
 const getExam = (exam: ExamState): ExamActionTypes => {
   for (let i = 0; i < exam.questions.length; i++) {
-    let shuffledAnswers = _([
-      ...exam.questions[i].incorrectAnswer,
-      ...exam.questions[i].correctAnswer,
-    ]);
-    exam.questions[i].shuffledAnswerBank = shuffledAnswers;
+    let shuffledAnswers = _(exam.questions[i].answers);
+    exam.questions[i].answers = shuffledAnswers;
   }
 
   return {
@@ -89,41 +81,38 @@ export const submitExam = (
   questioned: BareQuestion,
   EXAM_SESSION_ID: string,
   currentQuestion: number,
-  examData?: ExamState
+  examData: ExamState
 ): ExamActionTypes => {
   addQuestionAnswerToExamSession(questioned, EXAM_SESSION_ID);
-
+  // Toggle isFinished
+  examData.isFinished = 1;
+  updateExamSession(examData);
   // Exam is finished before last question
   if (currentQuestion !== 65) {
     // store all unanswered questions to indexedDB
     for (let i = currentQuestion; i < 65; i++) {
-      console.log("i", i);
+      let newStatus = 2;
       let {
-        correctAnswer,
-        incorrectAnswer,
+        answers,
         isMultipleChoice,
         question,
         explanation,
       } = examData!.questions[i];
-      let cAnswers = correctAnswer.map((answer) => {
-        return { ...answer, isCorrect: true };
-      });
-      let iAnswers = incorrectAnswer.map((answer) => {
-        return { ...answer, isCorrect: false };
-      });
+
       let unansweredQuestions = {
         isMultipleChoice,
         explanation,
         question,
-        answers: [...iAnswers, ...cAnswers],
+        answers,
+        status: newStatus,
       };
       addQuestionAnswerToExamSession(unansweredQuestions, EXAM_SESSION_ID);
     }
   }
-  history.push(`/exam-results/${examType}/${examNumber}/${EXAM_SESSION_ID}`);
+  history.push(`/exam-review/${examType}/${examNumber}/${EXAM_SESSION_ID}`);
   return {
     type: SUBMIT_EXAM,
-    payload: true,
+    payload: 1,
   };
 };
 
@@ -152,6 +141,7 @@ async function addExamSession(exam: ExamState): Promise<string> {
         currentQuestion,
         time,
         isPaused,
+        isFinished,
       } = exam;
       const examSession = new Exam(
         examNumber,
@@ -159,7 +149,8 @@ async function addExamSession(exam: ExamState): Promise<string> {
         correct,
         currentQuestion,
         time,
-        isPaused
+        isPaused,
+        isFinished
       );
 
       return await createExam(db, examSession);
@@ -172,11 +163,17 @@ async function addQuestionAnswerToExamSession(
   EXAM_SESSION_ID: string
 ) {
   await db.transaction("rw", db.exams, db.questions, db.answers, async () => {
-    let { isMultipleChoice, explanation, question, answers } = questioned;
+    let {
+      isMultipleChoice,
+      explanation,
+      question,
+      answers,
+      status,
+    } = questioned;
     let exam: Exam = await readExam(db, EXAM_SESSION_ID);
     let questionId = await createQuestion(
       db,
-      new Question(exam.gid!, question, explanation, isMultipleChoice)
+      new Question(exam.gid!, question, explanation, isMultipleChoice, status)
     );
 
     for (let i in answers) {
@@ -191,4 +188,37 @@ async function addQuestionAnswerToExamSession(
       );
     }
   });
+}
+
+async function updateExamSession(exam: ExamState): Promise<string> {
+  return await db.transaction(
+    "rw",
+    db.exams,
+    async (): Promise<string> => {
+      const {
+        EXAM_SESSION_ID,
+        examNumber,
+        examType,
+        correct,
+        currentQuestion,
+        time,
+        isPaused,
+        isFinished,
+      } = exam;
+
+      let paused = isPaused ? 1 : 0;
+      let finished = isFinished ? 1 : 0;
+      const examSession = new Exam(
+        examNumber,
+        examType,
+        correct,
+        currentQuestion,
+        time,
+        paused,
+        finished,
+        EXAM_SESSION_ID
+      );
+      return await updateExam(db, examSession);
+    }
+  );
 }

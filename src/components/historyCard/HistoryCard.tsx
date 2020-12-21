@@ -1,6 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { PieChart } from "react-minimal-pie-chart";
+import { useHistory } from "react-router-dom";
 
 import {
   Card,
@@ -12,15 +12,24 @@ import {
 } from "reactstrap";
 
 import "./HistoryCard.css";
+import { ExamHistoryType } from "../../store/history/types";
+import { msToHMS } from "../../helpers/utilities";
 
-const HistoryCard = () => {
+type HistoryCardProps = {
+  exam: ExamHistoryType;
+};
+
+const HistoryCard: React.FC<HistoryCardProps> = (props) => {
+  const { examNumber, examType, correct, time, gid } = props.exam;
+  const history = useHistory();
   const lineWidth = 60;
+  let formattedTime = msToHMS(5400000 - parseInt(time));
   return (
-    <Card className="text-center">
+    <Card className="text-center" id="history">
       <PieChart
         data={[
-          { title: "Correct", value: 10, color: "#85edc2" },
-          { title: "Incorrect", value: 15, color: "#ff7372" },
+          { title: "Correct", value: correct, color: "#85edc2" },
+          { title: "Incorrect", value: 65 - correct, color: "#ff7372" },
         ]}
         label={({ dataEntry }) => Math.round(dataEntry.percentage) + "%"}
         radius={PieChart.defaultProps.radius - 6}
@@ -35,12 +44,21 @@ const HistoryCard = () => {
         }}
       />
       <CardBody>
-        <CardTitle>Exam: Cloud Practitioner</CardTitle>
-        <CardSubtitle>Exam Number: 1</CardSubtitle>
-        <CardText>70% Correct</CardText>
-        <CardText>{Date.now()}</CardText>
-        <Button outline color="primary">
-          <Link to={`exam-review/`}>Review Questions</Link>
+        <CardTitle>{`Exam: ${examType}`}</CardTitle>
+        <CardSubtitle>{`Exam Number: ${examNumber}`}</CardSubtitle>
+        <CardText>{`Score: ${(correct / 65).toFixed(2)}%`}</CardText>
+        <CardText>{`Duration: ${formattedTime}`}</CardText>
+        <Button
+          outline
+          color="primary"
+          onClick={() =>
+            history.push(`exam-review/${examType}/${examNumber}/${gid}`, {
+              exam: props.exam,
+              from: "history",
+            })
+          }
+        >
+          Review Questions
         </Button>
       </CardBody>
     </Card>

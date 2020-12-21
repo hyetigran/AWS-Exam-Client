@@ -1,0 +1,37 @@
+.review-title {
+  padding: 1em 0;
+  border-bottom: 1px solid grey;
+}
+.review-link {
+  padding: 1em 0;
+}
+.review-overview {
+  display: flex;
+  justify-content: space-between;
+}
+.review-chart {
+  /* max-height: 100px; */
+  flex: 1;
+}
+
+.thumb-piechart {
+  max-height: 100px;
+}
+.review-dropdown {
+  flex: 3;
+}
+
+.scroll-top {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  margin: 1em;
+}
+.scroll-top:hover {
+  cursor: pointer;
+  transform: translateY(-4px);
+}
+
+.scroll-top span {
+  font-size: 2rem;
+}

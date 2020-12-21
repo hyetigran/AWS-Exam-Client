@@ -13,8 +13,8 @@ export class Answer extends AbstractEntity {
   constructor(
     public questionId: string,
     public choice: string,
-    public isSelected: boolean,
-    public isCorrect: boolean,
+    public isSelected: number,
+    public isCorrect: number,
     gid?: string
   ) {
     super(gid);
@@ -28,7 +28,8 @@ export class Question extends AbstractEntity {
     public examId: string,
     public question: string,
     public explanation: string,
-    public isMultipleChoice: boolean,
+    public isMultipleChoice: number,
+    public status: number,
     gid?: string
   ) {
     super(gid);
@@ -48,7 +49,8 @@ export class Exam extends AbstractEntity {
     public correct: number,
     public currentQuestion: number,
     public time: string,
-    public isPaused: boolean,
+    public isPaused: number,
+    public isFinished: number,
     gid?: string
   ) {
     super(gid);
@@ -62,13 +64,14 @@ export class Exam extends AbstractEntity {
 export interface BareQuestion {
   question: string;
   explanation: string;
-  isMultipleChoice: boolean;
+  isMultipleChoice: number;
+  status: number;
   answers: BareAnswer[];
 }
 
 export interface BareAnswer {
   answerId: string;
   choice: string;
-  isSelected: boolean;
-  isCorrect: boolean;
+  isSelected: number;
+  isCorrect: number;
 }

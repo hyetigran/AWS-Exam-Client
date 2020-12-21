@@ -6,7 +6,7 @@ import {
   SUBMIT_EXAM,
   PAUSE_EXAM,
 } from "./types";
-import { realExam } from "../helpers/realExam";
+import { realExam } from "../../helpers/realExam";
 
 // const initialState = {
 //   examNumber: "",
@@ -16,7 +16,7 @@ import { realExam } from "../helpers/realExam";
 //   currentQuestion: 0,
 //   isPaused: false,
 //   questions: Question[],
-//   isFinished
+//   isFinished,
 // };
 
 export function examReducer(

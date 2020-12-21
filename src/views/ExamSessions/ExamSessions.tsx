@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import { Progress } from "reactstrap";
-import { RootState } from "../../store/types";
+import { RootState } from "../../store/exam/types";
+// import { RootState } from "../../store/index";
 import { Col, Row, Jumbotron } from "reactstrap";
 
 import SessionCard from "../../components/exam/SessionCard";
@@ -11,9 +12,8 @@ import CountdownTimer from "../../components/countdownTimer/CountdownTimer";
 import ControlsModal from "../../components/modal/ControlsModal";
 
 import "./ExamSessions.css";
-import { nextQuestion, submitExam } from "../../store/actions";
-import { Answer } from "../../store/types";
-import { BareAnswer } from "../../localDB/model";
+import { nextQuestion, submitExam } from "../../store/exam/actions";
+import { Answer } from "../../store/exam/types";
 
 interface UserAnswers {
   [key: string]: string[];
@@ -27,10 +27,6 @@ const ExamSessions = () => {
   const { currentQuestion } = examData;
   const dispatch = useDispatch();
   const history = useHistory();
-
-  // useEffect(() => {});
-  // console.log("modal", modal);
-  // console.log("uA", userAnswers);
 
   const answerSelectHandler = (
     isChecked: boolean,
@@ -55,68 +51,57 @@ const ExamSessions = () => {
       setUserAnswers({ ...userAnswers, [qId]: answers });
     }
   };
-
-  const nextQuestionHandler = (e: React.MouseEvent) => {
-    e.preventDefault();
-    let EXAM_SESSION_ID = examData.EXAM_SESSION_ID;
-    let qId = examData.questions[examData.currentQuestion - 1].questionId;
-    let isCorrect = false;
+  const currentQuestionHandler = (qId: string, isCorrect: boolean) => {
+    // Correct 1; Incorrect 0; Skipped 2; (initialized at -1 to indicate not set)
+    let newStatus = -1;
     const {
       isMultipleChoice,
-      correctAnswer,
-      incorrectAnswer,
+      answers,
       question,
       explanation,
     } = examData.questions[examData.currentQuestion - 1];
 
-    // Toggle isSelected and isCorrect
-    let cAnswers = correctAnswer.map((answer) => {
-      if (userAnswers[qId].findIndex((aId) => aId === answer.answerId)) {
-        answer.isSelected = true;
+    // Toggle isSelected
+    let updatedAnswers: Answer[] = [];
+
+    for (let i in answers) {
+      let answer = answers[i];
+
+      // Check if user skipped question
+      if (!userAnswers.hasOwnProperty(qId)) {
+        newStatus = 2;
+      } else if (
+        userAnswers[qId].findIndex((aId) => aId === answer.answerId) >= 0
+      ) {
+        answer.isSelected = 1;
       }
-      let newAnswer = { ...answer, isCorrect: true };
-      return newAnswer;
-    });
-    let iAnswers = incorrectAnswer.map((answer) => {
-      if (userAnswers[qId].findIndex((aId) => aId === answer.answerId)) {
-        answer.isSelected = true;
+      // Selected and not correct OR not selected and is correct
+      if (answer.isSelected !== answer.isCorrect) {
+        isCorrect = false;
+        newStatus = 0;
+      } else if (answer.isSelected && answer.isCorrect) {
+        newStatus = 1;
       }
-      let newAnswer = { ...answer, isCorrect: false };
-      return newAnswer;
-    });
-    if (userAnswers![qId] === undefined) {
-      //if user skips question without selecting an answer
-      setUserAnswers({ ...userAnswers, [qId]: [] });
-    } else if (isMultipleChoice) {
-      //if question is MC, check selected against correct array
-      isCorrect = userAnswers![qId][0] === correctAnswer[0].answerId;
-    } else {
-      // if question is select multiple answers
-      if (userAnswers![qId].length !== 2) {
-        // incorrect if at least 2 answers are not selected
-        // or no answers have been selected
-      } else {
-        //check if the right answers were selected
-        let firstChoice = userAnswers[qId][0];
-        let secondChoice = userAnswers[qId][1];
-        if (
-          correctAnswer.findIndex((el: Answer) => firstChoice === el.answerId) >
-            -1 &&
-          correctAnswer.findIndex(
-            (el: Answer) => secondChoice === el.answerId
-          ) > -1
-        ) {
-          isCorrect = true;
-        }
-      }
+      updatedAnswers.push(answer);
     }
 
     let questioned = {
       isMultipleChoice,
       explanation,
       question,
-      answers: [...iAnswers, ...cAnswers],
+      status: newStatus,
+      answers: updatedAnswers,
     };
+    return { questioned, isCorrect };
+  };
+
+  const nextQuestionHandler = (e: React.MouseEvent) => {
+    e.preventDefault();
+    let EXAM_SESSION_ID = examData.EXAM_SESSION_ID;
+    let qId = examData.questions[examData.currentQuestion - 1].questionId;
+    let correct = true;
+
+    let { questioned, isCorrect } = currentQuestionHandler(qId, correct);
     // Redux Action
     dispatch(
       nextQuestion(isCorrect, currentQuestion, questioned, EXAM_SESSION_ID)
@@ -130,35 +115,19 @@ const ExamSessions = () => {
           examData.examNumber,
           questioned,
           EXAM_SESSION_ID,
-          currentQuestion
+          currentQuestion,
+          examData
         )
       );
     }
   };
 
   const finishExam = (e: React.MouseEvent) => {
-    const {
-      isMultipleChoice,
-      correctAnswer,
-      incorrectAnswer,
-      question,
-      explanation,
-    } = examData.questions[examData.currentQuestion - 1];
-
+    e.preventDefault();
+    const { questionId } = examData.questions[examData.currentQuestion - 1];
     let EXAM_SESSION_ID = examData.EXAM_SESSION_ID;
-
-    let cAnswers = correctAnswer.map((answer) => {
-      return { ...answer, isCorrect: true };
-    });
-    let iAnswers = incorrectAnswer.map((answer) => {
-      return { ...answer, isCorrect: false };
-    });
-    let questioned = {
-      isMultipleChoice,
-      explanation,
-      question,
-      answers: [...iAnswers, ...cAnswers],
-    };
+    let { questioned, isCorrect } = currentQuestionHandler(questionId, false);
+    // Score may not be accurate when finishing exam early and current question is answered correctly
 
     dispatch(
       submitExam(

@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch, connect } from "react-redux";
+import React from "react";
+import { connect } from "react-redux";
 import {
   ClockCircleOutlined,
   PauseOutlined,
   CloseOutlined,
 } from "@ant-design/icons";
-import { RootState } from "../../store/types";
-import { pauseExam } from "../../store/actions";
+import { RootState } from "../../store/exam/types";
+import { pauseExam } from "../../store/exam/actions";
 
 import "./CountdownTimer.css";
 
@@ -16,82 +16,6 @@ interface Props {
   time: string;
   pauseExam: (arg0: string) => void;
 }
-
-// const CountdownTimer = ({ toggle, modal }: Props) => {
-//   console.log("mounted");
-//   console.log("modal", modal);
-//   const [unit, setUnit] = useState("");
-//   const time = useSelector((state: RootState) => state.exam.time);
-//   const dispatch = useDispatch();
-
-//   // useEffect(() => {
-//   //   startCountdown();
-//   // }, []);
-
-//   useEffect(() => {
-//     if (modal) {
-//       console.log("cleared", interval);
-//       clearInterval(interval);
-//     } else {
-//       startCountdown();
-//     }
-//   }, [modal]);
-
-//   let interval: ReturnType<typeof setTimeout>;
-
-//   // const timer = () => {
-//   //   console.log(distance);
-//   //   // Terminal condition
-//   //   if (distance <= 0) {
-//   //     setUnit("0:00:00");
-//   //     clearInterval(interval);
-//   //   } else if (distance > 0) {
-//   //     distance -= 1000;
-//   //     var hours = Math.floor(
-//   //       (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-//   //     );
-//   //     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-//   //     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-//   //     setUnit(`${hours}:${minutes}:${seconds}`);
-//   //   }
-//   // };
-//   const startCountdown = () => {
-//     let distance = +time;
-//     interval = setInterval(() => {
-//       // Terminal condition
-//       if (distance <= 0) {
-//         setUnit("0:00:00");
-//         clearInterval(interval);
-//       } else if (distance > 0) {
-//         distance -= 1000;
-//         var hours = Math.floor(
-//           (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-//         );
-//         var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-//         var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-//         setUnit(`${hours}:${minutes}:${seconds}`);
-//       }
-//     }, 1000);
-//   };
-
-//   const pauseCountdown = () => {
-//     // Open Modal
-//     toggle();
-//     // Clear interval
-//     clearInterval(interval);
-//     // Dispatch units as new time
-//     dispatch(pauseExam(unit));
-//   };
-
-//   return (
-//     <div className="timer-container">
-//       <ClockCircleOutlined className="icon" />
-//       <div className="timer">{unit}</div>
-//       <PauseOutlined className="icon" onClick={() => pauseCountdown()} />
-//       <CloseOutlined className="icon" onClick={() => console.log("click")} />
-//     </div>
-//   );
-// };
 
 class CountdownTimer extends React.Component<Props> {
   state = {
