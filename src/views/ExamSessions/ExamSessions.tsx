@@ -51,13 +51,7 @@ const ExamSessions = () => {
       setUserAnswers({ ...userAnswers, [qId]: answers });
     }
   };
-
-  const nextQuestionHandler = (e: React.MouseEvent) => {
-    e.preventDefault();
-    let EXAM_SESSION_ID = examData.EXAM_SESSION_ID;
-    let qId = examData.questions[examData.currentQuestion - 1].questionId;
-    let isCorrect = true;
-
+  const currentQuestionHandler = (qId: string, isCorrect: boolean) => {
     // Correct 1; Incorrect 0; Skipped 2; (initialized at -1 to indicate not set)
     let newStatus = -1;
     const {
@@ -98,6 +92,16 @@ const ExamSessions = () => {
       status: newStatus,
       answers: updatedAnswers,
     };
+    return { questioned, isCorrect };
+  };
+
+  const nextQuestionHandler = (e: React.MouseEvent) => {
+    e.preventDefault();
+    let EXAM_SESSION_ID = examData.EXAM_SESSION_ID;
+    let qId = examData.questions[examData.currentQuestion - 1].questionId;
+    let correct = true;
+
+    let { questioned, isCorrect } = currentQuestionHandler(qId, correct);
     // Redux Action
     dispatch(
       nextQuestion(isCorrect, currentQuestion, questioned, EXAM_SESSION_ID)
@@ -119,23 +123,11 @@ const ExamSessions = () => {
   };
 
   const finishExam = (e: React.MouseEvent) => {
-    const {
-      isMultipleChoice,
-      answers,
-      question,
-      explanation,
-      status,
-    } = examData.questions[examData.currentQuestion - 1];
-
+    e.preventDefault();
+    const { questionId } = examData.questions[examData.currentQuestion - 1];
     let EXAM_SESSION_ID = examData.EXAM_SESSION_ID;
-
-    let questioned = {
-      isMultipleChoice,
-      explanation,
-      question,
-      answers,
-      status,
-    };
+    let { questioned, isCorrect } = currentQuestionHandler(questionId, false);
+    // Score may not be accurate when finishing exam early and current question is answered correctly
 
     dispatch(
       submitExam(

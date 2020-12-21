@@ -29,7 +29,9 @@ const ReviewQuestion: React.FC<ReviewQuestionProps> = ({
     <div className={`review-question ${qNum % 2 !== 0 && "alternate-color"}`}>
       <p>
         Question: {qNum + 1}{" "}
-        <strong className={status ? "correct" : "incorrect"}>
+        <strong
+          className={status === 1 ? "correct" : status === 0 ? "incorrect" : ""}
+        >
           {statusText}
         </strong>
       </p>
@@ -42,9 +44,9 @@ const ReviewQuestion: React.FC<ReviewQuestionProps> = ({
               check
               key={answer.gid}
               className={
-                answer.isSelected && answer.isCorrect
+                answer.isCorrect
                   ? "answer-box-correct"
-                  : answer.isSelected && !answer.isCorrect
+                  : answer.isSelected
                   ? "answer-box-incorrect"
                   : ""
               }

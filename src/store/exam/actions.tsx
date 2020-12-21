@@ -91,12 +91,12 @@ export const submitExam = (
   if (currentQuestion !== 65) {
     // store all unanswered questions to indexedDB
     for (let i = currentQuestion; i < 65; i++) {
+      let newStatus = 2;
       let {
         answers,
         isMultipleChoice,
         question,
         explanation,
-        status,
       } = examData!.questions[i];
 
       let unansweredQuestions = {
@@ -104,7 +104,7 @@ export const submitExam = (
         explanation,
         question,
         answers,
-        status,
+        status: newStatus,
       };
       addQuestionAnswerToExamSession(unansweredQuestions, EXAM_SESSION_ID);
     }
