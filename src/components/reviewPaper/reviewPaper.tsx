@@ -45,11 +45,15 @@ const ReviewPaper: React.FC<ReviewPaperProps> = (props) => {
           <PieChart
             className="thumb-piechart"
             data={[
-              { title: "Correct", value: 1, color: "#85edc2" },
-              { title: "Incorrect", value: 65 - 1, color: "#ff7372" },
+              { title: "Correct", value: props.exam.correct, color: "#85edc2" },
+              {
+                title: "Incorrect",
+                value: 65 - props.exam.correct,
+                color: "#ff7372",
+              },
             ]}
-            radius={PieChart.defaultProps.radius - 10}
-            lineWidth={15}
+            radius={PieChart.defaultProps.radius - 15}
+            lineWidth={20}
           />
         </div>
         <div className="review-dropdown">
