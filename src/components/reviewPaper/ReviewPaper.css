@@ -3,3 +3,32 @@
   border-radius: 2px;
   box-shadow: 1px 1px 1px grey;
 }
+.review-question {
+  padding: 1.5em;
+}
+.answer-box-incorrect {
+  background-color: #f9eaea;
+}
+.answer-box-correct {
+  background-color: #e9f7f0;
+}
+
+.alternate-color {
+  background-color: #f2f3f5;
+}
+.correct {
+  color: #85edc2;
+}
+
+.incorrect {
+  color: #ff7372;
+}
+
+.review-explanation {
+  padding: 1.5em 0;
+  display: flex;
+  flex-direction: column;
+}
+.review-explanation strong {
+  margin-bottom: 1em;
+}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { PieChart } from "react-minimal-pie-chart";
 import {
   Dropdown,
@@ -8,7 +8,8 @@ import {
 } from "reactstrap";
 
 import "./ReviewPaper.css";
-import { ExamHistoryType } from "../../store/history/types";
+import { ExamHistoryType, Question } from "../../store/history/types";
+import ReviewQuestion from "./ReviewQuestion";
 
 type ReviewPaperProps = {
   exam: ExamHistoryType;
@@ -69,7 +70,17 @@ const ReviewPaper: React.FC<ReviewPaperProps> = (props) => {
           </Dropdown>
         </div>
       </div>
-      <div>review</div>
+      <div>
+        {filteredQuestions?.map((question: Question, index: number) => {
+          return (
+            <ReviewQuestion
+              questionObject={question}
+              qNum={index}
+              key={question.gid!}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 };
