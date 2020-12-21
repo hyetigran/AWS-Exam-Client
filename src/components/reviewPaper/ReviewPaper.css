@@ -1,7 +1,7 @@
 .review-paper {
   border: 1px solid grey;
   border-radius: 2px;
-  box-shadow: 1px 1px 1px grey;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .review-question {
   padding: 1.5em;

@@ -20,3 +20,18 @@
 .review-dropdown {
   flex: 3;
 }
+
+.scroll-top {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  margin: 1em;
+}
+.scroll-top:hover {
+  cursor: pointer;
+  transform: translateY(-4px);
+}
+
+.scroll-top span {
+  font-size: 2rem;
+}

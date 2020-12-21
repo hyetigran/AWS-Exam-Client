@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { Button } from "reactstrap";
+import { UpCircleOutlined } from "@ant-design/icons";
 
 import { RootState } from "../../store/history/types";
 import { thunkFetchQuestionHistory } from "../../store/history/actions";
@@ -32,7 +33,7 @@ const ExamReview = () => {
   };
   console.log(examReviewData);
   return (
-    <div>
+    <div id="home">
       <div className="review-title">
         <h3>{`AWS ${examType} Practice Exam (${examNumber})`}</h3>
       </div>
@@ -42,6 +43,11 @@ const ExamReview = () => {
         </Button>
       </div>
       <ReviewPaper exam={examReviewData[0]} />
+      <div className="scroll-top">
+        <a href="#home">
+          <UpCircleOutlined />
+        </a>
+      </div>
     </div>
   );
 };
