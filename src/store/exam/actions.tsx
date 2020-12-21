@@ -96,6 +96,7 @@ export const submitExam = (
         isMultipleChoice,
         question,
         explanation,
+        status,
       } = examData!.questions[i];
 
       let unansweredQuestions = {
@@ -103,6 +104,7 @@ export const submitExam = (
         explanation,
         question,
         answers,
+        status,
       };
       addQuestionAnswerToExamSession(unansweredQuestions, EXAM_SESSION_ID);
     }
@@ -161,11 +163,17 @@ async function addQuestionAnswerToExamSession(
   EXAM_SESSION_ID: string
 ) {
   await db.transaction("rw", db.exams, db.questions, db.answers, async () => {
-    let { isMultipleChoice, explanation, question, answers } = questioned;
+    let {
+      isMultipleChoice,
+      explanation,
+      question,
+      answers,
+      status,
+    } = questioned;
     let exam: Exam = await readExam(db, EXAM_SESSION_ID);
     let questionId = await createQuestion(
       db,
-      new Question(exam.gid!, question, explanation, isMultipleChoice)
+      new Question(exam.gid!, question, explanation, isMultipleChoice, status)
     );
 
     for (let i in answers) {

@@ -13,6 +13,7 @@ export const realExam = {
     {
       // Q1
       questionId: uuidv4(),
+      status: 0,
       question:
         "What does AWS provide to deploy popular technologies - such as IBM MQ - on AWS with the least amount of effort and time?",
       isMultipleChoice: 1,
@@ -48,6 +49,7 @@ Quick Starts are built by AWS solutions architects and partners to help you depl
     {
       // Q2
       questionId: uuidv4(),
+      status: 0,
       question:
         "AWS allows users to manage their resources using a web based user interface. What is the name of this interface?",
       isMultipleChoice: 1,
@@ -82,6 +84,7 @@ Quick Starts are built by AWS solutions architects and partners to help you depl
     {
       // Q3
       questionId: uuidv4(),
+      status: 0,
       question: `A company is introducing a new product to their customers, and is expecting a surge in traffic to their web application. As part of their Enterprise Support plan, which of the following provides the company with architectural and scaling guidance?`,
       isMultipleChoice: 1,
       answers: [
@@ -116,6 +119,7 @@ Quick Starts are built by AWS solutions architects and partners to help you depl
     {
       // Q4
       questionId: uuidv4(),
+      status: 0,
       question: `A startup company is operating on limited funds and is extremely concerned about cost overruns. Which of the below options can be used to notify the company when their monthly AWS bill exceeds $2000?`,
       isMultipleChoice: 1,
       answers: [
@@ -153,6 +157,7 @@ Quick Starts are built by AWS solutions architects and partners to help you depl
     {
       // Q5
       questionId: uuidv4(),
+      status: 0,
       question: `What do you gain from setting up consolidated billing for five different AWS accounts under another master account?`,
       isMultipleChoice: 1,
       answers: [
@@ -189,6 +194,7 @@ Quick Starts are built by AWS solutions architects and partners to help you depl
     {
       // Q6
       questionId: uuidv4(),
+      status: 0,
       question: `Which service is used to ensure that messages between software components are not lost if one or more components fail?`,
       isMultipleChoice: 1,
       answers: [
@@ -222,6 +228,7 @@ Quick Starts are built by AWS solutions architects and partners to help you depl
     {
       // Q7
       questionId: uuidv4(),
+      status: 0,
       question: `Which of the following is NOT correct regarding Amazon EC2 On-demand instances?`,
       isMultipleChoice: 1,
       answers: [
@@ -259,6 +266,7 @@ Quick Starts are built by AWS solutions architects and partners to help you depl
     {
       // Q8
       questionId: uuidv4(),
+      status: 0,
       question: `What should you do in order to keep the data on EBS volumes safe? (Choose two)`,
       isMultipleChoice: 0,
       answers: [
@@ -298,6 +306,7 @@ Quick Starts are built by AWS solutions architects and partners to help you depl
     {
       // Q9
       questionId: uuidv4(),
+      status: 0,
       question: `One of the most important AWS best-practices to follow is the cloud architecture principle of elasticity. How does this principle improve your architecture’s design?`,
       isMultipleChoice: 1,
       answers: [
@@ -337,6 +346,7 @@ Quick Starts are built by AWS solutions architects and partners to help you depl
     {
       // Q10
       questionId: uuidv4(),
+      status: 0,
       question: `In order to implement best practices when dealing with a “Single Point of Failure,” you should attempt to build as much automation as possible in both detecting and reacting to failure. Which of the following AWS services would help? (Choose TWO)`,
       isMultipleChoice: 0,
       answers: [
@@ -376,6 +386,7 @@ Quick Starts are built by AWS solutions architects and partners to help you depl
     {
       // Q11
       questionId: uuidv4(),
+      status: 0,
       question: `A company is planning to host an educational website on AWS. Their video courses will be streamed all around the world. Which of the following AWS services will help achieve high transfer speeds?`,
       isMultipleChoice: 1,
       answers: [
@@ -428,6 +439,7 @@ Quick Starts are built by AWS solutions architects and partners to help you depl
     {
       // Q12
       questionId: uuidv4(),
+      status: 0,
       question: `You work as an on-premises MySQL DBA. The work of database configuration, backups, patching, and DR can be time-consuming and repetitive. Your company has decided to migrate to the AWS Cloud. Which of the following can help save time on database maintenance so you can focus on data architecture and performance?`,
       isMultipleChoice: 1,
       answers: [
@@ -461,6 +473,7 @@ Quick Starts are built by AWS solutions architects and partners to help you depl
     {
       // Q13
       questionId: uuidv4(),
+      status: 0,
       question: `What does the "Principle of Least Privilege" refer to?`,
       isMultipleChoice: 1,
       answers: [
@@ -498,6 +511,7 @@ Quick Starts are built by AWS solutions architects and partners to help you depl
     {
       // Q14
       questionId: uuidv4(),
+      status: 0,
       question: `You have AWS Basic support, and you have discovered that some AWS resources are being used maliciously, and those resources could potentially compromise your data. What should you do?`,
       isMultipleChoice: 1,
       answers: [
@@ -547,6 +561,7 @@ Quick Starts are built by AWS solutions architects and partners to help you depl
     {
       // Q15
       questionId: uuidv4(),
+      status: 0,
       question: `According to the AWS Acceptable Use Policy, which of the following statements is 1 regarding penetration testing of EC2 instances?`,
       isMultipleChoice: 1,
       answers: [
@@ -599,6 +614,7 @@ Quick Starts are built by AWS solutions architects and partners to help you depl
     {
       // Q16
       questionId: uuidv4(),
+      status: 0,
       question: `What is the advantage of the AWS-recommended practice of "decoupling" applications?`,
       isMultipleChoice: 1,
       answers: [
@@ -634,6 +650,7 @@ Quick Starts are built by AWS solutions architects and partners to help you depl
     {
       // Q17
       questionId: uuidv4(),
+      status: 0,
       question: `What is the AWS service that provides a virtual network dedicated to your AWS account?`,
       isMultipleChoice: 1,
       answers: [
@@ -667,6 +684,7 @@ Quick Starts are built by AWS solutions architects and partners to help you depl
     {
       // Q18
       questionId: uuidv4(),
+      status: 0,
       question: `Availability Zones within a Region are connected over low-latency links. Which of the following is a benefit of these links?`,
       isMultipleChoice: 1,
       answers: [
@@ -700,6 +718,7 @@ Quick Starts are built by AWS solutions architects and partners to help you depl
     {
       // Q19
       questionId: uuidv4(),
+      status: 0,
       question: `The principle “design for failure and nothing will fail” is very important when designing your AWS Cloud architecture. Which of the following would help adhere to this principle? (Choose two)`,
       isMultipleChoice: 0,
       answers: [
@@ -739,6 +758,7 @@ Quick Starts are built by AWS solutions architects and partners to help you depl
     {
       // Q20
       questionId: uuidv4(),
+      status: 0,
       question: `What is the AWS database service that allows you to upload data structured in key-value format?`,
       isMultipleChoice: 1,
       answers: [
@@ -772,6 +792,7 @@ Quick Starts are built by AWS solutions architects and partners to help you depl
     {
       // Q21
       questionId: uuidv4(),
+      status: 0,
       question: `Which of the following helps a customer view the Amazon EC2 billing activity for the past month?`,
       isMultipleChoice: 1,
       answers: [
@@ -805,6 +826,7 @@ Quick Starts are built by AWS solutions architects and partners to help you depl
     {
       // Q22
       questionId: uuidv4(),
+      status: 0,
       question: `A Japanese company hosts their applications on Amazon EC2 instances in the Tokyo Region. The company has opened new branches in the United States, and the US users are complaining of high latency. What can the company do to reduce latency for the users in the US while reducing costs?`,
       isMultipleChoice: 1,
       answers: [
@@ -841,6 +863,7 @@ Quick Starts are built by AWS solutions architects and partners to help you depl
     {
       // Q23
       questionId: uuidv4(),
+      status: 0,
       question: `Which of the below is a best-practice when designing solutions on AWS?`,
       isMultipleChoice: 1,
       answers: [
@@ -890,6 +913,7 @@ Quick Starts are built by AWS solutions architects and partners to help you depl
     {
       // Q24
       questionId: uuidv4(),
+      status: 0,
       question: `You have noticed that several critical Amazon EC2 instances have been terminated. Which of the following AWS services would help you determine who took this action?`,
       isMultipleChoice: 1,
       answers: [
@@ -923,6 +947,7 @@ Quick Starts are built by AWS solutions architects and partners to help you depl
     {
       // Q25
       questionId: uuidv4(),
+      status: 0,
       question: `What is the AWS service that enables AWS architects to manage infrastructure as code?`,
       isMultipleChoice: 1,
       answers: [
@@ -956,6 +981,7 @@ Quick Starts are built by AWS solutions architects and partners to help you depl
     {
       // Q26
       questionId: uuidv4(),
+      status: 0,
       question: `A company is concerned that they are spending money on underutilized compute resources in AWS. Which AWS feature will help ensure that their applications are automatically adding/removing EC2 compute capacity to closely match the required demand?`,
       isMultipleChoice: 1,
       answers: [
@@ -989,6 +1015,7 @@ Quick Starts are built by AWS solutions architects and partners to help you depl
     {
       // Q27
       questionId: uuidv4(),
+      status: 0,
       question: `An organization has decided to reserve EC2 compute capacity for three years in order to reduce costs. It is possible that the application workloads could change during the reservation time period. What is the EC2 Reserved Instance (RI) type that will allow the company to modify the reservation if they need to?`,
       isMultipleChoice: 1,
       answers: [
@@ -1022,6 +1049,7 @@ Quick Starts are built by AWS solutions architects and partners to help you depl
     {
       // Q28
       questionId: uuidv4(),
+      status: 0,
       question: `You want to run a questionnaire application for only one day (without interruption), which Amazon EC2 purchase option should you use?`,
       isMultipleChoice: 1,
       answers: [
@@ -1057,6 +1085,7 @@ Quick Starts are built by AWS solutions architects and partners to help you depl
     {
       // Q29
       questionId: uuidv4(),
+      status: 0,
       question: `As part of the Enterprise support plan, who is the primary point of contact for ongoing support needs?`,
       isMultipleChoice: 1,
       answers: [
@@ -1090,6 +1119,7 @@ Quick Starts are built by AWS solutions architects and partners to help you depl
     {
       // Q30
       questionId: uuidv4(),
+      status: 0,
       question: `Which statement is 1 regarding the AWS Shared Responsibility Model?`,
       isMultipleChoice: 1,
       answers: [
@@ -1124,6 +1154,7 @@ Quick Starts are built by AWS solutions architects and partners to help you depl
     {
       // Q31
       questionId: uuidv4(),
+      status: 0,
       question: `Which service provides object-level storage in AWS?`,
       isMultipleChoice: 1,
       answers: [
@@ -1157,6 +1188,7 @@ Quick Starts are built by AWS solutions architects and partners to help you depl
     {
       // Q32
       questionId: uuidv4(),
+      status: 0,
       question: `Your company is developing a critical web application in AWS, and the security of the application is a top priority. Which of the following AWS services will provide infrastructure security optimization recommendations?`,
       isMultipleChoice: 1,
       answers: [
@@ -1210,6 +1242,7 @@ Checks the root account and warns if multi-factor authentication (MFA) is not en
     {
       // Q33
       questionId: uuidv4(),
+      status: 0,
       question: `Adjusting compute capacity dynamically to reduce cost is an implementation of which AWS cloud best practice?`,
       isMultipleChoice: 1,
       answers: [
@@ -1243,6 +1276,7 @@ Checks the root account and warns if multi-factor authentication (MFA) is not en
     {
       // Q34
       questionId: uuidv4(),
+      status: 0,
       question: `Which of the below options are related to the reliability of AWS? (Choose two)`,
       isMultipleChoice: 0,
       answers: [
@@ -1284,6 +1318,7 @@ Checks the root account and warns if multi-factor authentication (MFA) is not en
     {
       // Q35
       questionId: uuidv4(),
+      status: 0,
       question: `Your company has a data store application that requires access to a NoSQL database. Which AWS database offering would meet this requirement?`,
       isMultipleChoice: 1,
       answers: [
@@ -1317,6 +1352,7 @@ Checks the root account and warns if multi-factor authentication (MFA) is not en
     {
       // Q36
       questionId: uuidv4(),
+      status: 0,
       question: `What does Amazon CloudFront use to distribute content to global users with low latency?`,
       isMultipleChoice: 1,
       answers: [
@@ -1350,6 +1386,7 @@ Checks the root account and warns if multi-factor authentication (MFA) is not en
     {
       // Q37
       questionId: uuidv4(),
+      status: 0,
       question: `How can you view the distribution of AWS spending in one of your AWS accounts?`,
       isMultipleChoice: 1,
       answers: [
@@ -1383,6 +1420,7 @@ Checks the root account and warns if multi-factor authentication (MFA) is not en
     {
       // Q38
       questionId: uuidv4(),
+      status: 0,
       question: `What does the AWS Personal Health Dashboard provide? (Choose two)`,
       isMultipleChoice: 0,
       answers: [
@@ -1432,6 +1470,7 @@ Checks the root account and warns if multi-factor authentication (MFA) is not en
     {
       // Q39
       questionId: uuidv4(),
+      status: 0,
       question: `What is the AWS feature that provides an additional level of security above the default authentication mechanism of usernames and passwords?`,
       isMultipleChoice: 1,
       answers: [
@@ -1465,6 +1504,7 @@ Checks the root account and warns if multi-factor authentication (MFA) is not en
     {
       // Q40
       questionId: uuidv4(),
+      status: 0,
       question: `Hundreds of thousands of DDoS attacks are recorded every month worldwide. What service does AWS provide to help protect AWS Customers from these attacks? (Choose TWO)`,
       isMultipleChoice: 0,
       answers: [
@@ -1504,6 +1544,7 @@ Checks the root account and warns if multi-factor authentication (MFA) is not en
     {
       // Q41
       questionId: uuidv4(),
+      status: 0,
       question: `Which of the following are examples of AWS-Managed Services, where AWS is responsible for the operational and maintenance burdens of running the service? (Choose TWO)`,
       isMultipleChoice: 0,
       answers: [
@@ -1551,6 +1592,7 @@ Checks the root account and warns if multi-factor authentication (MFA) is not en
     {
       // Q42
       questionId: uuidv4(),
+      status: 0,
       question: `You have set up consolidated billing for several AWS accounts. One of the accounts has purchased a number of reserved instances for 3 years. Which of the following is 1 regarding this scenario?`,
       isMultipleChoice: 1,
       answers: [
@@ -1588,6 +1630,7 @@ Checks the root account and warns if multi-factor authentication (MFA) is not en
     {
       // Q43
       questionId: uuidv4(),
+      status: 0,
       question: `You have deployed your application on multiple Amazon EC2 instances. Your customers complain that sometimes they can’t reach your application. Which AWS service allows you to monitor the performance of your EC2 instances to assist in troubleshooting these issues?`,
       isMultipleChoice: 1,
       answers: [
@@ -1621,6 +1664,7 @@ Checks the root account and warns if multi-factor authentication (MFA) is not en
     {
       // Q44
       questionId: uuidv4(),
+      status: 0,
       question: `A company has moved to AWS recently. Which of the following AWS Services will help ensure that they have the proper security settings? (Choose TWO)`,
       isMultipleChoice: 0,
       answers: [
@@ -1664,6 +1708,7 @@ Checks the root account and warns if multi-factor authentication (MFA) is not en
     {
       // Q45
       questionId: uuidv4(),
+      status: 0,
       question: `Which service provides DNS in the AWS cloud?`,
       isMultipleChoice: 1,
       answers: [
@@ -1699,6 +1744,7 @@ Checks the root account and warns if multi-factor authentication (MFA) is not en
     {
       // Q46
       questionId: uuidv4(),
+      status: 0,
       question: `Which of the following must an IAM user provide to interact with AWS services using the AWS Command Line Interface (AWS CLI)?`,
       isMultipleChoice: 1,
       answers: [
@@ -1732,6 +1778,7 @@ Checks the root account and warns if multi-factor authentication (MFA) is not en
     {
       // Q47
       questionId: uuidv4(),
+      status: 0,
       question: `Which S3 storage class is best for data with unpredictable access patterns?`,
       isMultipleChoice: 1,
       answers: [
@@ -1765,6 +1812,7 @@ Checks the root account and warns if multi-factor authentication (MFA) is not en
     {
       // Q48
       questionId: uuidv4(),
+      status: 0,
       question: `What are the benefits of having infrastructure hosted in AWS? (Choose two)`,
       isMultipleChoice: 0,
       answers: [
@@ -1811,6 +1859,7 @@ Checks the root account and warns if multi-factor authentication (MFA) is not en
     {
       // Q49
       questionId: uuidv4(),
+      status: 0,
       question: `A company has an AWS Enterprise Support plan. They want quick and efficient guidance with their billing and account inquiries. Which of the following should the company use?`,
       isMultipleChoice: 1,
       answers: [
@@ -1852,6 +1901,7 @@ Checks the root account and warns if multi-factor authentication (MFA) is not en
     {
       // Q50
       questionId: uuidv4(),
+      status: 0,
       question: `In the AWS Shared responsibility Model, which of the following are the responsibility of the customer? (Choose TWO)`,
       isMultipleChoice: 0,
       answers: [
@@ -1891,6 +1941,7 @@ Checks the root account and warns if multi-factor authentication (MFA) is not en
     {
       // Q51
       questionId: uuidv4(),
+      status: 0,
       question: `What does AWS Snowball provide?`,
       isMultipleChoice: 1,
       answers: [
@@ -1928,6 +1979,7 @@ Checks the root account and warns if multi-factor authentication (MFA) is not en
     {
       // Q52
       questionId: uuidv4(),
+      status: 0,
       question: `Which of the following does NOT belong to the AWS Cloud Computing models?`,
       isMultipleChoice: 1,
       answers: [
@@ -1967,6 +2019,7 @@ Checks the root account and warns if multi-factor authentication (MFA) is not en
     {
       // Q53
       questionId: uuidv4(),
+      status: 0,
       question: `Under the shared responsibility model, Which of the following is the AWS’ responsibility?`,
       isMultipleChoice: 1,
       answers: [
@@ -2000,6 +2053,7 @@ Checks the root account and warns if multi-factor authentication (MFA) is not en
     {
       // Q54
       questionId: uuidv4(),
+      status: 0,
       question: `A developer is planning to build a two-tier web application that has a MySQL database layer. Which of the following AWS database services would provide automated backups for the application?`,
       isMultipleChoice: 1,
       answers: [
@@ -2033,6 +2087,7 @@ Checks the root account and warns if multi-factor authentication (MFA) is not en
     {
       // Q55
       questionId: uuidv4(),
+      status: 0,
       question: `An organization has a large number of technical employees who operate their AWS Cloud infrastructure. What does AWS provide to help organize them into teams and then assign the appropriate permissions for each team?`,
       isMultipleChoice: 1,
       answers: [
@@ -2066,6 +2121,7 @@ Checks the root account and warns if multi-factor authentication (MFA) is not en
     {
       // Q56
       questionId: uuidv4(),
+      status: 0,
       question: `Which of the following services allows customers to manage their agreements with AWS?`,
       isMultipleChoice: 1,
       answers: [
@@ -2103,6 +2159,7 @@ Checks the root account and warns if multi-factor authentication (MFA) is not en
     {
       // Q57
       questionId: uuidv4(),
+      status: 0,
       question: `Select TWO examples of the AWS shared controls.`,
       isMultipleChoice: 0,
       answers: [
@@ -2150,6 +2207,7 @@ Checks the root account and warns if multi-factor authentication (MFA) is not en
     {
       // Q58
       questionId: uuidv4(),
+      status: 0,
       question: `The identification process of an online financial services company requires that new users must complete an online interview with their security team. The completed recorded interviews are only required in the event of a legal issue or a regulatory compliance breach. What is the most cost-effective service to store the recorded videos?`,
       isMultipleChoice: 1,
       answers: [
@@ -2183,6 +2241,7 @@ Checks the root account and warns if multi-factor authentication (MFA) is not en
     {
       // Q59
       questionId: uuidv4(),
+      status: 0,
       question: `A company is deploying a new two-tier web application in AWS. Where should the most frequently accessed data be stored so that the application’s response time is optimal?`,
       isMultipleChoice: 1,
       answers: [
@@ -2218,6 +2277,7 @@ Checks the root account and warns if multi-factor authentication (MFA) is not en
     {
       // Q60
       questionId: uuidv4(),
+      status: 0,
       question: `A company has decided to migrate its Oracle database to AWS. Which AWS service can help achieve this without negatively impacting the functionality of the source database?`,
       isMultipleChoice: 1,
       answers: [
@@ -2251,6 +2311,7 @@ Checks the root account and warns if multi-factor authentication (MFA) is not en
     {
       // Q61
       questionId: uuidv4(),
+      status: 0,
       question: `Which of the following is an example of horizontal scaling in the AWS Cloud?`,
       isMultipleChoice: 1,
       answers: [
@@ -2295,6 +2356,7 @@ Vertical Scaling:
     {
       // Q62
       questionId: uuidv4(),
+      status: 0,
       question: `A company has developed an eCommerce web application in AWS. What should they do to ensure that the application has the highest level of availability?`,
       isMultipleChoice: 1,
       answers: [
@@ -2333,6 +2395,7 @@ Vertical Scaling:
     {
       // Q63
       questionId: uuidv4(),
+      status: 0,
       question: `Which of the following can be described as a global content delivery network (CDN) service?`,
       isMultipleChoice: 1,
       answers: [
@@ -2366,6 +2429,7 @@ Vertical Scaling:
     {
       // Q64
       questionId: uuidv4(),
+      status: 0,
       question: `You are working on a project that involves creating thumbnails of millions of images. Consistent uptime is not an issue, and continuous processing is not required. Which EC2 buying option would be the most cost-effective?`,
       isMultipleChoice: 1,
       answers: [
@@ -2401,6 +2465,7 @@ Vertical Scaling:
     {
       // Q65
       questionId: uuidv4(),
+      status: 0,
       question: `Which of the following is not a benefit of Amazon S3? (Choose TWO)`,
       isMultipleChoice: 0,
       answers: [

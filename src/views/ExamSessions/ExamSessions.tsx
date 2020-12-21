@@ -28,10 +28,6 @@ const ExamSessions = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  // useEffect(() => {});
-  // console.log("modal", modal);
-  // console.log("uA", userAnswers);
-
   const answerSelectHandler = (
     isChecked: boolean,
     //event: React.ChangeEvent<HTMLInputElement>,
@@ -61,6 +57,9 @@ const ExamSessions = () => {
     let EXAM_SESSION_ID = examData.EXAM_SESSION_ID;
     let qId = examData.questions[examData.currentQuestion - 1].questionId;
     let isCorrect = true;
+
+    // Correct 1; Incorrect 0; Skipped 2;
+    let newStatus = 2;
     const {
       isMultipleChoice,
       answers,
@@ -80,6 +79,9 @@ const ExamSessions = () => {
       // Selected and not correct OR not selected and is correct
       if (answer.isSelected !== answer.isCorrect) {
         isCorrect = false;
+        newStatus = 0;
+      } else if (answer.isSelected && answer.isCorrect) {
+        newStatus = 1;
       }
       updatedAnswers.push(answer);
     }
@@ -88,6 +90,7 @@ const ExamSessions = () => {
       isMultipleChoice,
       explanation,
       question,
+      status: newStatus,
       answers: updatedAnswers,
     };
     // Redux Action
@@ -116,6 +119,7 @@ const ExamSessions = () => {
       answers,
       question,
       explanation,
+      status,
     } = examData.questions[examData.currentQuestion - 1];
 
     let EXAM_SESSION_ID = examData.EXAM_SESSION_ID;
@@ -125,6 +129,7 @@ const ExamSessions = () => {
       explanation,
       question,
       answers,
+      status,
     };
 
     dispatch(

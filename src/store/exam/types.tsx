@@ -12,6 +12,7 @@ export interface Question {
   answers: Answer[];
   explanation: string;
   isMultipleChoice: number;
+  status: number;
 }
 
 export interface ExamState {

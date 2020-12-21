@@ -29,6 +29,7 @@ export class Question extends AbstractEntity {
     public question: string,
     public explanation: string,
     public isMultipleChoice: number,
+    public status: number,
     gid?: string
   ) {
     super(gid);
@@ -64,6 +65,7 @@ export interface BareQuestion {
   question: string;
   explanation: string;
   isMultipleChoice: number;
+  status: number;
   answers: BareAnswer[];
 }
 

@@ -12,6 +12,7 @@ export interface Answer {
   gid?: string;
 }
 export interface Question {
+  status: number;
   examId: string;
   question: string;
   explanation: string;

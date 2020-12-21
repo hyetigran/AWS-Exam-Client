@@ -16,7 +16,7 @@ import { realExam } from "../../helpers/realExam";
 //   currentQuestion: 0,
 //   isPaused: false,
 //   questions: Question[],
-//   isFinished
+//   isFinished,
 // };
 
 export function examReducer(
