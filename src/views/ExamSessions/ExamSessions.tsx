@@ -58,8 +58,8 @@ const ExamSessions = () => {
     let qId = examData.questions[examData.currentQuestion - 1].questionId;
     let isCorrect = true;
 
-    // Correct 1; Incorrect 0; Skipped 2;
-    let newStatus = 2;
+    // Correct 1; Incorrect 0; Skipped 2; (initialized at -1 to indicate not set)
+    let newStatus = -1;
     const {
       isMultipleChoice,
       answers,
@@ -73,7 +73,12 @@ const ExamSessions = () => {
     for (let i in answers) {
       let answer = answers[i];
 
-      if (userAnswers[qId].findIndex((aId) => aId === answer.answerId) >= 0) {
+      // Check if user skipped question
+      if (!userAnswers.hasOwnProperty(qId)) {
+        newStatus = 2;
+      } else if (
+        userAnswers[qId].findIndex((aId) => aId === answer.answerId) >= 0
+      ) {
         answer.isSelected = 1;
       }
       // Selected and not correct OR not selected and is correct
