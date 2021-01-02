@@ -1,8 +1,8 @@
+import axios from "axios";
 import { Action } from "redux";
 import { RootState } from "../index";
 import { ThunkAction } from "redux-thunk";
 import { History } from "history";
-import { realExam } from "../../helpers/realExam";
 import _ from "lodash/shuffle";
 import {
   ExamActionTypes,
@@ -21,23 +21,102 @@ import {
   readExam,
   updateExam,
 } from "../../localDB/utilities";
+import { Question as QuestionIF } from "./types";
 
+const baseURL = process.env.REACT_APP_BASE_URL;
+
+interface ExamResponse {
+  exam_number: string;
+  exam_type: string;
+  correct: number;
+  time: string;
+  current_question: number;
+  is_paused: number;
+  is_finished: number;
+  questions: QuestionResponse[];
+}
+interface QuestionResponse {
+  id: string;
+  status: number;
+  explanation: string;
+  is_multiple_choice: number;
+  question: string;
+  answers: AnswerResponse[];
+}
+interface AnswerResponse {
+  id: string;
+  choice: string;
+  is_selected: number;
+  is_correct: number;
+}
 export const thunkGetExam = (
-  examType: string,
-  examNumber: string,
+  examId: number,
   history: History
 ): ThunkAction<void, RootState, unknown, Action<string>> => async (
   dispatch
 ) => {
   try {
-    const result: ExamState = await exampleAPI();
+    const result: ExamResponse = await axios.get(`${baseURL}/exam/${examId}`);
+    let {
+      exam_number,
+      exam_type,
+      correct,
+      time,
+      current_question,
+      is_paused,
+      is_finished,
+      questions,
+    } = result;
+
+    let renamedQuestions: QuestionIF[] = [];
+    const mapper = {
+      EXAM_SESSION_ID: "",
+      examNumber: exam_number,
+      examType: exam_type,
+      correct,
+      time,
+      currentQuestion: current_question,
+      isPaused: is_paused,
+      isFinished: is_finished,
+      questions: renamedQuestions,
+    };
+
+    for (let i = 0; i < questions.length; i++) {
+      let {
+        id,
+        status,
+        question,
+        is_multiple_choice,
+        explanation,
+        answers,
+      } = questions[i];
+      let mappedAnswers: any = [];
+      for (let j = 0; j < answers.length; j++) {
+        let { id, choice, is_selected, is_correct } = answers[j];
+        mappedAnswers.push = {
+          choice,
+          answerId: id,
+          isSelected: is_selected,
+          isCorrect: is_correct,
+        };
+      }
+
+      mapper.questions.push({
+        status,
+        question,
+        explanation,
+        questionId: id,
+        isMultipleChoice: is_multiple_choice,
+        answers: mappedAnswers,
+      });
+    }
 
     // Create exam session indexdb
-    const EXAM_SESSION_ID = await addExamSession(result);
-    const exam = { ...result, EXAM_SESSION_ID };
+    const EXAM_SESSION_ID = await addExamSession(mapper);
+    const exam = { ...mapper, EXAM_SESSION_ID };
 
     dispatch(getExam(exam));
-    history.push(`/exam-sessions/${examType}/${examNumber}`);
+    history.push(`/exam-sessions/${exam.examType}/${exam.examNumber}`);
   } catch (error) {
     console.log(error);
   }
@@ -115,10 +194,6 @@ export const submitExam = (
     payload: 1,
   };
 };
-
-function exampleAPI() {
-  return Promise.resolve(realExam);
-}
 
 export const pauseExam = (newTime: string): ExamActionTypes => {
   return {
