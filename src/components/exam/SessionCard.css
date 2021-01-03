@@ -19,3 +19,7 @@
   cursor: pointer;
   background-color: white;
 }
+
+#exam-form .form-check-label:hover {
+  cursor: pointer;
+}
