@@ -56,7 +56,7 @@ export const thunkGetExam = (
   dispatch
 ) => {
   try {
-    const result: ExamResponse = await axios.get(`${baseURL}/exam/${examId}`);
+    const result = await axios.get(`${baseURL}/exam/${examId}`);
     let {
       exam_number,
       exam_type,
@@ -66,7 +66,7 @@ export const thunkGetExam = (
       is_paused,
       is_finished,
       questions,
-    } = result;
+    } = result.data;
 
     let renamedQuestions: QuestionIF[] = [];
     const mapper = {
@@ -93,12 +93,12 @@ export const thunkGetExam = (
       let mappedAnswers: any = [];
       for (let j = 0; j < answers.length; j++) {
         let { id, choice, is_selected, is_correct } = answers[j];
-        mappedAnswers.push = {
+        mappedAnswers.push({
           choice,
           answerId: id,
           isSelected: is_selected,
           isCorrect: is_correct,
-        };
+        });
       }
 
       mapper.questions.push({

@@ -36,7 +36,12 @@ const SessionCard: React.FC<SessionCardProps> = (props) => {
     setInitialAnswerChecked(initialSelected);
   };
 
-  const inputSelectHandler = (answer: Answer) => {
+  const inputSelectHandler = (
+    e: React.MouseEvent<HTMLDivElement | MouseEvent>,
+    answer: Answer
+  ) => {
+    // debugger;
+    e.preventDefault();
     let isChecked = !answerChecked[answer.answerId];
     props.answerSelect(isChecked, questionId, answer.answerId);
 
@@ -61,7 +66,7 @@ const SessionCard: React.FC<SessionCardProps> = (props) => {
             <FormGroup
               check
               key={answer.answerId}
-              onClick={() => inputSelectHandler(answer)}
+              onClick={(e) => inputSelectHandler(e, answer)}
             >
               <Label check>
                 <Input

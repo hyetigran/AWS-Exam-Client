@@ -23,8 +23,6 @@ const INSTRUCTIONS = [
   "If you want to finish the test and see your results immediately, press the stop button.",
 ];
 interface Exams {
-  // map(arg0: (el: any) => JSX.Element): React.ReactNode;
-  // exams: ExamOption;
   [key: string]: {
     exam_number: string;
     id: number;
@@ -35,7 +33,8 @@ const ExamOptions = () => {
   const [examOption, setExamOption] = useState<Exams>();
   const [selectName, setSelectName] = useState<string>("Cloud Practitioner");
   const [selectID, setSelectID] = useState<number>(-1);
-  console.log(JSON.stringify(examOption));
+
+  console.log("select", selectID);
   const history = useHistory();
 
   const dispatch = useDispatch();
@@ -46,20 +45,24 @@ const ExamOptions = () => {
 
   const fetchExams = async () => {
     let result = await axios.get(`${process.env.REACT_APP_BASE_URL}/exams`);
-    let initialExamOption = result.data.exams.reduce((
-      // acc: ExamOption,
-      acc: Exams,
-      cur: { exam_type: string; id: number; exam_number: string }
-    ) => {
-      if (acc.hasOwnProperty(cur.exam_type)) {
-        let newEntry = { id: cur.id, exam_number: cur.exam_number };
-        acc[cur.exam_type].push(newEntry);
-      } else {
-        acc[cur.exam_type] = [{ id: cur.id, exam_number: cur.exam_number }];
-      }
-      return acc;
-    }, {});
+    let initialExamOption = result.data.exams.reduce(
+      (
+        acc: Exams,
+        cur: { exam_type: string; id: number; exam_number: string }
+      ) => {
+        if (acc.hasOwnProperty(cur.exam_type)) {
+          let newEntry = { id: cur.id, exam_number: cur.exam_number };
+          acc[cur.exam_type].push(newEntry);
+        } else {
+          acc[cur.exam_type] = [{ id: cur.id, exam_number: cur.exam_number }];
+        }
+        return acc;
+      },
+      {}
+    );
+    let defaultOption = Object.keys(initialExamOption)[0];
     setExamOption(initialExamOption);
+    setSelectID(initialExamOption[defaultOption][0].id);
   };
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.name === "examName") {
