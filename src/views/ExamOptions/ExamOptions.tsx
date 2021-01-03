@@ -34,7 +34,6 @@ const ExamOptions = () => {
   const [selectName, setSelectName] = useState<string>("Cloud Practitioner");
   const [selectID, setSelectID] = useState<number>(-1);
 
-  console.log("select", selectID);
   const history = useHistory();
 
   const dispatch = useDispatch();
