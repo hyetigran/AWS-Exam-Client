@@ -6,21 +6,30 @@ import {
   SUBMIT_EXAM,
   PAUSE_EXAM,
 } from "./types";
-import { realExam } from "../../helpers/realExam";
 
-// const initialState = {
-//   examNumber: "",
-//   examType: "",
-//   correct: 0,
-//   time: "",
-//   currentQuestion: 0,
-//   isPaused: false,
-//   questions: Question[],
-//   isFinished,
-// };
+const initialState = {
+  EXAM_SESSION_ID: "",
+  examNumber: "",
+  examType: "",
+  correct: -1,
+  time: "",
+  currentQuestion: -1,
+  isPaused: -1,
+  isFinished: -1,
+  questions: [
+    {
+      questionId: "",
+      question: "",
+      explanation: "",
+      isMultipleChoice: -1,
+      status: -1,
+      answers: [{ answerId: "", choice: "", isSelected: -1, isCorrect: -1 }],
+    },
+  ],
+};
 
 export function examReducer(
-  state = realExam,
+  state = initialState,
   action: ExamActionTypes
 ): ExamState {
   switch (action.type) {
