@@ -1,5 +1,4 @@
 import axios from "axios";
-import { access } from "fs";
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -11,6 +10,7 @@ import {
   FormGroup,
   Input,
   Label,
+  Spinner,
 } from "reactstrap";
 
 import { thunkGetExam } from "../../store/exam/actions";
@@ -33,6 +33,8 @@ const ExamOptions = () => {
   const [examOption, setExamOption] = useState<Exams>();
   const [selectName, setSelectName] = useState<string>("Cloud Practitioner");
   const [selectID, setSelectID] = useState<number>(-1);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isStarting, setIsStarting] = useState(false);
 
   const history = useHistory();
 
@@ -62,6 +64,7 @@ const ExamOptions = () => {
     let defaultOption = Object.keys(initialExamOption)[0];
     setExamOption(initialExamOption);
     setSelectID(initialExamOption[defaultOption][0].id);
+    setIsLoading(false);
   };
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.name === "examName") {
@@ -75,8 +78,23 @@ const ExamOptions = () => {
   };
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
+    if (isStarting) {
+      return;
+    }
+    setIsStarting(true);
     dispatch(thunkGetExam(selectID, history));
   };
+
+  if (isLoading) {
+    return (
+      <Jumbotron className="jumbotronCustom">
+        <Spinner
+          style={{ width: "5rem", height: "5rem", margin: "0 auto" }}
+          color="primary"
+        />
+      </Jumbotron>
+    );
+  }
 
   return (
     <Jumbotron className="jumbotronCustom">
@@ -136,7 +154,14 @@ const ExamOptions = () => {
               block
               onClick={(e) => submitHandler(e)}
             >
-              Start Test
+              {!isStarting ? (
+                "Start Test"
+              ) : (
+                <>
+                  <span>Loading...</span>{" "}
+                  <Spinner size="sm" color="secondary" />
+                </>
+              )}
             </Button>
           </Col>
         </Form>
