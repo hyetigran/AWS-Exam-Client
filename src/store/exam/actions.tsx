@@ -92,10 +92,10 @@ export const thunkGetExam = (
       } = questions[i];
       let mappedAnswers: any = [];
       for (let j = 0; j < answers.length; j++) {
-        let { id, choice, is_selected, is_correct } = answers[j];
+        let { answer_id, choice, is_selected, is_correct } = answers[j];
         mappedAnswers.push({
           choice,
-          answerId: id,
+          answerId: answer_id,
           isSelected: is_selected,
           isCorrect: is_correct,
         });

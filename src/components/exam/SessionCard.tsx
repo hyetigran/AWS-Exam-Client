@@ -15,7 +15,7 @@ interface InputSelected {
 }
 const SessionCard: React.FC<SessionCardProps> = (props) => {
   const { questionId, question, answers, isMultipleChoice } = props.question;
-
+  console.log(answers);
   const [answerChecked, setAnswerChecked] = useState<InputSelected>({});
   const [
     initialAnswerChecked,
@@ -40,7 +40,6 @@ const SessionCard: React.FC<SessionCardProps> = (props) => {
     e: React.MouseEvent<HTMLDivElement | MouseEvent>,
     answer: Answer
   ) => {
-    // debugger;
     e.preventDefault();
     let isChecked = !answerChecked[answer.answerId];
     props.answerSelect(isChecked, questionId, answer.answerId);
