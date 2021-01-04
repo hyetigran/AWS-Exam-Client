@@ -34,6 +34,7 @@ const ExamOptions = () => {
   const [selectName, setSelectName] = useState<string>("Cloud Practitioner");
   const [selectID, setSelectID] = useState<number>(-1);
   const [isLoading, setIsLoading] = useState(true);
+  const [isStarting, setIsStarting] = useState(false);
 
   const history = useHistory();
 
@@ -77,6 +78,10 @@ const ExamOptions = () => {
   };
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
+    if (isStarting) {
+      return;
+    }
+    setIsStarting(true);
     dispatch(thunkGetExam(selectID, history));
   };
 
@@ -149,7 +154,14 @@ const ExamOptions = () => {
               block
               onClick={(e) => submitHandler(e)}
             >
-              Start Test
+              {!isStarting ? (
+                "Start Test"
+              ) : (
+                <>
+                  <span>Loading...</span>{" "}
+                  <Spinner size="sm" color="secondary" />
+                </>
+              )}
             </Button>
           </Col>
         </Form>
